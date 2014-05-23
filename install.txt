@@ -1,0 +1,7 @@
+This plugin is a "Process" type plugin.
+This plugin allows you to getting results of your Interactive Report in XML-format.
+
+To use this plugin add new process to this page, based on this plugin.
+Use as Process Point "On Load - Before Header"
+
+

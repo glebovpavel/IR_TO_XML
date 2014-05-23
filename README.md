@@ -1,12 +1,13 @@
-IR_TO_XML
-=========
+GPV Interactive Report to XML
+=============================
 
 Getting result of your Interactive Report in XML. 
 
 ##About
 
-The IR_TO_XML package lets you getting results of your Interactive Report in XML-format, 
-ready to be used in different report-tools
+The "GPV Interactive Report to XML" APEX plugin lets you getting results of your Interactive Report in XML-format, ready to be used in different report-tools
+This pack includes this plugin and IR_TO_XML package. The package includes all functionality, the plugin provides simple user interface for APEX developer to make development easier.
+
 
 Many features of Interactive Reports are supported:
  * Filtering and Sorting
