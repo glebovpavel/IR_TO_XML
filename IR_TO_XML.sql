@@ -11,6 +11,7 @@ CREATE OR REPLACE PACKAGE IR_TO_XML AS
                           );
                               
 END IR_TO_XML;
+
 /
 
 
@@ -38,7 +39,7 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
            nvl2(HIGHLIGHT_ROW_FONT_COLOR,1,0) desc,
            HIGHLIGHT_SEQUENCE;
   
-  type t_col_names is table of APEX_APPLICATION_PAGE_IR_COL.report_label%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;
+  type t_col_names is table of apex_application_page_ir_col.report_label%type index by apex_application_page_ir_col.column_alias%type;
   type t_col_format_mask is table of APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;
   type t_header_alignment is table of APEX_APPLICATION_PAGE_IR_COL.heading_alignment%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;
   type t_column_alignment is table of apex_application_page_ir_col.column_alignment%type index by apex_application_page_ir_col.column_alias%type;
@@ -71,6 +72,8 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     column_alignment          t_column_alignment,
     column_types              t_column_types  
    );  
+   
+  l_report    ir_report;   
   ------------------------------------------------------------------------------
   function bcoll(p_cell_order   in integer,
                  p_font_color    in varchar2 default null,
@@ -101,6 +104,67 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
   begin
    return '</CELL>';
   end ecoll;
+    ------------------------------------------------------------------------------
+  function get_column_names(p_column_alias in apex_application_page_ir_col.column_alias%type)
+  return APEX_APPLICATION_PAGE_IR_COL.report_label%TYPE
+  is
+  begin
+    return l_report.column_names(p_column_alias);
+  exception
+    when others then
+       raise_application_error(-20001,'get_column_names: p_column_alias='||p_column_alias||' '||SQLERRM);
+  end get_column_names;
+  ------------------------------------------------------------------------------
+  function get_col_format_mask(p_column_alias in apex_application_page_ir_col.column_alias%type)
+  return APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE
+  is
+  begin
+    return l_report.col_format_mask(p_column_alias);
+  exception
+    when others then
+       raise_application_error(-20001,'get_column_names: p_column_alias='||p_column_alias||' '||SQLERRM);
+  end get_col_format_mask;
+  ------------------------------------------------------------------------------
+  function get_header_alignment(p_column_alias in apex_application_page_ir_col.column_alias%type)
+  return APEX_APPLICATION_PAGE_IR_COL.heading_alignment%TYPE
+  is
+  begin
+    return l_report.header_alignment(p_column_alias);
+  exception
+    when others then
+       raise_application_error(-20001,'get_column_names: p_column_alias='||p_column_alias||' '||SQLERRM);
+  end get_header_alignment;
+  ------------------------------------------------------------------------------
+  function get_column_alignment(p_column_alias in apex_application_page_ir_col.column_alias%type)
+  return apex_application_page_ir_col.column_alignment%type
+  is
+  begin
+    return l_report.column_alignment(p_column_alias);
+  exception
+    when others then
+       raise_application_error(-20001,'get_column_names: p_column_alias='||p_column_alias||' '||SQLERRM);
+  end get_column_alignment;
+  ------------------------------------------------------------------------------
+  function get_column_types(p_column_alias in apex_application_page_ir_col.column_alias%type)
+  return apex_application_page_ir_col.column_type%type
+  is
+  begin
+    return l_report.column_types(p_column_alias);
+  exception
+    when others then
+       raise_application_error(-20001,'get_column_names: p_column_alias='||p_column_alias||' '||SQLERRM);
+  end get_column_types;
+  ------------------------------------------------------------------------------
+  function get_current_row(p_current_row in apex_application_global.vc_arr2,
+                           p_id in binary_integer)
+  return apex_application_page_ir_col.column_type%type
+  is
+  begin
+    return p_current_row(p_id);
+  exception
+    when others then
+       raise_application_error(-20001,'get_current_row: p_id='||p_id||' '||SQLERRM);
+  end get_current_row; 
   ------------------------------------------------------------------------------
   -- :::: -> :
   function rr(p_str in varchar2)
@@ -146,13 +210,10 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
   end intersect_count; 
   ------------------------------------------------------------------------------
   
-  function get_t_report(p_app_id       in number,
-                        p_page_id      in number 
-                      )
-  return ir_report
+  procedure init_t_report(p_app_id       in number,
+                          p_page_id      in number)
   is
     l_region_id     number;
-    l_report        ir_report;
     l_report_id     number;
     v_query_targets APEX_APPLICATION_GLOBAL.VC_ARR2;
   begin
@@ -162,10 +223,15 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     where application_id = p_app_id 
       and page_id = p_page_id 
       and source_type = 'Interactive Report';    
-
-    --get base report id
+    
+    --get base report id    
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_region_id='||l_region_id);
+    
     l_report_id := apex_ir.get_last_viewed_report_id (p_page_id   => p_page_id,
                                                         p_region_id => l_region_id);
+    
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_base_report_id='||l_report_id);
+    
     select r.* 
     into l_report.ir_data       
     from apex_application_page_ir_rpt r
@@ -175,6 +241,7 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       and application_user = v('APP_USER')
       and base_report_id = l_report_id;
   
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report_id='||l_report_id);
     l_report_id := l_report.ir_data.report_id;                                                                 
       
       
@@ -182,8 +249,47 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
                                            p_region_id      => l_region_id,
                                            p_report_id      => l_report_id
                                           );
-       
-    l_report.report_columns := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.report_columns));
+    for i in (select column_alias,
+                     report_label,
+                     heading_alignment,
+                     column_alignment,
+                     column_type,
+                     NULL AS  computation_format_mask,
+                     instr(l_report.ir_data.report_columns,column_alias) column_order
+                from APEX_APPLICATION_PAGE_IR_COL
+               where application_id = p_app_id
+                 AND page_id = p_page_id
+                 AND display_text_as != 'HIDDEN' --after report RESETTING l_report.ir_data.report_columns consists HIDDEN column - APEX bug????
+                 and instr(l_report.ir_data.report_columns,column_alias) > 0
+              UNION
+              select computation_column_alias,
+                     computation_report_label,
+                     'center' as heading_alignment,
+                     'right' as column_alignment,
+                     computation_column_type,
+                     computation_format_mask,
+                     instr(l_report.ir_data.report_columns,computation_column_alias) column_order
+              from APEX_APPLICATION_PAGE_IR_COMP
+              where application_id = p_app_id
+                and page_id = p_page_id
+                AND report_id = l_report_id
+                and instr(l_report.ir_data.report_columns,computation_column_alias) > 0
+              order by column_order)
+    loop                 
+      l_report.column_names(i.column_alias) := i.report_label; 
+      l_report.col_format_mask(i.column_alias) := i.computation_format_mask;
+      l_report.header_alignment(i.column_alias) := i.heading_alignment; 
+      l_report.column_alignment(i.column_alias) := i.column_alignment; 
+      l_report.column_types(i.column_alias) := i.column_type;
+      l_report.report_columns(l_report.report_columns.count + 1) := i.column_alias; 
+      
+      APEX_DEBUG_MESSAGE.LOG_MESSAGE('column='||i.column_alias||' l_report.column_names='||i.report_label);
+      APEX_DEBUG_MESSAGE.LOG_MESSAGE('column='||i.column_alias||' l_report.col_format_mask='||i.computation_format_mask);
+      APEX_DEBUG_MESSAGE.LOG_MESSAGE('column='||i.column_alias||' l_report.header_alignment='||i.heading_alignment);
+      APEX_DEBUG_MESSAGE.LOG_MESSAGE('column='||i.column_alias||' l_report.column_alignment='||i.column_alignment);
+      APEX_DEBUG_MESSAGE.LOG_MESSAGE('column='||i.column_alias||' l_report.column_types='||i.column_type);
+    end loop;    
+
     l_report.break_on := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.break_enabled_on));    
     l_report.sum_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.sum_columns_on_break));  
     l_report.avg_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.avg_columns_on_break));  
@@ -201,34 +307,19 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
                              l_report.count_columns_on_break.count +
                              l_report.count_distnt_col_on_break.count;
     
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.report_columns='||rr(l_report.ir_data.report_columns));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.break_on='||rr(l_report.ir_data.break_enabled_on));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.sum_columns_on_break='||rr(l_report.ir_data.sum_columns_on_break));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.avg_columns_on_break='||rr(l_report.ir_data.avg_columns_on_break));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.max_columns_on_break='||rr(l_report.ir_data.max_columns_on_break));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.min_columns_on_break='||rr(l_report.ir_data.min_columns_on_break));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.median_columns_on_break'||rr(l_report.ir_data.median_columns_on_break));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.count_columns_on_break='||rr(l_report.ir_data.count_distnt_col_on_break));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.count_distnt_col_on_break='||rr(l_report.ir_data.count_columns_on_break));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.break_really_on='||APEX_UTIL.TABLE_TO_STRING(l_report.break_really_on));
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.agg_cols_cnt='||l_report.agg_cols_cnt);
     
-    for i in (select column_alias,
-                     report_label,
-                     heading_alignment,
-                     column_alignment,
-                     column_type,
-                     null as  computation_format_mask
-                from APEX_APPLICATION_PAGE_IR_COL
-               where application_id = p_app_id
-                 and page_id = p_page_id
-              union
-              select computation_column_alias,
-                     computation_report_label,
-                     'center' as heading_alignment,
-                     'right' as column_alignment,
-                     computation_column_type,
-                     computation_format_mask
-              from APEX_APPLICATION_PAGE_IR_COMP
-              where application_id = p_app_id
-                and page_id = p_page_id
-                and report_id = l_report_id )
-    loop                 
-      l_report.column_names(i.column_alias) := i.report_label; 
-      l_report.col_format_mask(i.column_alias) := i.computation_format_mask;
-      l_report.header_alignment(i.column_alias) := i.heading_alignment; 
-      l_report.column_alignment(i.column_alias) := i.column_alignment; 
-      l_report.column_types(i.column_alias) := i.column_type;
-    end loop;
+    
     
      v_query_targets(v_query_targets.count + 1) := 'rez.*';
      
@@ -247,19 +338,17 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
         
     l_report.report.sql_query := 'SELECT '||APEX_UTIL.TABLE_TO_STRING(v_query_targets,',')||' from ( '
                                           ||l_report.report.sql_query||' ) rez';
-    
-    return l_report;
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.report.sql_query='||l_report.report.sql_query);
   exception
     when no_data_found then
       raise_application_error(-20001,'No Interactive Report found on Page='||p_page_id||' Application='||p_app_id||' Please make sure that the report was running at least once by this session.');
     when others then 
-      raise_application_error(-20001,'get_t_report: Page='||p_page_id||' Application='||p_app_id||' '||SQLERRM);
-  end get_t_report;  
+      raise_application_error(-20001,'get_t_report: Page='||p_page_id||' Application='||p_app_id||' '||sqlerrm);
+  end init_t_report;  
   ------------------------------------------------------------------------------
  
   function is_control_break(p_curr_row  IN APEX_APPLICATION_GLOBAL.VC_ARR2,
-                            p_prev_row  IN APEX_APPLICATION_GLOBAL.VC_ARR2,
-                            l_report    IN ir_report)
+                            p_prev_row  IN APEX_APPLICATION_GLOBAL.VC_ARR2)
   return boolean
   is
     v_start_with      integer;
@@ -269,7 +358,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     if nvl(l_report.break_really_on.count,0) = 0  then
       return false; --no control break
     end if;
-
     v_start_with := 1 + l_report.skipped_columns;    
     v_end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0);
     for i in v_start_with..v_end_with loop
@@ -279,7 +367,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     end loop;
     return false;
   end is_control_break;
-
   ------------------------------------------------------------------------------  
   function get_formatted_str(p_val in varchar2, 
                              p_format in varchar2)
@@ -297,9 +384,7 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
   end get_formatted_str;
   
   ------------------------------------------------------------------------------  
-
-  function print_row(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,
-                     l_report          IN ir_report)
+  function print_row(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2)
   return clob is
     v_clob            clob;
     v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;
@@ -310,31 +395,33 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     v_cell_back_color varchar2(10);        
   begin
     --check that row need to be highlighted
+    <<row_highlights>>
     for h in 1..l_report.row_highlight.count loop
-     begin 
-     v_clob:=v_clob||chr(10)||' end_with='||l_report.end_with||' agg_cols_cnt='||l_report.agg_cols_cnt||' COND_NUMBER='||l_report.row_highlight(h).COND_NUMBER||chr(10);
-      IF p_current_row(l_report.end_with + l_report.agg_cols_cnt + l_report.row_highlight(h).COND_NUMBER) IS NOT NULL THEN
+     BEGIN 
+     --v_clob:=v_clob||chr(10)||' end_with='||l_report.end_with||' agg_cols_cnt='||l_report.agg_cols_cnt||' COND_NUMBER='||l_report.row_highlight(h).cond_number||chr(10);
+      IF get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.row_highlight(h).COND_NUMBER) IS NOT NULL THEN
          v_row_color       := l_report.row_highlight(h).HIGHLIGHT_ROW_FONT_COLOR;
          v_row_back_color  := l_report.row_highlight(h).HIGHLIGHT_ROW_COLOR;
       END IF;
      exception       
        WHEN no_data_found THEN
          null; 
-     END; 
-    end loop;
-
+     end; 
+    end loop row_highlights;
+    --
+    <<visible_columns>>
     for i in l_report.start_with..l_report.end_with loop
       v_cell_color       := null;
       v_cell_back_color  := null;
     
       v_column_alias := l_report.report_columns(i);
-      v_format_mask := l_report.col_format_mask(v_column_alias);
-
+      v_format_mask := get_col_format_mask(v_column_alias);
       --check that cell need to be highlighted
+      <<column_highlights>>
       for h in 1..l_report.col_highlight.count loop
         begin
           --debug
-          if p_current_row(l_report.end_with + l_report.agg_cols_cnt + l_report.col_highlight(h).COND_NUMBER) is not null 
+          if get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.col_highlight(h).COND_NUMBER) is not null 
              and v_column_alias = l_report.col_highlight(h).CONDITION_COLUMN_NAME 
           then
             v_cell_color       := l_report.col_highlight(h).HIGHLIGHT_CELL_FONT_COLOR;
@@ -344,44 +431,43 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
        WHEN no_data_found THEN
          null; 
         end;
-      end loop;
+      end loop column_highlights;
       v_clob := v_clob ||bcoll(p_cell_order   => i,
                                p_font_color   => nvl(v_cell_color,v_row_color),
-                               p_back_color   => nvl(v_cell_back_color,v_row_back_color),
-                               p_align        => l_report.column_alignment(v_column_alias),
-                               p_column_alias => l_report.report_columns(i),
-                               p_colmn_type   => l_report.column_types(v_column_alias)
+                               p_back_color   => get_column_alignment(v_column_alias),
+                               p_column_alias => v_column_alias,
+                               p_colmn_type   => get_column_types(v_column_alias)
                               )
-                       ||get_xmlval(get_formatted_str(nvl(p_current_row(i),' '),v_format_mask))
+                       ||get_xmlval(get_formatted_str(nvl(get_current_row(p_current_row,i),' '),v_format_mask))
                        ||ecoll(i);
-    end loop;
-    return  '<ROW>'||v_clob || '</ROW>'||chr(10);
+    end loop visible_columns;
     
+    return  '<ROW>'||v_clob || '</ROW>'||chr(10);    
   end print_row;
   
   ------------------------------------------------------------------------------ 
  
-  function print_header(l_report IN ir_report)
+  function print_header
   return clob is
     v_clob            clob;
     v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;
   begin
     v_clob := v_clob || '<HEADER>';
+    <<headers>>
     for i in 1..l_report.end_with  loop
       V_COLUMN_ALIAS := L_REPORT.REPORT_COLUMNS(I);
       -- if current column is not control break column
       if apex_plugin_util.get_position_in_list(l_report.break_on,v_column_alias) is null then      
-        v_clob := v_clob ||bcoll(i,p_column_alias=>v_column_alias,p_align=>l_report.header_alignment(v_column_alias))
-                         ||get_xmlval(l_report.column_names(v_column_alias))
+        v_clob := v_clob ||bcoll(i,p_column_alias=>v_column_alias,p_align=>get_header_alignment(v_column_alias))
+                         ||get_xmlval(get_column_names(v_column_alias))
                          ||ecoll(i);
       end if;  
-    end loop;
+    end loop headers;
     return  v_clob || '</HEADER>'||chr(10);
   end print_header; 
   ------------------------------------------------------------------------------  
   
-  function print_control_break_header(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,
-                                      l_report          IN ir_report) 
+  function print_control_break_header(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) 
   return clob
   is
     v_clob            clob;
@@ -394,14 +480,14 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     
     v_start_with := 1 + l_report.skipped_columns;    
     v_end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0);
-
+    <<visible_columns>>
     for i in v_start_with..v_end_with loop
       --TODO: Add column header
-      v_clob := v_clob || l_report.column_names(l_report.report_columns(i))||': '||p_current_row(i)||',';
-    end loop;
-    return  '<BREAK_HEADER>'||get_xmlval(rtrim(v_clob,',')) || '</BREAK_HEADER>'||chr(10);
+      v_clob := v_clob || get_column_names(l_report.report_columns(i))||': '||get_current_row(p_current_row,i)||',';
+    end loop visible_columns;
+    
+    return  '<BREAK_HEADER>'||get_xmlval(rtrim(v_clob,',')) || '</BREAK_HEADER>'||chr(10);    
   end print_control_break_header;
-
   ------------------------------------------------------------------------------
   function find_rel_position (p_curr_col_name    IN varchar2,
                               p_agg_rows         IN APEX_APPLICATION_GLOBAL.VC_ARR2)
@@ -409,18 +495,19 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
   is
     v_relative_position integer;
   begin
+    <<aggregated_rows>>
     for i in 1..p_agg_rows.count loop
       if p_curr_col_name = p_agg_rows(i) then        
          return i;
       end if;
-    end loop;
+    end loop aggregated_rows;
+    
     return null;
   end find_rel_position;
   ------------------------------------------------------------------------------
   function get_agg_text(p_curr_col_name   IN varchar2,
                         p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,
                         p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,
-                        l_report          IN ir_report,
                         p_agg_text        IN varchar2,
                         p_position        IN integer, --start position in sql-query
                         p_col_number      IN INTEGER, --column position when displayed
@@ -432,16 +519,15 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
   begin
       v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); 
       if v_tmp_pos is not null then
-        v_format_mask := nvl(l_report.col_format_mask(l_report.report_columns(p_col_number)),p_default_format_mask);
-        return  get_xmlval(p_agg_text||get_formatted_str(p_current_row(p_position + v_tmp_pos),v_format_mask)||chr(10));   
+        v_format_mask := nvl(get_col_format_mask(l_report.report_columns(p_col_number)),p_default_format_mask);
+        return  get_xmlval(p_agg_text||get_formatted_str(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask)||chr(10));   
       else
         return  '';
       end if;        
   end get_agg_text;
   
   ------------------------------------------------------------------------------
-  function print_aggregate(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,
-                           l_report          IN ir_report) 
+  function print_aggregate(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) 
   return clob
   is
     v_clob            clob;
@@ -457,6 +543,7 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     v_start_with := l_report.skipped_columns + 1 + nvl(l_report.break_really_on.count,0);    
     v_end_with   := l_report.skipped_columns + l_report.report_columns.count;    
     
+    <<visible_columns>>
     for i in v_start_with..v_end_with loop
       v_position := v_end_with; --aggregate are placed after displayed columns and computations
       v_clob := v_clob || bcoll(i,p_column_alias=>L_REPORT.REPORT_COLUMNS(I));
@@ -464,7 +551,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),
                                        p_agg_rows      => l_report.sum_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       l_report        => l_report,
                                        p_agg_text      => ' ',
                                        p_position      => v_position,
                                        p_col_number    => i);
@@ -472,7 +558,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),
                                        p_agg_rows      => l_report.avg_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       l_report        => l_report,
                                        p_agg_text      => 'Avgerage: ',
                                        p_position      => v_position,
                                        p_col_number    => i,
@@ -481,7 +566,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),
                                        p_agg_rows      => l_report.max_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       l_report        => l_report,
                                        p_agg_text      => 'Max: ',
                                        p_position      => v_position,
                                        p_col_number    => i);
@@ -489,7 +573,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),
                                        p_agg_rows      => l_report.min_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       l_report        => l_report,
                                        p_agg_text      => 'Min: ',
                                        p_position      => v_position,
                                        p_col_number    => i);
@@ -497,7 +580,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),
                                        p_agg_rows      => l_report.median_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       l_report        => l_report,
                                        p_agg_text      => 'Median: ',
                                        p_position      => v_position,
                                        p_col_number    => i,
@@ -506,7 +588,6 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),
                                        p_agg_rows      => l_report.count_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       l_report        => l_report,
                                        p_agg_text      => 'Count: ',
                                        p_position      => v_position,
                                        p_col_number    => i);
@@ -514,12 +595,11 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),
                                        p_agg_rows      => l_report.count_distnt_col_on_break,
                                        p_current_row   => p_current_row,
-                                       l_report        => l_report,
                                        p_agg_text      => 'Count distinct: ',
                                        p_position      => v_position,
                                        p_col_number    => i);
       v_clob := v_clob || ecoll(i);
-    end loop;
+    end loop visible_columns;
     return  v_clob || '</AGGREGATE>'||chr(10);
   end print_aggregate;    
   ------------------------------------------------------------------------------
@@ -547,19 +627,20 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     where application_id = p_app_id  
       and item_name != nvl(p_return_item,'**')
       and P_ITEMS_LIST is not null 
-      and INSTR(','||P_ITEMS_LIST||',',','||ITEM_NAME||',') >  0;    
+      and instr(','||p_items_list||',',','||item_name||',') >  0;    
     
+    <<items>>
     for i in 1..v_item_names.count loop
      v_clob := v_clob||'<'||upper(v_item_names(i))||'>'
                      ||get_xmlval(v(v_item_names(i)))
                      ||'</'||upper(v_item_names(i))||'>'||chr(10);
-    end loop;
+    end loop items;
     
     return '<ITEMS>'||chr(10)||v_clob||'</ITEMS>'||chr(10); 
   end get_page_items;  
  
   ------------------------------------------------------------------------------    
-  function get_xml_from_ir(l_report IN OUT NOCOPY ir_report,p_max_rows in integer)
+  function get_xml_from_ir(p_max_rows in integer)
   return clob
   is
    v_cur         INTEGER; 
@@ -572,10 +653,8 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
    v_xml         CLOB;  
    v_desc_tab    DBMS_SQL.DESC_TAB2;
    v_inside      boolean default false;
-   d             number;
   begin
     v_cur := dbms_sql.open_cursor; 
-
     dbms_sql.parse(v_cur,l_report.report.sql_query,dbms_sql.native);     
     --v_xml := v_xml||'<QUERY>'||get_xmlval(l_report.report.sql_query)||'</QUERY>'||chr(10);
     dbms_sql.describe_columns2(v_cur,v_colls_count,v_desc_tab);    
@@ -583,11 +662,15 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
     if lower(v_desc_tab(1).col_name) = 'apxws_row_pk' then
       l_report.skipped_columns := 1;
     end if;
-    l_report.start_with := l_report.skipped_columns + 1 + nvl(l_report.break_really_on.count,0);    
+    l_report.start_with := l_report.skipped_columns + 1 + nvl(l_report.break_really_on.count,0);
     l_report.end_with   := l_report.skipped_columns + l_report.report_columns.count;    
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.start_with='||l_report.start_with);
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.end_with='||l_report.end_with);
+    APEX_DEBUG_MESSAGE.LOG_MESSAGE('l_report.skipped_columns='||l_report.skipped_columns);
     
-    v_xml := v_xml||print_header(l_report);
-    d:= 2; --bind variables
+    v_xml := v_xml||print_header;
+    
+    <<bind_variables>>
     for i in 1..l_report.report.binds.count loop
       --remove MAX_ROWS
       if l_report.report.binds(i).name = 'APXWS_MAX_ROW_CNT' then      
@@ -596,58 +679,57 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
       else
         DBMS_SQL.BIND_VARIABLE (v_cur,l_report.report.binds(i).name,l_report.report.binds(i).value);      
       end if;
-    end loop;
-    d:= 3; 
+    end loop bind_variables;
+
+    <<query_columns>>
     for i in 1..v_colls_count loop
      v_row(i) := '';
-     DBMS_SQL.DEFINE_COLUMN(v_cur, i, v_row(i),32767);
-    end loop;
-    d:= 4;
+     dbms_sql.define_column(v_cur, i, v_row(i),32767);
+    end loop query_columns;
     
-    v_result := DBMS_SQL.EXECUTE(v_cur);     
-    
+    v_result := dbms_sql.execute(v_cur);     
+    <<main_cycle>>
     LOOP 
          IF DBMS_SQL.FETCH_ROWS(v_cur)>0 THEN          
            -- get column values of the row 
             v_current_row := v_current_row + 1;
+            <<query_columns>>
             for i in 1..v_colls_count loop
                DBMS_SQL.COLUMN_VALUE(v_cur, i,v_row(i));                
             end loop;     
             --check control break
             if v_current_row > 1 then
-             if is_control_break(v_row,v_prev_row,l_report) then                                             
+             if is_control_break(v_row,v_prev_row) then                                             
                v_xml := v_xml||'</ROWSET>'||chr(10);
                v_inside := false;
              end if;
             end if;
             if not v_inside then
               v_xml := v_xml||'<ROWSET>'||chr(10);              
-              v_xml := v_xml||print_control_break_header(v_row,l_report);              
+              v_xml := v_xml||print_control_break_header(v_row);              
               --print aggregates
-              v_xml := v_xml||print_aggregate(v_row,l_report);
+              v_xml := v_xml||print_aggregate(v_row);
               v_inside := true;
-            end if;            --            
-            
+            END IF;            --            
+            <<query_columns>>
             for i in 1..v_colls_count loop
               v_prev_row(i) := v_row(i);                           
             end loop;                 
-            v_xml := v_xml||print_row(v_row,l_report);            
-         ELSE 
+            v_xml := v_xml||print_row(v_row);            
+         ELSE --DBMS_SQL.FETCH_ROWS(v_cur)>0
            EXIT; 
          END IF; 
-    END LOOP;        
+    END LOOP main_cycle;        
     if v_inside then
        v_xml := v_xml||'</ROWSET>';
        v_inside := false;
     end if;
-
    dbms_sql.close_cursor(v_cur); 
    
    return v_xml;
   end get_xml_from_ir;
   ------------------------------------------------------------------------------
-  function get_final_xml(l_report      in out nocopy ir_report,
-                         p_app_id      in number,
+  function get_final_xml(p_app_id      in number,
                          p_page_id     in number,
                          p_items_list  in varchar2,
                          p_return_item in varchar2,
@@ -660,7 +742,7 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
           '<DOCUMENT>'||chr(10)||
           get_page_items(p_app_id,p_page_id,p_items_list,p_return_item,p_get_page_items)||
           '<DATA>'||chr(10)||
-           get_xml_from_ir(l_report,p_max_rows)||
+           get_xml_from_ir(p_max_rows)||
           '</DATA>'||chr(10)||
           '</DOCUMENT>';
   end get_final_xml;
@@ -697,12 +779,11 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
                           )
   is
     v_data      clob;
-    v_template  clob;
-    l_report    ir_report;
+    v_template  clob;    
     v_file       BLOB;
-  begin
-    l_report := get_t_report(p_app_id,p_page_id);    
-
+  BEGIN
+    APEX_DEBUG_MESSAGE.ENABLE_DEBUG_MESSAGES(p_level => 7);
+    init_t_report(p_app_id,p_page_id);    
     IF p_return_type = 'Q' then  -- QUERY    
         v_data := l_report.report.sql_query;
         if p_return_item is not null then  
@@ -711,7 +792,7 @@ CREATE OR REPLACE PACKAGE BODY IR_TO_XML AS
           download_file(v_data,'text/txt','query.txt');
         end if;                          
     elsif p_return_type = 'X' then --XML-Data
-        v_data := get_final_xml(l_report,p_app_id,p_page_id,p_items_list,p_return_item,p_get_page_items,p_max_rows);
+        v_data := get_final_xml(p_app_id,p_page_id,p_items_list,p_return_item,p_get_page_items,p_max_rows);
         if p_return_item is not null then  
           begin
             apex_util.set_session_state(upper(p_return_item),substr(v_data,1,32767));

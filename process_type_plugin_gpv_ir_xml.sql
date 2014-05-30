@@ -109,7 +109,11 @@ wwv_flow_api.create_plugin (
  ,p_execution_function => 'gpv_get_xml_from_ir'
  ,p_substitute_attributes => true
  ,p_subscribe_plugin_settings => true
+ ,p_help_text => '<p>'||unistr('\000a')||
+'	Getting result of your Interactive Report in XML.</p>'||unistr('\000a')||
+''
  ,p_version_identifier => '1.0'
+ ,p_about_url => 'http://glebovpavel.github.io/plugin/'
   );
 wwv_flow_api.create_plugin_attribute (
   p_id => 2307318887775759 + wwv_flow_api.g_id_offset
