@@ -53,7 +53,7 @@ prompt  Set Application ID...
 begin
  
    -- SET APPLICATION ID
-   wwv_flow.g_flow_id := nvl(wwv_flow_application_install.get_application_id,200);
+   wwv_flow.g_flow_id := nvl(wwv_flow_application_install.get_application_id,102);
    wwv_flow_api.g_id_offset := nvl(wwv_flow_application_install.get_offset,0);
 null;
  
@@ -77,7 +77,7 @@ prompt  ...plugins
 begin
  
 wwv_flow_api.create_plugin (
-  p_id => 2307002152677111 + wwv_flow_api.g_id_offset
+  p_id => 4835324487570127 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_plugin_type => 'PROCESS TYPE'
  ,p_name => 'GPV_IR_XML'
@@ -91,34 +91,36 @@ wwv_flow_api.create_plugin (
 '    return apex_plugin.t_process_exec_result'||unistr('\000a')||
 'is'||unistr('\000a')||
 'begin'||unistr('\000a')||
-'    IR_TO_XML.get_report_xml(p_app_id            => :APP_ID,'||unistr('\000a')||
-'                                p_page_id        => :APP_PAGE_ID,       '||unistr('\000a')||
-'                                p_return_type    => p_process.attribute_01,                        '||unistr('\000a')||
-' '||
-'                               p_get_page_items => p_process.attribute_02,'||unistr('\000a')||
-'                                p_items_list     => p_process.attribute_03,'||unistr('\000a')||
-'                                p_return_item    => p_process.attribute_04,'||unistr('\000a')||
-'                                p_max_rows       => p_process.attribute_05);'||unistr('\000a')||
+'    IR_TO_XML.get_report_xml(p_app_id               => :APP_ID,'||unistr('\000a')||
+'                                p_page_id           => :APP_PAGE_ID,       '||unistr('\000a')||
+'                                p_return_type       => p_process.attribute_01,                 '||
+'       '||unistr('\000a')||
+'                                p_get_page_items    => p_process.attribute_02,'||unistr('\000a')||
+'                                p_items_list        => p_process.attribute_03,'||unistr('\000a')||
+'                                p_collection_name   => p_process.attribute_04,'||unistr('\000a')||
+'                                p_max_rows          => p_process.attribute_05);'||unistr('\000a')||
 ''||unistr('\000a')||
 '  return null;'||unistr('\000a')||
 'exception'||unistr('\000a')||
 '  when others then'||unistr('\000a')||
-'    raise_application_error(-20001,''Error in plugin'||
-' "Advanced Printing IR to PDF" :''||SQLERRM);'||unistr('\000a')||
+'    raise_application_error(-2'||
+'0001,''Error in plugin "Advanced Printing IR to PDF" :''||SQLERRM);'||unistr('\000a')||
 'end gpv_get_xml_from_ir;'
  ,p_execution_function => 'gpv_get_xml_from_ir'
  ,p_substitute_attributes => true
  ,p_subscribe_plugin_settings => true
  ,p_help_text => '<p>'||unistr('\000a')||
-'	Getting result of your Interactive Report in XML.</p>'||unistr('\000a')||
+'	The &quot;GPV Interactive Report to XML&quot; APEX plugin lets you getting results of your Interactive Report in XML-format, ready to be used in different report-tools<br />'||unistr('\000a')||
+'	This pack includes this plugin and IR_TO_XML package. The package includes all functionality, the plugin provides simple user interface for APEX developer to make development easier.<br />'||unistr('\000a')||
+'	&nbsp;</p>'||unistr('\000a')||
 ''
  ,p_version_identifier => '1.0'
- ,p_about_url => 'http://glebovpavel.github.io/plugin/'
+ ,p_about_url => 'http://glebovpavel.github.io/plugin'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 2307318887775759 + wwv_flow_api.g_id_offset
+  p_id => 4835641222668775 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 2307002152677111 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 1
  ,p_display_sequence => 10
@@ -132,25 +134,25 @@ wwv_flow_api.create_plugin_attribute (
 ''
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 2307613927778070 + wwv_flow_api.g_id_offset
+  p_id => 4835936262671086 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 2307318887775759 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 4835641222668775 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 10
  ,p_display_value => 'Generated XML-data'
  ,p_return_value => 'X'
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 2308010908779393 + wwv_flow_api.g_id_offset
+  p_id => 4836333243672409 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 2307318887775759 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 4835641222668775 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 20
- ,p_display_value => 'Generated SQL-Query (debug only)'
+ ,p_display_value => 'Debug Information'
  ,p_return_value => 'Q'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 2308619929820800 + wwv_flow_api.g_id_offset
+  p_id => 4836942264713816 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 2307002152677111 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 2
  ,p_display_sequence => 20
@@ -163,9 +165,9 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" will be excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 2308905239858064 + wwv_flow_api.g_id_offset
+  p_id => 4837227574751080 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 2307002152677111 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 3
  ,p_display_sequence => 30
@@ -177,23 +179,34 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" is automatically excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 2309202639874467 + wwv_flow_api.g_id_offset
+  p_id => 2933227631498070 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 2307002152677111 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 4
  ,p_display_sequence => 40
- ,p_prompt => 'Item to Return'
- ,p_attribute_type => 'PAGE ITEM'
+ ,p_prompt => 'APEX Collection Name'
+ ,p_attribute_type => 'TEXT'
  ,p_is_required => false
  ,p_is_translatable => false
- ,p_help_text => 'Item where XML-data or SQl-query will be saved. Data greater 32k will be truncated.'||unistr('\000a')||
-'When <b>null</b> - result will be downloaded as file. Filesize do not have 32k restriction. '
+ ,p_help_text => 'When not null, plugin will save XML in APEX-Collection with given name, in field clob001.'||unistr('\000a')||
+'<br>'||unistr('\000a')||
+'<br>'||unistr('\000a')||
+'To read XML data use this query<br><br>'||unistr('\000a')||
+'<span style="color:green;">SELECT</span> <span style="color:black;">clob001</span><br>'||unistr('\000a')||
+'<span style="color:green;">FROM</span> <span style="color:black;">apex_collections</span><br>'||unistr('\000a')||
+'<span style="color:green;">WHERE</span> <span style="color:black;">collection_name</span> <span style="color:black;">=</span><span "color:blau;">YOUR_COLLECTION_NAME</span><br>'||unistr('\000a')||
+'<span style="color:green;">AND</span> <span style="color:black;">seq_id</span> <span style="color:black;">=</span> <span "color:blau;">1</span><br>'||unistr('\000a')||
+'<br>'||unistr('\000a')||
+'<br>'||unistr('\000a')||
+'<br>'||unistr('\000a')||
+'See more about APEX Collections on <a href="http://docs.oracle.com/cd/E37097_01/doc/doc.42/e35127/apex_collection.htm#AEAPI531">Oracle APEX Documentations</a>'||unistr('\000a')||
+''
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 2314527789759271 + wwv_flow_api.g_id_offset
+  p_id => 4842850124652287 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 2307002152677111 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 5
  ,p_display_sequence => 50
