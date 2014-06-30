@@ -7,17 +7,17 @@ begin wwv_flow.g_import_in_progress := true; end;
  
  
 --application/set_environment
-prompt  APPLICATION 102 - Plugin Demonstration Autologin
+prompt  APPLICATION 26482 - Sample Application
 --
 -- Application Export:
---   Application:     102
---   Name:            Plugin Demonstration Autologin
---   Date and Time:   17:53 Wednesday June 4, 2014
---   Exported By:     GPV
+--   Application:     26482
+--   Name:            Sample Application
+--   Date and Time:   14:13 Monday June 30, 2014
+--   Exported By:     TODANTE@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
---   Version:         4.2.2.00.11
---   Instance ID:     61906154320937
+--   Version:         4.2.5.00.08
+--   Instance ID:     63113759365424
 --
 -- Import:
 --   Using Application Builder
@@ -26,11 +26,10 @@ prompt  APPLICATION 102 - Plugin Demonstration Autologin
  
 -- Application Statistics:
 --   Pages:                      2
---     Items:                    2
---     Processes:                2
+--     Items:                    3
+--     Processes:                5
 --     Regions:                  2
 --     Buttons:                  1
---     Dynamic Actions:          1
 --   Shared Components:
 --     Logic:
 --     Navigation:
@@ -68,7 +67,7 @@ prompt  Set Credentials...
 begin
  
   -- Assumes you are running the script connected to SQL*Plus as the Oracle user APEX_040200 or as the owner (parsing schema) of the application.
-  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,2143728413512787));
+  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,47013086401943669753));
  
 end;
 /
@@ -104,7 +103,7 @@ prompt  Set Application ID...
 begin
  
    -- SET APPLICATION ID
-   wwv_flow.g_flow_id := nvl(wwv_flow_application_install.get_application_id,102);
+   wwv_flow.g_flow_id := nvl(wwv_flow_application_install.get_application_id,26482);
    wwv_flow_api.g_id_offset := nvl(wwv_flow_application_install.get_offset,0);
 null;
  
@@ -116,7 +115,7 @@ end;
 begin
  
    -- Remove Application
-wwv_flow_api.remove_flow(nvl(wwv_flow_application_install.get_application_id,102));
+wwv_flow_api.remove_flow(nvl(wwv_flow_application_install.get_application_id,26482));
  
 end;
 /
@@ -124,7 +123,7 @@ end;
  
 begin
  
-wwv_flow_audit.remove_audit_trail(nvl(wwv_flow_application_install.get_application_id,102));
+wwv_flow_audit.remove_audit_trail(nvl(wwv_flow_application_install.get_application_id,26482));
 null;
  
 end;
@@ -145,14 +144,14 @@ end;
 begin
  
 wwv_flow_api.create_flow(
-  p_id    => nvl(wwv_flow_application_install.get_application_id,102),
-  p_display_id=> nvl(wwv_flow_application_install.get_application_id,102),
+  p_id    => nvl(wwv_flow_application_install.get_application_id,26482),
+  p_display_id=> nvl(wwv_flow_application_install.get_application_id,26482),
   p_owner => nvl(wwv_flow_application_install.get_schema,'GPV'),
-  p_name  => nvl(wwv_flow_application_install.get_application_name,'Plugin Demonstration Autologin'),
-  p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_102'),
+  p_name  => nvl(wwv_flow_application_install.get_application_name,'Sample Application'),
+  p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_10226482'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20140604175322',
+  p_checksum_salt_last_reset => '20140630141324',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -163,7 +162,7 @@ wwv_flow_api.create_flow(
   p_publish_yn=> 'N',
   p_documentation_banner=> '',
   p_authentication=> 'PLUGIN',
-  p_authentication_id=> 2523501530817096 + wwv_flow_api.g_id_offset,
+  p_authentication_id=> 98828886540409776158 + wwv_flow_api.g_id_offset,
   p_logout_url=> '',
   p_application_tab_set=> 0,
   p_logo_image => 'TEXT:Plugin Demonstration',
@@ -193,8 +192,8 @@ wwv_flow_api.create_flow(
   p_substitution_value_01  => '',
   p_substitution_string_02 => 'AUTOLOGIN_PASSWORD',
   p_substitution_value_02  => '',
-  p_last_updated_by => 'GPV',
-  p_last_upd_yyyymmddhh24miss=> '20140604175322',
+  p_last_updated_by => 'TODANTE@GMAIL.COM',
+  p_last_upd_yyyymmddhh24miss=> '20140630141324',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -212,7 +211,7 @@ begin
  
 --application/user interface/desktop
 wwv_flow_api.create_user_interface (
-  p_id => 2523303775817095 + wwv_flow_api.g_id_offset
+  p_id => 98828886342654776157 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_ui_type_name => 'DESKTOP'
  ,p_display_name => 'Desktop'
@@ -235,7 +234,7 @@ begin
  
 --application/plug-in setting/item_type_native_yes_no
 wwv_flow_api.create_plugin_setting (
-  p_id => 2512408624817075 + wwv_flow_api.g_id_offset
+  p_id => 98828875447503776137 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_plugin_type => 'ITEM TYPE'
  ,p_plugin => 'NATIVE_YES_NO'
@@ -264,7 +263,7 @@ prompt  ...navigation bar entries
 begin
  
 wwv_flow_api.create_icon_bar_item(
-  p_id => 2523404599817096 + wwv_flow_api.g_id_offset,
+  p_id => 98828886443478776158 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
   p_icon_sequence=> 200,
   p_icon_image => '',
@@ -328,10 +327,10 @@ prompt  ...Shared Lists of values
 begin
  
 wwv_flow_api.create_list_of_values (
-  p_id       => 2927227549715095 + wwv_flow_api.g_id_offset,
+  p_id       => 98829290266428674157 + wwv_flow_api.g_id_offset,
   p_flow_id  => wwv_flow.g_flow_id,
   p_lov_name => 'STATUSES',
-  p_lov_query=> '.'||to_char(2927227549715095 + wwv_flow_api.g_id_offset)||'.');
+  p_lov_query=> '.'||to_char(98829290266428674157 + wwv_flow_api.g_id_offset)||'.');
  
 null;
  
@@ -342,8 +341,8 @@ end;
 begin
  
 wwv_flow_api.create_static_lov_data (
-  p_id=>2927530327715095 + wwv_flow_api.g_id_offset,
-  p_lov_id=>2927227549715095 + wwv_flow_api.g_id_offset,
+  p_id=>98829290569206674157 + wwv_flow_api.g_id_offset,
+  p_lov_id=>98829290266428674157 + wwv_flow_api.g_id_offset,
   p_lov_disp_sequence=>1,
   p_lov_disp_value=>'OPN',
   p_lov_return_value=>'Open',
@@ -358,8 +357,8 @@ end;
 begin
  
 wwv_flow_api.create_static_lov_data (
-  p_id=>2927815668715097 + wwv_flow_api.g_id_offset,
-  p_lov_id=>2927227549715095 + wwv_flow_api.g_id_offset,
+  p_id=>98829290854547674159 + wwv_flow_api.g_id_offset,
+  p_lov_id=>98829290266428674157 + wwv_flow_api.g_id_offset,
   p_lov_disp_sequence=>2,
   p_lov_disp_value=>'CLS',
   p_lov_return_value=>'Closed',
@@ -374,8 +373,8 @@ end;
 begin
  
 wwv_flow_api.create_static_lov_data (
-  p_id=>2928123229715097 + wwv_flow_api.g_id_offset,
-  p_lov_id=>2927227549715095 + wwv_flow_api.g_id_offset,
+  p_id=>98829291162108674159 + wwv_flow_api.g_id_offset,
+  p_lov_id=>98829290266428674157 + wwv_flow_api.g_id_offset,
   p_lov_disp_sequence=>3,
   p_lov_disp_value=>'OHLD',
   p_lov_return_value=>'On-Hold',
@@ -412,7 +411,7 @@ begin
 wwv_flow_api.create_page (
   p_flow_id => wwv_flow.g_flow_id
  ,p_id => 1
- ,p_user_interface_id => 2523303775817095 + wwv_flow_api.g_id_offset
+ ,p_user_interface_id => 98828886342654776157 + wwv_flow_api.g_id_offset
  ,p_name => 'Plugin Demonstration'
  ,p_alias => 'LANDING_PAGE'
  ,p_step_title => 'Plugin Demonstration'
@@ -421,7 +420,7 @@ wwv_flow_api.create_page (
  ,p_first_item => 'NO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'ON'
- ,p_step_template => 2512622937817078 + wwv_flow_api.g_id_offset
+ ,p_step_template => 98828875661816776140 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'N'
  ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
@@ -456,13 +455,13 @@ s:=s||'select	--ROWID,'||unistr('\000a')||
 'from EBA_DEMO_IR_PROJECTS';
 
 wwv_flow_api.create_page_plug (
-  p_id=> 2527212853880841 + wwv_flow_api.g_id_offset,
+  p_id=> 98828890251732839903 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
   p_plug_name=> 'Sample Interactive Report',
   p_region_name=>'',
   p_escape_on_http_output=>'N',
-  p_plug_template=> 2516025119817085+ wwv_flow_api.g_id_offset,
+  p_plug_template=> 98828879063998776147+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 10,
   p_plug_new_grid         => false,
   p_plug_new_grid_row     => true,
@@ -476,6 +475,7 @@ wwv_flow_api.create_page_plug (
   p_rest_enabled=> 'N',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
   p_plug_query_show_nulls_as => ' - ',
   p_plug_display_condition_type => '',
   p_pagination_display_position=>'BOTTOM_RIGHT',
@@ -501,10 +501,10 @@ a1:=a1||'select	--ROWID,'||unistr('\000a')||
 'from EBA_DEMO_IR_PROJECTS';
 
 wwv_flow_api.create_worksheet(
-  p_id=> 2527305827880841+wwv_flow_api.g_id_offset,
+  p_id=> 98828890344706839903+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_region_id=> 2527212853880841+wwv_flow_api.g_id_offset,
+  p_region_id=> 98828890251732839903+wwv_flow_api.g_id_offset,
   p_name=> 'Sample Interactive Report',
   p_folder_id=> null, 
   p_alias=> '',
@@ -562,10 +562,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921212788941722+wwv_flow_api.g_id_offset,
+  p_id => 98829284251667900784+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'ID',
   p_display_order          =>2,
   p_column_identifier      =>'B',
@@ -599,10 +599,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921319896941722+wwv_flow_api.g_id_offset,
+  p_id => 98829284358775900784+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'PROJECT',
   p_display_order          =>3,
   p_column_identifier      =>'C',
@@ -636,10 +636,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921419206941722+wwv_flow_api.g_id_offset,
+  p_id => 98829284458085900784+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'TASK_NAME',
   p_display_order          =>4,
   p_column_identifier      =>'D',
@@ -673,10 +673,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921500875941722+wwv_flow_api.g_id_offset,
+  p_id => 98829284539754900784+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'START_DATE',
   p_display_order          =>5,
   p_column_identifier      =>'E',
@@ -710,10 +710,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921614564941723+wwv_flow_api.g_id_offset,
+  p_id => 98829284653443900785+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'END_DATE',
   p_display_order          =>6,
   p_column_identifier      =>'F',
@@ -747,10 +747,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921716270941723+wwv_flow_api.g_id_offset,
+  p_id => 98829284755149900785+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'STATUS',
   p_display_order          =>7,
   p_column_identifier      =>'G',
@@ -777,7 +777,7 @@ wwv_flow_api.create_worksheet_column(
   p_column_alignment       =>'LEFT',
   p_tz_dependent           =>'N',
   p_rpt_distinct_lov       =>'Y',
-  p_rpt_named_lov          =>2927227549715095+wwv_flow_api.g_id_offset,
+  p_rpt_named_lov          =>98829290266428674157+wwv_flow_api.g_id_offset,
   p_rpt_show_filter_lov    =>'1',
   p_rpt_filter_date_ranges =>'ALL',
   p_help_text              =>'');
@@ -785,10 +785,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921828847941723+wwv_flow_api.g_id_offset,
+  p_id => 98829284867726900785+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'ASSIGNED_TO',
   p_display_order          =>8,
   p_column_identifier      =>'H',
@@ -822,10 +822,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2921920160941723+wwv_flow_api.g_id_offset,
+  p_id => 98829284959039900785+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'COST',
   p_display_order          =>9,
   p_column_identifier      =>'I',
@@ -859,10 +859,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2922031275941723+wwv_flow_api.g_id_offset,
+  p_id => 98829285070154900785+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'BUDGET',
   p_display_order          =>10,
   p_column_identifier      =>'J',
@@ -896,10 +896,10 @@ end;
 /
 begin
 wwv_flow_api.create_worksheet_column(
-  p_id => 2922126097941723+wwv_flow_api.g_id_offset,
+  p_id => 98829285164976900785+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_db_column_name         =>'AVAILABLE_BUDGET',
   p_display_order          =>11,
   p_column_identifier      =>'K',
@@ -937,10 +937,10 @@ begin
 rc1:=rc1||'ID:PROJECT:TASK_NAME:START_DATE:END_DATE:STATUS:ASSIGNED_TO:COST:BUDGET:AVAILABLE_BUDGET';
 
 wwv_flow_api.create_worksheet_rpt(
-  p_id => 2527814238881199+wwv_flow_api.g_id_offset,
+  p_id => 98828890853117840261+wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_worksheet_id => 2527305827880841+wwv_flow_api.g_id_offset,
+  p_worksheet_id => 98828890344706839903+wwv_flow_api.g_id_offset,
   p_session_id  => null,
   p_base_report_id  => null+wwv_flow_api.g_id_offset,
   p_application_user => 'APXWS_DEFAULT',
@@ -959,14 +959,14 @@ end;
 begin
  
 wwv_flow_api.create_page_button(
-  p_id             => 2929308736851679 + wwv_flow_api.g_id_offset,
+  p_id             => 98829292347615810741 + wwv_flow_api.g_id_offset,
   p_flow_id        => wwv_flow.g_flow_id,
   p_flow_step_id   => 1,
   p_button_sequence=> 10,
-  p_button_plug_id => 2527212853880841+wwv_flow_api.g_id_offset,
+  p_button_plug_id => 98828890251732839903+wwv_flow_api.g_id_offset,
   p_button_name    => 'P1_GET_XML_FROM_IR',
   p_button_action  => 'REDIRECT_PAGE',
-  p_button_image   => 'template:'||to_char(2521713187817092+wwv_flow_api.g_id_offset),
+  p_button_image   => 'template:'||to_char(98828884752066776154+wwv_flow_api.g_id_offset),
   p_button_is_hot=>'N',
   p_button_image_alt=> 'Get Result as XML',
   p_button_position=> 'RIGHT_OF_IR_SEARCH_BAR',
@@ -996,7 +996,7 @@ declare
 begin
 p := null;
 wwv_flow_api.create_page_process(
-  p_id     => 2529626134168493 + wwv_flow_api.g_id_offset,
+  p_id     => 98828892665013127555 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_flow_step_id => 1,
   p_process_sequence=> 10,
@@ -1037,32 +1037,28 @@ end;
 /
 
  
---application/pages/page_00101
-prompt  ...PAGE 101: Auto Login
+--application/pages/page_00011
+prompt  ...PAGE 11: Login Page
 --
  
 begin
  
 wwv_flow_api.create_page (
   p_flow_id => wwv_flow.g_flow_id
- ,p_id => 101
- ,p_user_interface_id => 2523303775817095 + wwv_flow_api.g_id_offset
- ,p_name => 'Auto Login'
+ ,p_id => 11
+ ,p_user_interface_id => 98828886342654776157 + wwv_flow_api.g_id_offset
+ ,p_name => 'Login Page'
  ,p_alias => 'LOGIN_DESKTOP'
- ,p_step_title => 'Login'
- ,p_allow_duplicate_submissions => 'Y'
+ ,p_step_title => 'Login Page'
  ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
  ,p_first_item => 'AUTO_FIRST_ITEM'
  ,p_include_apex_css_js_yn => 'Y'
  ,p_autocomplete_on_off => 'OFF'
- ,p_step_template => 2512515661817076 + wwv_flow_api.g_id_offset
+ ,p_step_template => 98828875554540776138 + wwv_flow_api.g_id_offset
  ,p_page_is_public_y_n => 'Y'
- ,p_protection_level => 'N'
  ,p_cache_page_yn => 'N'
- ,p_cache_timeout_seconds => 21600
- ,p_cache_by_user_yn => 'N'
- ,p_last_updated_by => 'GPV'
- ,p_last_upd_yyyymmddhh24miss => '20140604140752'
+ ,p_last_updated_by => 'TODANTE@GMAIL.COM'
+ ,p_last_upd_yyyymmddhh24miss => '20140630135428'
   );
 null;
  
@@ -1076,13 +1072,13 @@ declare
 begin
 s := null;
 wwv_flow_api.create_page_plug (
-  p_id=> 3030128439718464 + wwv_flow_api.g_id_offset,
+  p_id=> 49413207312001502536 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
-  p_page_id=> 101,
-  p_plug_name=> 'Empty',
+  p_page_id=> 11,
+  p_plug_name=> 'Login Page',
   p_region_name=>'',
-  p_escape_on_http_output=>'Y',
-  p_plug_template=> 0,
+  p_escape_on_http_output=>'N',
+  p_plug_template=> 98828878654286776146+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 10,
   p_plug_new_grid         => false,
   p_plug_new_grid_row     => true,
@@ -1092,12 +1088,10 @@ wwv_flow_api.create_page_plug (
   p_plug_item_display_point=> 'ABOVE',
   p_plug_source=> s,
   p_plug_source_type=> 'STATIC_TEXT',
-  p_translate_title=> 'Y',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
   p_plug_query_row_count_max => 500,
   p_plug_display_condition_type => '',
-  p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
   p_plug_comment=> '');
 end;
@@ -1122,25 +1116,23 @@ declare
     h varchar2(32767) := null;
 begin
 wwv_flow_api.create_page_item(
-  p_id=>3030517197727681 + wwv_flow_api.g_id_offset,
+  p_id=>49413207522397502538 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
-  p_flow_step_id=> 101,
-  p_name=>'P101_AUTOLOGIN_PASSWORD',
-  p_data_type=> 'VARCHAR',
+  p_flow_step_id=> 11,
+  p_name=>'P11_USERNAME',
+  p_data_type=> '',
   p_is_required=> false,
   p_accept_processing=> 'REPLACE_EXISTING',
   p_item_sequence=> 10,
-  p_item_plug_id => 3030128439718464+wwv_flow_api.g_id_offset,
-  p_use_cache_before_default=> 'NO',
-  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_source=>'&AUTOLOGIN_PASSWORD.',
-  p_source_type=> 'STATIC',
-  p_display_as=> 'NATIVE_HIDDEN',
+  p_item_plug_id => 49413207312001502536+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> '',
+  p_prompt=>'Username',
+  p_display_as=> 'NATIVE_TEXT_FIELD',
   p_lov_display_null=> 'NO',
   p_lov_translated=> 'N',
-  p_cSize=> 30,
-  p_cMaxlength=> 4000,
-  p_cHeight=> 1,
+  p_cSize=> 40,
+  p_cMaxlength=> 100,
+  p_cHeight=> null,
   p_new_grid=> false,
   p_begin_on_new_line=> 'YES',
   p_begin_on_new_field=> 'YES',
@@ -1148,13 +1140,13 @@ wwv_flow_api.create_page_item(
   p_rowspan=> null,
   p_grid_column=> null,
   p_label_alignment=> 'RIGHT',
-  p_field_alignment=> 'LEFT-CENTER',
+  p_field_alignment=> 'LEFT',
+  p_field_template=> 98828884245570776154+wwv_flow_api.g_id_offset,
   p_is_persistent=> 'Y',
-  p_lov_display_extra=>'YES',
-  p_protection_level => 'N',
-  p_escape_on_http_output => 'Y',
-  p_attribute_01 => 'Y',
-  p_show_quick_picks=>'N',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'N',
+  p_attribute_03 => 'N',
+  p_attribute_04 => 'TEXT',
   p_item_comment => '');
  
  
@@ -1165,26 +1157,23 @@ declare
     h varchar2(32767) := null;
 begin
 wwv_flow_api.create_page_item(
-  p_id=>3031026458738565 + wwv_flow_api.g_id_offset,
+  p_id=>49413207729640502538 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
-  p_flow_step_id=> 101,
-  p_name=>'P101_AUTOLOGIN_USER_NAME',
-  p_data_type=> 'VARCHAR',
+  p_flow_step_id=> 11,
+  p_name=>'P11_PASSWORD',
+  p_data_type=> '',
   p_is_required=> false,
   p_accept_processing=> 'REPLACE_EXISTING',
   p_item_sequence=> 20,
-  p_item_plug_id => 3030128439718464+wwv_flow_api.g_id_offset,
-  p_use_cache_before_default=> 'NO',
-  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_prompt=>'User Name',
-  p_source=>'&AUTOLOGIN_USER_NAME.',
-  p_source_type=> 'STATIC',
-  p_display_as=> 'NATIVE_HIDDEN',
+  p_item_plug_id => 49413207312001502536+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> '',
+  p_prompt=>'Password',
+  p_display_as=> 'NATIVE_PASSWORD',
   p_lov_display_null=> 'NO',
   p_lov_translated=> 'N',
-  p_cSize=> 30,
-  p_cMaxlength=> 4000,
-  p_cHeight=> 1,
+  p_cSize=> 40,
+  p_cMaxlength=> 100,
+  p_cHeight=> null,
   p_new_grid=> false,
   p_begin_on_new_line=> 'YES',
   p_begin_on_new_field=> 'YES',
@@ -1192,13 +1181,53 @@ wwv_flow_api.create_page_item(
   p_rowspan=> null,
   p_grid_column=> null,
   p_label_alignment=> 'RIGHT',
-  p_field_alignment=> 'LEFT-CENTER',
+  p_field_alignment=> 'LEFT',
+  p_field_template=> 98828884245570776154+wwv_flow_api.g_id_offset,
   p_is_persistent=> 'Y',
-  p_lov_display_extra=>'YES',
-  p_protection_level => 'N',
-  p_escape_on_http_output => 'Y',
   p_attribute_01 => 'Y',
-  p_show_quick_picks=>'N',
+  p_attribute_02 => 'Y',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>49413207906738502539 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 11,
+  p_name=>'P11_LOGIN',
+  p_data_type=> '',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 30,
+  p_item_plug_id => 49413207312001502536+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> '',
+  p_item_default=> 'Login',
+  p_prompt=>'Login',
+  p_source=>'LOGIN',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'BUTTON',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> null,
+  p_cMaxlength=> null,
+  p_cHeight=> null,
+  p_tag_attributes  => 'template:'||to_char(98828884642310776154 + wwv_flow_api.g_id_offset),
+  p_new_grid=> false,
+  p_begin_on_new_line=> 'NO',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> null,
+  p_rowspan=> null,
+  p_grid_column=> null,
+  p_label_alignment=> 'LEFT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'Y',
+  p_button_action => 'SUBMIT',
+  p_button_is_hot=>'Y',
   p_item_comment => '');
  
  
@@ -1208,27 +1237,29 @@ end;
  
 begin
  
-wwv_flow_api.create_page_da_event (
-  p_id => 2525403325840185 + wwv_flow_api.g_id_offset
- ,p_flow_id => wwv_flow.g_flow_id
- ,p_page_id => 101
- ,p_name => 'Autologin'
- ,p_event_sequence => 10
- ,p_bind_type => 'bind'
- ,p_bind_event_type => 'ready'
-  );
-wwv_flow_api.create_page_da_action (
-  p_id => 2525714534840188 + wwv_flow_api.g_id_offset
- ,p_flow_id => wwv_flow.g_flow_id
- ,p_page_id => 101
- ,p_event_id => 2525403325840185 + wwv_flow_api.g_id_offset
- ,p_event_result => 'TRUE'
- ,p_action_sequence => 10
- ,p_execute_on_page_init => 'Y'
- ,p_action => 'NATIVE_SUBMIT_PAGE'
- ,p_attribute_02 => 'N'
- ,p_stop_execution_on_error => 'Y'
- );
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'apex_authentication.send_login_username_cookie ('||unistr('\000a')||
+'    p_username => lower(:P11_USERNAME) );';
+
+wwv_flow_api.create_page_process(
+  p_id     => 49413210325044502540 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 11,
+  p_process_sequence=> 10,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'Set Username Cookie',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
 null;
  
 end;
@@ -1243,13 +1274,13 @@ declare
   l_length number := 1;
 begin
 p:=p||'apex_authentication.login('||unistr('\000a')||
-'    p_username => :P101_AUTOLOGIN_USER_NAME,'||unistr('\000a')||
-'    p_password => :P101_AUTOLOGIN_PASSWORD);';
+'    p_username => :P11_USERNAME,'||unistr('\000a')||
+'    p_password => :P11_PASSWORD );';
 
 wwv_flow_api.create_page_process(
-  p_id     => 2524206148817098 + wwv_flow_api.g_id_offset,
+  p_id     => 49413208121186502539 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
-  p_flow_step_id => 101,
+  p_flow_step_id => 11,
   p_process_sequence=> 20,
   p_process_point=> 'AFTER_SUBMIT',
   p_process_type=> 'PLSQL',
@@ -1269,8 +1300,68 @@ end;
  
 begin
  
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||'11';
+
+wwv_flow_api.create_page_process(
+  p_id     => 49413210703278502540 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 11,
+  p_process_sequence=> 30,
+  p_process_point=> 'AFTER_SUBMIT',
+  p_process_type=> 'CLEAR_CACHE_FOR_PAGES',
+  p_process_name=> 'Clear Page(s) Cache',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'INLINE_IN_NOTIFICATION',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+  p varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+p:=p||':P11_USERNAME := apex_authentication.get_login_username_cookie;';
+
+wwv_flow_api.create_page_process(
+  p_id     => 49413210501006502540 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id => 11,
+  p_process_sequence=> 10,
+  p_process_point=> 'BEFORE_HEADER',
+  p_process_type=> 'PLSQL',
+  p_process_name=> 'Get Username Cookie',
+  p_process_sql_clob => p,
+  p_process_error_message=> '',
+  p_error_display_location=> 'ON_ERROR_PAGE',
+  p_process_success_message=> '',
+  p_process_is_stateful_y_n=>'N',
+  p_process_comment=>'');
+end;
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
 ---------------------------------------
--- ...updatable report columns for page 101
+-- ...updatable report columns for page 11
 --
  
 begin
@@ -1291,7 +1382,7 @@ prompt  ...breadcrumbs
 begin
  
 wwv_flow_api.create_menu (
-  p_id=> 2524620473817098 + wwv_flow_api.g_id_offset,
+  p_id=> 98828887659352776160 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_name=> ' Breadcrumb');
  
@@ -1300,15 +1391,15 @@ null;
 end;
 /
 
-prompt  ...page templates for application: 102
+prompt  ...page templates for application: 26482
 --
 --application/shared_components/user_interface/templates/page/login
-prompt  ......Page template 2512515661817076
+prompt  ......Page template 98828875554540776138
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2512515661817076 + wwv_flow_api.g_id_offset
+  p_id => 98828875554540776138 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Login'
@@ -1388,12 +1479,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/minimal_page
-prompt  ......Page template 2512622937817078
+prompt  ......Page template 98828875661816776140
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2512622937817078 + wwv_flow_api.g_id_offset
+  p_id => 98828875661816776140 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Minimal Page'
@@ -1506,6 +1597,7 @@ wwv_flow_api.create_template (
  ,p_grid_emit_empty_leading_cols => true
  ,p_grid_emit_empty_trail_cols => false
  ,p_has_edit_links => true
+ ,p_translate_this_template => 'N'
   );
 null;
  
@@ -1513,12 +1605,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/no_tabs_left_sidebar
-prompt  ......Page template 2512722801817078
+prompt  ......Page template 98828875761680776140
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2512722801817078 + wwv_flow_api.g_id_offset
+  p_id => 98828875761680776140 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'No Tabs - Left Sidebar'
@@ -1641,12 +1733,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/no_tabs_left_and_right_sidebar
-prompt  ......Page template 2512802475817078
+prompt  ......Page template 98828875841354776140
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2512802475817078 + wwv_flow_api.g_id_offset
+  p_id => 98828875841354776140 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'No Tabs - Left and Right Sidebar'
@@ -1773,12 +1865,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/no_tabs_no_sidebar
-prompt  ......Page template 2512906311817078
+prompt  ......Page template 98828875945190776140
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2512906311817078 + wwv_flow_api.g_id_offset
+  p_id => 98828875945190776140 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'No Tabs - No Sidebar'
@@ -1907,12 +1999,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/no_tabs_right_sidebar
-prompt  ......Page template 2513025818817078
+prompt  ......Page template 98828876064697776140
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513025818817078 + wwv_flow_api.g_id_offset
+  p_id => 98828876064697776140 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'No Tabs - Right Sidebar'
@@ -2035,12 +2127,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/one_level_tabs_content_frame
-prompt  ......Page template 2513103641817079
+prompt  ......Page template 98828876142520776141
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513103641817079 + wwv_flow_api.g_id_offset
+  p_id => 98828876142520776141 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'One Level Tabs - Content Frame'
@@ -2181,12 +2273,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/one_level_tabs_left_sidebar
-prompt  ......Page template 2513230851817079
+prompt  ......Page template 98828876269730776141
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513230851817079 + wwv_flow_api.g_id_offset
+  p_id => 98828876269730776141 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'One Level Tabs - Left Sidebar'
@@ -2319,12 +2411,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/one_level_tabs_left_and_right_sidebar
-prompt  ......Page template 2513316917817079
+prompt  ......Page template 98828876355796776141
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513316917817079 + wwv_flow_api.g_id_offset
+  p_id => 98828876355796776141 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'One Level Tabs - Left and Right Sidebar'
@@ -2461,12 +2553,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/one_level_tabs_no_sidebar
-prompt  ......Page template 2513406317817079
+prompt  ......Page template 98828876445196776141
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513406317817079 + wwv_flow_api.g_id_offset
+  p_id => 98828876445196776141 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'One Level Tabs - No Sidebar'
@@ -2578,6 +2670,7 @@ wwv_flow_api.create_template (
  ,p_grid_emit_empty_leading_cols => true
  ,p_grid_emit_empty_trail_cols => false
  ,p_has_edit_links => true
+ ,p_translate_this_template => 'N'
   );
 null;
  
@@ -2585,12 +2678,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/one_level_tabs_right_sidebar
-prompt  ......Page template 2513513730817079
+prompt  ......Page template 98828876552609776141
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513513730817079 + wwv_flow_api.g_id_offset
+  p_id => 98828876552609776141 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'One Level Tabs - Right Sidebar'
@@ -2721,12 +2814,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/one_level_tabs_search_filter_bar
-prompt  ......Page template 2513629049817081
+prompt  ......Page template 98828876667928776143
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513629049817081 + wwv_flow_api.g_id_offset
+  p_id => 98828876667928776143 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'One Level Tabs - Search Filter Bar'
@@ -2858,12 +2951,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/one_level_tabs_wizard_page
-prompt  ......Page template 2513701938817081
+prompt  ......Page template 98828876740817776143
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513701938817081 + wwv_flow_api.g_id_offset
+  p_id => 98828876740817776143 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'One Level Tabs - Wizard Page'
@@ -2999,12 +3092,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/popup
-prompt  ......Page template 2513815159817081
+prompt  ......Page template 98828876854038776143
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513815159817081 + wwv_flow_api.g_id_offset
+  p_id => 98828876854038776143 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Popup'
@@ -3104,12 +3197,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/printer_friendly
-prompt  ......Page template 2513917170817081
+prompt  ......Page template 98828876956049776143
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2513917170817081 + wwv_flow_api.g_id_offset
+  p_id => 98828876956049776143 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Printer Friendly'
@@ -3231,12 +3324,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/two_level_tabs_left_sidebar
-prompt  ......Page template 2514027360817081
+prompt  ......Page template 98828877066239776143
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2514027360817081 + wwv_flow_api.g_id_offset
+  p_id => 98828877066239776143 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Two Level Tabs - Left Sidebar'
@@ -3374,12 +3467,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/two_level_tabs_left_and_right_sidebar
-prompt  ......Page template 2514132021817082
+prompt  ......Page template 98828877170900776144
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2514132021817082 + wwv_flow_api.g_id_offset
+  p_id => 98828877170900776144 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Two Level Tabs - Left and Right Sidebar'
@@ -3522,12 +3615,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/two_level_tabs_no_sidebar
-prompt  ......Page template 2514229418817082
+prompt  ......Page template 98828877268297776144
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2514229418817082 + wwv_flow_api.g_id_offset
+  p_id => 98828877268297776144 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Two Level Tabs - No Sidebar'
@@ -3656,12 +3749,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/page/two_level_tabs_right_sidebar
-prompt  ......Page template 2514329187817082
+prompt  ......Page template 98828877368066776144
  
 begin
  
 wwv_flow_api.create_template (
-  p_id => 2514329187817082 + wwv_flow_api.g_id_offset
+  p_id => 98828877368066776144 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_theme_id => 26
  ,p_name => 'Two Level Tabs - Right Sidebar'
@@ -3800,12 +3893,12 @@ end;
 prompt  ...button templates
 --
 --application/shared_components/user_interface/templates/button/button
-prompt  ......Button Template 2521603431817092
+prompt  ......Button Template 98828884642310776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2521603431817092 + wwv_flow_api.g_id_offset
+  p_id => 98828884642310776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => 'Button'
  ,p_template => 
@@ -3822,12 +3915,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/interactive_report_button
-prompt  ......Button Template 2521713187817092
+prompt  ......Button Template 98828884752066776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2521713187817092 + wwv_flow_api.g_id_offset
+  p_id => 98828884752066776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => 'Interactive Report Button'
  ,p_template => 
@@ -3844,12 +3937,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/interactive_report_button_next
-prompt  ......Button Template 2521825031817092
+prompt  ......Button Template 98828884863910776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2521825031817092 + wwv_flow_api.g_id_offset
+  p_id => 98828884863910776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => 'Interactive Report Button (Next)'
  ,p_template => 
@@ -3867,12 +3960,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/large_button
-prompt  ......Button Template 2521917020817092
+prompt  ......Button Template 98828884955899776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2521917020817092 + wwv_flow_api.g_id_offset
+  p_id => 98828884955899776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => 'Large Button'
  ,p_template => 
@@ -3890,12 +3983,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/large_button_next
-prompt  ......Button Template 2522018386817092
+prompt  ......Button Template 98828885057265776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2522018386817092 + wwv_flow_api.g_id_offset
+  p_id => 98828885057265776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => 'Large Button (Next)'
  ,p_template => 
@@ -3913,12 +4006,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/large_button_previous
-prompt  ......Button Template 2522106187817092
+prompt  ......Button Template 98828885145066776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2522106187817092 + wwv_flow_api.g_id_offset
+  p_id => 98828885145066776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => 'Large Button (Previous)'
  ,p_template => 
@@ -3936,12 +4029,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/small_button
-prompt  ......Button Template 2522220996817092
+prompt  ......Button Template 98828885259875776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2522220996817092 + wwv_flow_api.g_id_offset
+  p_id => 98828885259875776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => 'Small Button'
  ,p_template => 
@@ -3958,12 +4051,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/add_button
-prompt  ......Button Template 2522332305817092
+prompt  ......Button Template 98828885371184776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2522332305817092 + wwv_flow_api.g_id_offset
+  p_id => 98828885371184776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => '[ + ] Add Button'
  ,p_template => 
@@ -3980,12 +4073,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/go_to_button
-prompt  ......Button Template 2522402398817092
+prompt  ......Button Template 98828885441277776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2522402398817092 + wwv_flow_api.g_id_offset
+  p_id => 98828885441277776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => '[ > ] Go To Button'
  ,p_template => 
@@ -4002,12 +4095,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/button/text_button
-prompt  ......Button Template 2522514066817092
+prompt  ......Button Template 98828885552945776154
  
 begin
  
 wwv_flow_api.create_button_templates (
-  p_id => 2522514066817092 + wwv_flow_api.g_id_offset
+  p_id => 98828885552945776154 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_template_name => '[ Text ] Button'
  ,p_template => 
@@ -4027,12 +4120,12 @@ end;
 prompt  ...region templates
 --
 --application/shared_components/user_interface/templates/region/accessible_region_with_heading
-prompt  ......region template 2514420647817082
+prompt  ......region template 98828877459526776144
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2514420647817082 + wwv_flow_api.g_id_offset
+  p_id => 98828877459526776144 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4053,12 +4146,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/alert_region
-prompt  ......region template 2514511122817084
+prompt  ......region template 98828877550001776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2514511122817084 + wwv_flow_api.g_id_offset
+  p_id => 98828877550001776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4090,12 +4183,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/borderless_region
-prompt  ......region template 2514618612817084
+prompt  ......region template 98828877657491776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2514618612817084 + wwv_flow_api.g_id_offset
+  p_id => 98828877657491776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4128,12 +4221,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/borderless_region_no_heading
-prompt  ......region template 2514708381817084
+prompt  ......region template 98828877747260776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2514708381817084 + wwv_flow_api.g_id_offset
+  p_id => 98828877747260776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4158,12 +4251,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/bracketed_region
-prompt  ......region template 2514826916817084
+prompt  ......region template 98828877865795776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2514826916817084 + wwv_flow_api.g_id_offset
+  p_id => 98828877865795776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4196,12 +4289,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/breadcrumb_region
-prompt  ......region template 2514905774817084
+prompt  ......region template 98828877944653776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2514905774817084 + wwv_flow_api.g_id_offset
+  p_id => 98828877944653776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4226,12 +4319,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/button_region_with_title
-prompt  ......region template 2515014952817084
+prompt  ......region template 98828878053831776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515014952817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878053831776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4256,12 +4349,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/button_region_without_title
-prompt  ......region template 2515102228817084
+prompt  ......region template 98828878141107776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515102228817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878141107776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4286,12 +4379,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/chart_list
-prompt  ......region template 2515202083817084
+prompt  ......region template 98828878240962776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515202083817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878240962776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4323,12 +4416,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/chart_region
-prompt  ......region template 2515330434817084
+prompt  ......region template 98828878369313776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515330434817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878369313776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4360,12 +4453,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/content_frame_body_container
-prompt  ......region template 2515426988817084
+prompt  ......region template 98828878465867776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515426988817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878465867776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4394,12 +4487,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/div_region_with_id
-prompt  ......region template 2515520516817084
+prompt  ......region template 98828878559395776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515520516817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878559395776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4420,12 +4513,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/form_region
-prompt  ......region template 2515615407817084
+prompt  ......region template 98828878654286776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515615407817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878654286776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4457,12 +4550,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/hide_and_show_region
-prompt  ......region template 2515716947817084
+prompt  ......region template 98828878755826776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515716947817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878755826776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4494,12 +4587,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/hide_and_show_region_hidden_first_borderless
-prompt  ......region template 2515812708817084
+prompt  ......region template 98828878851587776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515812708817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878851587776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4531,12 +4624,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/hide_and_show_region_borderless
-prompt  ......region template 2515912523817084
+prompt  ......region template 98828878951402776146
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2515912523817084 + wwv_flow_api.g_id_offset
+  p_id => 98828878951402776146 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4568,12 +4661,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/interactive_report_region
-prompt  ......region template 2516025119817085
+prompt  ......region template 98828879063998776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516025119817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879063998776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4594,12 +4687,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/login_region
-prompt  ......region template 2516124463817085
+prompt  ......region template 98828879163342776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516124463817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879163342776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4636,12 +4729,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/modal_region
-prompt  ......region template 2516213471817085
+prompt  ......region template 98828879252350776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516213471817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879252350776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4674,12 +4767,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/navigation_region
-prompt  ......region template 2516312454817085
+prompt  ......region template 98828879351333776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516312454817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879351333776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4707,12 +4800,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/navigation_region_heading_inside
-prompt  ......region template 2516419173817085
+prompt  ......region template 98828879458052776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516419173817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879458052776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4740,12 +4833,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/region_without_buttons_and_titles
-prompt  ......region template 2516508844817085
+prompt  ......region template 98828879547723776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516508844817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879547723776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4767,12 +4860,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/region_without_title
-prompt  ......region template 2516609473817085
+prompt  ......region template 98828879648352776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516609473817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879648352776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4799,12 +4892,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/report_filter_single_row
-prompt  ......region template 2516709744817085
+prompt  ......region template 98828879748623776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516709744817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879748623776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4835,12 +4928,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/report_list
-prompt  ......region template 2516824467817085
+prompt  ......region template 98828879863346776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516824467817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879863346776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4871,12 +4964,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/reports_region
-prompt  ......region template 2516927069817085
+prompt  ......region template 98828879965948776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2516927069817085 + wwv_flow_api.g_id_offset
+  p_id => 98828879965948776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4908,12 +5001,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/reports_region_100_width
-prompt  ......region template 2517024112817085
+prompt  ......region template 98828880062991776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517024112817085 + wwv_flow_api.g_id_offset
+  p_id => 98828880062991776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4945,12 +5038,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/reports_region_heading_inside
-prompt  ......region template 2517101943817085
+prompt  ......region template 98828880140822776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517101943817085 + wwv_flow_api.g_id_offset
+  p_id => 98828880140822776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -4982,12 +5075,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/scrollable_content_region
-prompt  ......region template 2517228590817085
+prompt  ......region template 98828880267469776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517228590817085 + wwv_flow_api.g_id_offset
+  p_id => 98828880267469776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5017,12 +5110,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/search_filter_region
-prompt  ......region template 2517331861817085
+prompt  ......region template 98828880370740776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517331861817085 + wwv_flow_api.g_id_offset
+  p_id => 98828880370740776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5053,12 +5146,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/sidebar_region
-prompt  ......region template 2517405187817085
+prompt  ......region template 98828880444066776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517405187817085 + wwv_flow_api.g_id_offset
+  p_id => 98828880444066776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5151,12 +5244,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/sidebar_region_heading_inside
-prompt  ......region template 2517516192817085
+prompt  ......region template 98828880555071776147
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517516192817085 + wwv_flow_api.g_id_offset
+  p_id => 98828880555071776147 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5187,12 +5280,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/wizard_buttons
-prompt  ......region template 2517605560817087
+prompt  ......region template 98828880644439776149
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517605560817087 + wwv_flow_api.g_id_offset
+  p_id => 98828880644439776149 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5215,12 +5308,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/wizard_region
-prompt  ......region template 2517700959817087
+prompt  ......region template 98828880739838776149
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517700959817087 + wwv_flow_api.g_id_offset
+  p_id => 98828880739838776149 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5248,12 +5341,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/wizard_region_with_icon
-prompt  ......region template 2517810279817087
+prompt  ......region template 98828880849158776149
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517810279817087 + wwv_flow_api.g_id_offset
+  p_id => 98828880849158776149 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5281,12 +5374,12 @@ end;
 /
 
 --application/shared_components/user_interface/templates/region/jquery_modal_region_template
-prompt  ......region template 2517932701817087
+prompt  ......region template 98828880971580776149
  
 begin
  
 wwv_flow_api.create_plug_template (
-  p_id => 2517932701817087 + wwv_flow_api.g_id_offset
+  p_id => 98828880971580776149 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_layout => 'TABLE'
  ,p_template => 
@@ -5308,7 +5401,7 @@ end;
 prompt  ...List Templates
 --
 --application/shared_components/user_interface/templates/list/button_list
-prompt  ......list template 2519100440817089
+prompt  ......list template 98828882139319776151
  
 begin
  
@@ -5342,7 +5435,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2519100440817089 + wwv_flow_api.g_id_offset,
+  p_id=>98828882139319776151 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5360,7 +5453,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/dhtml_tree
-prompt  ......list template 2519201875817089
+prompt  ......list template 98828882240754776151
  
 begin
  
@@ -5400,7 +5493,7 @@ t7:=t7||'<li><a href="#LINK#">#TEXT#</a></li>';
 t8:=t8||'<li><a href="#LINK#">#TEXT#</a></li>';
 
 wwv_flow_api.create_list_template (
-  p_id=>2519201875817089 + wwv_flow_api.g_id_offset,
+  p_id=>98828882240754776151 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5426,7 +5519,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/featured_list_with_subtext
-prompt  ......list template 2519302048817089
+prompt  ......list template 98828882340927776151
  
 begin
  
@@ -5470,7 +5563,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2519302048817089 + wwv_flow_api.g_id_offset,
+  p_id=>98828882340927776151 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5488,7 +5581,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/hierarchical_expanding
-prompt  ......list template 2519401303817089
+prompt  ......list template 98828882440182776151
  
 begin
  
@@ -5528,7 +5621,7 @@ t7:=t7||'<li><img src="#IMAGE_PREFIX#themes/theme_13/plus.gif" onclick="htmldb_T
 t8:=t8||'<li><img src="#IMAGE_PREFIX#themes/theme_13/plus.gif" onclick="htmldb_ToggleWithImage(this,''#LIST_ITEM_ID#'')" align="middle" class="pseudoButtonInactive" alt="" /><a href="#LINK#">#TEXT#</a></li>';
 
 wwv_flow_api.create_list_template (
-  p_id=>2519401303817089 + wwv_flow_api.g_id_offset,
+  p_id=>98828882440182776151 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5554,7 +5647,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/horizontal_images_with_label_list
-prompt  ......list template 2519509990817089
+prompt  ......list template 98828882548869776151
  
 begin
  
@@ -5598,7 +5691,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2519509990817089 + wwv_flow_api.g_id_offset,
+  p_id=>98828882548869776151 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5618,7 +5711,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/horizontal_links_list
-prompt  ......list template 2519629393817089
+prompt  ......list template 98828882668272776151
  
 begin
  
@@ -5652,7 +5745,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2519629393817089 + wwv_flow_api.g_id_offset,
+  p_id=>98828882668272776151 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5670,7 +5763,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/horizontal_wizard_progress_list
-prompt  ......list template 2519704242817090
+prompt  ......list template 98828882743121776152
  
 begin
  
@@ -5708,7 +5801,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2519704242817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828882743121776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5728,7 +5821,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/page_level_tabs_list
-prompt  ......list template 2519829051817090
+prompt  ......list template 98828882867930776152
  
 begin
  
@@ -5762,7 +5855,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2519829051817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828882867930776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5782,7 +5875,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/pull_down_menu
-prompt  ......list template 2519905951817090
+prompt  ......list template 98828882944830776152
  
 begin
  
@@ -5823,7 +5916,7 @@ t7:=t7||'<li class="dhtmlSubMenuS"><a href="#LINK#" class="dhtmlSubMenuS" onmous
 t8:=t8||'<li class="dhtmlSubMenuS"><a href="#LINK#" class="dhtmlSubMenuS" onmouseover="dhtml_MenuOpen(this,''#LIST_ITEM_ID#'',true,''Left'')"><span style="float:left;">#TEXT#</span><img class="t13MIMG" src="#IMAGE_PREFIX#menu_open_right2.gif" alt="" / ></a></li>';
 
 wwv_flow_api.create_list_template (
-  p_id=>2519905951817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828882944830776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5849,7 +5942,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/pull_down_menu_with_image
-prompt  ......list template 2520031762817090
+prompt  ......list template 98828883070641776152
  
 begin
  
@@ -5893,7 +5986,7 @@ t7:=t7||'<li class="dhtmlSubMenuS"><a href="#LINK#" class="dhtmlSubMenuS" onmous
 t8:=t8||'<li class="dhtmlSubMenuS"><a href="#LINK#" class="dhtmlSubMenuS" onmouseover="dhtml_MenuOpen(this,''S#LIST_ITEM_ID#'',true,''Left'')"><span style="float:left;">#TEXT#</span><img class="t13MIMG" src="#IMAGE_PREFIX#menu_open_right2.gif" /></a></li>';
 
 wwv_flow_api.create_list_template (
-  p_id=>2520031762817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883070641776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5919,7 +6012,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/search_filter_tabs
-prompt  ......list template 2520130927817090
+prompt  ......list template 98828883169806776152
  
 begin
  
@@ -5953,7 +6046,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520130927817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883169806776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -5971,7 +6064,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/tabbed_navigation_list
-prompt  ......list template 2520216467817090
+prompt  ......list template 98828883255346776152
  
 begin
  
@@ -6005,7 +6098,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520216467817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883255346776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6025,7 +6118,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/vertical_images_list
-prompt  ......list template 2520300636817090
+prompt  ......list template 98828883339515776152
  
 begin
  
@@ -6069,7 +6162,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520300636817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883339515776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6089,7 +6182,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/vertical_list_with_subtext_and_icon
-prompt  ......list template 2520411981817090
+prompt  ......list template 98828883450860776152
  
 begin
  
@@ -6135,7 +6228,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520411981817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883450860776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6153,7 +6246,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/vertical_ordered_list
-prompt  ......list template 2520514946817090
+prompt  ......list template 98828883553825776152
  
 begin
  
@@ -6187,7 +6280,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520514946817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883553825776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6205,7 +6298,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/vertical_sidebar_list
-prompt  ......list template 2520632344817090
+prompt  ......list template 98828883671223776152
  
 begin
  
@@ -6239,7 +6332,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520632344817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883671223776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6257,7 +6350,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/vertical_unordered_list_with_bullets
-prompt  ......list template 2520702124817090
+prompt  ......list template 98828883741003776152
  
 begin
  
@@ -6291,7 +6384,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520702124817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883741003776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6309,7 +6402,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/vertical_unordered_list_without_bullets
-prompt  ......list template 2520818196817090
+prompt  ......list template 98828883857075776152
  
 begin
  
@@ -6343,7 +6436,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520818196817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883857075776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6361,7 +6454,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/list/wizard_progress_list_vertical
-prompt  ......list template 2520928050817090
+prompt  ......list template 98828883966929776152
  
 begin
  
@@ -6395,7 +6488,7 @@ t6 := null;
 t7 := null;
 t8 := null;
 wwv_flow_api.create_list_template (
-  p_id=>2520928050817090 + wwv_flow_api.g_id_offset,
+  p_id=>98828883966929776152 + wwv_flow_api.g_id_offset,
   p_flow_id=>wwv_flow.g_flow_id,
   p_list_template_current=>t,
   p_list_template_noncurrent=> t2,
@@ -6415,7 +6508,7 @@ end;
 prompt  ...report templates
 --
 --application/shared_components/user_interface/templates/report/borderless_report
-prompt  ......report template 2518024056817087
+prompt  ......report template 98828881062935776149
  
 begin
  
@@ -6431,7 +6524,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518024056817087 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881062935776149 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Borderless Report',
   p_row_template1=> c1,
@@ -6490,7 +6583,7 @@ begin
  
 begin
 wwv_flow_api.create_row_template_patch (
-  p_id => 2518024056817087 + wwv_flow_api.g_id_offset,
+  p_id => 98828881062935776149 + wwv_flow_api.g_id_offset,
   p_row_template_before_first =>'<tr>',
   p_row_template_after_last =>'</tr>');
 exception when others then null;
@@ -6501,7 +6594,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/comment_bubbles
-prompt  ......report template 2518115005817087
+prompt  ......report template 98828881153884776149
  
 begin
  
@@ -6525,7 +6618,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518115005817087 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881153884776149 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Comment Bubbles',
   p_row_template1=> c1,
@@ -6563,7 +6656,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/fixed_headers
-prompt  ......report template 2518227667817087
+prompt  ......report template 98828881266546776149
  
 begin
  
@@ -6579,7 +6672,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518227667817087 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881266546776149 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Fixed Headers',
   p_row_template1=> c1,
@@ -6642,7 +6735,7 @@ begin
  
 begin
 wwv_flow_api.create_row_template_patch (
-  p_id => 2518227667817087 + wwv_flow_api.g_id_offset,
+  p_id => 98828881266546776149 + wwv_flow_api.g_id_offset,
   p_row_template_before_first =>'<tr>',
   p_row_template_after_last =>'</tr>'||unistr('\000a')||
 '');
@@ -6654,7 +6747,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/horizontal_border
-prompt  ......report template 2518322220817087
+prompt  ......report template 98828881361099776149
  
 begin
  
@@ -6670,7 +6763,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518322220817087 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881361099776149 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Horizontal Border',
   p_row_template1=> c1,
@@ -6729,7 +6822,7 @@ begin
  
 begin
 wwv_flow_api.create_row_template_patch (
-  p_id => 2518322220817087 + wwv_flow_api.g_id_offset,
+  p_id => 98828881361099776149 + wwv_flow_api.g_id_offset,
   p_row_template_before_first =>'<tr>',
   p_row_template_after_last =>'</tr>');
 exception when others then null;
@@ -6740,7 +6833,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/one_column_unordered_list
-prompt  ......report template 2518407052817087
+prompt  ......report template 98828881445931776149
  
 begin
  
@@ -6756,7 +6849,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518407052817087 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881445931776149 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'One Column Unordered List',
   p_row_template1=> c1,
@@ -6809,7 +6902,7 @@ begin
  
 begin
 wwv_flow_api.create_row_template_patch (
-  p_id => 2518407052817087 + wwv_flow_api.g_id_offset,
+  p_id => 98828881445931776149 + wwv_flow_api.g_id_offset,
   p_row_template_before_first =>'OMIT',
   p_row_template_after_last =>'OMIT');
 exception when others then null;
@@ -6820,7 +6913,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/search_results_report_select_link_text_link_target_detail1_detail2_last_modified
-prompt  ......report template 2518512673817087
+prompt  ......report template 98828881551552776149
  
 begin
  
@@ -6840,7 +6933,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518512673817087 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881551552776149 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Search Results Report (SELECT link_text, link_target, detail1, detail2, last_modified)',
   p_row_template1=> c1,
@@ -6878,7 +6971,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/standard
-prompt  ......report template 2518625647817087
+prompt  ......report template 98828881664526776149
  
 begin
  
@@ -6894,7 +6987,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518625647817087 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881664526776149 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Standard',
   p_row_template1=> c1,
@@ -6953,7 +7046,7 @@ begin
  
 begin
 wwv_flow_api.create_row_template_patch (
-  p_id => 2518625647817087 + wwv_flow_api.g_id_offset,
+  p_id => 98828881664526776149 + wwv_flow_api.g_id_offset,
   p_row_template_before_first =>'<tr>',
   p_row_template_after_last =>'</tr>');
 exception when others then null;
@@ -6964,7 +7057,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/standard_alternative
-prompt  ......report template 2518730930817089
+prompt  ......report template 98828881769809776151
  
 begin
  
@@ -6981,7 +7074,7 @@ c3:=c3||'<td #ALIGNMENT# headers="#COLUMN_HEADER_NAME#" class="uOddRow">#COLUMN_
 
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518730930817089 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881769809776151 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Standard - Alternative',
   p_row_template1=> c1,
@@ -7038,7 +7131,7 @@ begin
  
 begin
 wwv_flow_api.create_row_template_patch (
-  p_id => 2518730930817089 + wwv_flow_api.g_id_offset,
+  p_id => 98828881769809776151 + wwv_flow_api.g_id_offset,
   p_row_template_before_first =>'<tr>',
   p_row_template_after_last =>'</tr>'||unistr('\000a')||
 '');
@@ -7050,7 +7143,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/two_column_portlet
-prompt  ......report template 2518806066817089
+prompt  ......report template 98828881844945776151
  
 begin
  
@@ -7073,7 +7166,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518806066817089 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881844945776151 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Two Column Portlet',
   p_row_template1=> c1,
@@ -7104,7 +7197,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/value_attribute_pairs
-prompt  ......report template 2518916650817089
+prompt  ......report template 98828881955529776151
  
 begin
  
@@ -7127,7 +7220,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2518916650817089 + wwv_flow_api.g_id_offset,
+  p_id=> 98828881955529776151 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Value Attribute Pairs',
   p_row_template1=> c1,
@@ -7158,7 +7251,7 @@ end;
 /
 
 --application/shared_components/user_interface/templates/report/value_attribute_pairs_left_aligned
-prompt  ......report template 2519020352817089
+prompt  ......report template 98828882059231776151
  
 begin
  
@@ -7181,7 +7274,7 @@ c2 := null;
 c3 := null;
 c4 := null;
 wwv_flow_api.create_row_template (
-  p_id=> 2519020352817089 + wwv_flow_api.g_id_offset,
+  p_id=> 98828882059231776151 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_row_template_name=> 'Value Attribute Pairs - Left Aligned',
   p_row_template1=> c1,
@@ -7214,13 +7307,13 @@ end;
 prompt  ...label templates
 --
 --application/shared_components/user_interface/templates/label/hidden_label_read_by_screen_reader
-prompt  ......label template 2521016250817090
+prompt  ......label template 98828884055129776152
  
 begin
  
 begin
 wwv_flow_api.create_field_template (
-  p_id=> 2521016250817090 + wwv_flow_api.g_id_offset,
+  p_id=> 98828884055129776152 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_template_name=>'Hidden label, read by screen reader',
   p_template_body1=>'<label for="#CURRENT_ITEM_NAME#" tabindex="999" class="hideMeButHearMe">',
@@ -7240,13 +7333,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/label/no_label
-prompt  ......label template 2521101739817092
+prompt  ......label template 98828884140618776154
  
 begin
  
 begin
 wwv_flow_api.create_field_template (
-  p_id=> 2521101739817092 + wwv_flow_api.g_id_offset,
+  p_id=> 98828884140618776154 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_template_name=>'No Label',
   p_template_body1=>'<span class="uNoLabel">',
@@ -7266,13 +7359,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/label/optional
-prompt  ......label template 2521206691817092
+prompt  ......label template 98828884245570776154
  
 begin
  
 begin
 wwv_flow_api.create_field_template (
-  p_id=> 2521206691817092 + wwv_flow_api.g_id_offset,
+  p_id=> 98828884245570776154 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_template_name=>'Optional',
   p_template_body1=>'<label for="#CURRENT_ITEM_NAME#" class="uOptional">',
@@ -7292,13 +7385,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/label/optional_with_help
-prompt  ......label template 2521309081817092
+prompt  ......label template 98828884347960776154
  
 begin
  
 begin
 wwv_flow_api.create_field_template (
-  p_id=> 2521309081817092 + wwv_flow_api.g_id_offset,
+  p_id=> 98828884347960776154 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_template_name=>'Optional with help',
   p_template_body1=>'<label for="#CURRENT_ITEM_NAME#" class="uOptional"><a class="uHelpLink" href="javascript:popupFieldHelp(''#CURRENT_ITEM_ID#'',''&SESSION.'')" tabindex="999">',
@@ -7318,13 +7411,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/label/required
-prompt  ......label template 2521405457817092
+prompt  ......label template 98828884444336776154
  
 begin
  
 begin
 wwv_flow_api.create_field_template (
-  p_id=> 2521405457817092 + wwv_flow_api.g_id_offset,
+  p_id=> 98828884444336776154 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_template_name=>'Required',
   p_template_body1=>'<label for="#CURRENT_ITEM_NAME#" class="uRequired">',
@@ -7344,13 +7437,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/label/required_with_help
-prompt  ......label template 2521501792817092
+prompt  ......label template 98828884540671776154
  
 begin
  
 begin
 wwv_flow_api.create_field_template (
-  p_id=> 2521501792817092 + wwv_flow_api.g_id_offset,
+  p_id=> 98828884540671776154 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_template_name=>'Required with help',
   p_template_body1=>'<label for="#CURRENT_ITEM_NAME#" class="uRequired"><a class="uHelpLink" href="javascript:popupFieldHelp(''#CURRENT_ITEM_ID#'',''&SESSION.'')" tabindex="999">',
@@ -7372,13 +7465,13 @@ end;
 prompt  ...breadcrumb templates
 --
 --application/shared_components/user_interface/templates/breadcrumb/breadcrumb_menu
-prompt  ......template 2522603482817092
+prompt  ......template 98828885642361776154
  
 begin
  
 begin
 wwv_flow_api.create_menu_template (
-  p_id=> 2522603482817092 + wwv_flow_api.g_id_offset,
+  p_id=> 98828885642361776154 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_name=>'Breadcrumb Menu',
   p_before_first=>'<ul>',
@@ -7400,13 +7493,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/breadcrumb/hierarchical_menu
-prompt  ......template 2522713968817093
+prompt  ......template 98828885752847776155
  
 begin
  
 begin
 wwv_flow_api.create_menu_template (
-  p_id=> 2522713968817093 + wwv_flow_api.g_id_offset,
+  p_id=> 98828885752847776155 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_name=>'Hierarchical Menu',
   p_before_first=>'<ul class="t1HierarchicalMenu">',
@@ -7430,13 +7523,13 @@ end;
 --application/shared_components/user_interface/templates/popuplov
 prompt  ...popup list of values templates
 --
-prompt  ......template 2523122759817093
+prompt  ......template 98828886161638776155
  
 begin
  
 begin
 wwv_flow_api.create_popup_lov_template (
-  p_id=> 2523122759817093 + wwv_flow_api.g_id_offset,
+  p_id=> 98828886161638776155 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_popup_icon=>'#IMAGE_PREFIX#f_spacer.gif',
   p_popup_icon_attr=>'alt="#LIST_OF_VALUES#" title="#LIST_OF_VALUES#" class="uPopupLOVIcon"',
@@ -7487,13 +7580,13 @@ end;
 prompt  ...calendar templates
 --
 --application/shared_components/user_interface/templates/calendar/calendar
-prompt  ......template 2522821728817093
+prompt  ......template 98828885860607776155
  
 begin
  
 begin
 wwv_flow_api.create_calendar_template(
-  p_id=> 2522821728817093 + wwv_flow_api.g_id_offset,
+  p_id=> 98828885860607776155 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_cal_template_name=>'Calendar',
   p_translate_this_template=> 'N',
@@ -7622,13 +7715,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/calendar/calendar_alternative
-prompt  ......template 2522912192817093
+prompt  ......template 98828885951071776155
  
 begin
  
 begin
 wwv_flow_api.create_calendar_template(
-  p_id=> 2522912192817093 + wwv_flow_api.g_id_offset,
+  p_id=> 98828885951071776155 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_cal_template_name=>'Calendar - Alternative',
   p_translate_this_template=> 'N',
@@ -7757,13 +7850,13 @@ end;
 /
 
 --application/shared_components/user_interface/templates/calendar/small_calendar
-prompt  ......template 2523026098817093
+prompt  ......template 98828886064977776155
  
 begin
  
 begin
 wwv_flow_api.create_calendar_template(
-  p_id=> 2523026098817093 + wwv_flow_api.g_id_offset,
+  p_id=> 98828886064977776155 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_cal_template_name=>'Small Calendar',
   p_translate_this_template=> 'N',
@@ -7888,42 +7981,42 @@ end;
 prompt  ...application themes
 --
 --application/shared_components/user_interface/themes/productivity_applications
-prompt  ......theme 2523222543817095
+prompt  ......theme 98828886261422776157
 begin
 wwv_flow_api.create_theme (
-  p_id =>2523222543817095 + wwv_flow_api.g_id_offset,
+  p_id =>98828886261422776157 + wwv_flow_api.g_id_offset,
   p_flow_id =>wwv_flow.g_flow_id,
   p_theme_id  => 26,
   p_theme_name=>'Productivity Applications',
   p_ui_type_name=>'DESKTOP',
   p_is_locked=>false,
-  p_default_page_template=>2513406317817079 + wwv_flow_api.g_id_offset,
-  p_error_template=>2512906311817078 + wwv_flow_api.g_id_offset,
-  p_printer_friendly_template=>2513917170817081 + wwv_flow_api.g_id_offset,
+  p_default_page_template=>98828876445196776141 + wwv_flow_api.g_id_offset,
+  p_error_template=>98828875945190776140 + wwv_flow_api.g_id_offset,
+  p_printer_friendly_template=>98828876956049776143 + wwv_flow_api.g_id_offset,
   p_breadcrumb_display_point=>'REGION_POSITION_01',
   p_sidebar_display_point=>'REGION_POSITION_02',
-  p_login_template=>2512515661817076 + wwv_flow_api.g_id_offset,
-  p_default_button_template=>2521603431817092 + wwv_flow_api.g_id_offset,
-  p_default_region_template=>2516927069817085 + wwv_flow_api.g_id_offset,
-  p_default_chart_template =>2515330434817084 + wwv_flow_api.g_id_offset,
-  p_default_form_template  =>2515615407817084 + wwv_flow_api.g_id_offset,
-  p_default_reportr_template   =>2516927069817085 + wwv_flow_api.g_id_offset,
-  p_default_tabform_template=>2516927069817085 + wwv_flow_api.g_id_offset,
-  p_default_wizard_template=>2517700959817087 + wwv_flow_api.g_id_offset,
-  p_default_menur_template=>2514905774817084 + wwv_flow_api.g_id_offset,
-  p_default_listr_template=>2515202083817084 + wwv_flow_api.g_id_offset,
-  p_default_irr_template=>2516025119817085 + wwv_flow_api.g_id_offset,
-  p_default_report_template   =>2518625647817087 + wwv_flow_api.g_id_offset,
-  p_default_label_template=>2521206691817092 + wwv_flow_api.g_id_offset,
-  p_default_menu_template=>2522603482817092 + wwv_flow_api.g_id_offset,
-  p_default_calendar_template=>2522821728817093 + wwv_flow_api.g_id_offset,
-  p_default_list_template=>2520702124817090 + wwv_flow_api.g_id_offset,
-  p_default_option_label=>2521309081817092 + wwv_flow_api.g_id_offset,
+  p_login_template=>98828875554540776138 + wwv_flow_api.g_id_offset,
+  p_default_button_template=>98828884642310776154 + wwv_flow_api.g_id_offset,
+  p_default_region_template=>98828879965948776147 + wwv_flow_api.g_id_offset,
+  p_default_chart_template =>98828878369313776146 + wwv_flow_api.g_id_offset,
+  p_default_form_template  =>98828878654286776146 + wwv_flow_api.g_id_offset,
+  p_default_reportr_template   =>98828879965948776147 + wwv_flow_api.g_id_offset,
+  p_default_tabform_template=>98828879965948776147 + wwv_flow_api.g_id_offset,
+  p_default_wizard_template=>98828880739838776149 + wwv_flow_api.g_id_offset,
+  p_default_menur_template=>98828877944653776146 + wwv_flow_api.g_id_offset,
+  p_default_listr_template=>98828878240962776146 + wwv_flow_api.g_id_offset,
+  p_default_irr_template=>98828879063998776147 + wwv_flow_api.g_id_offset,
+  p_default_report_template   =>98828881664526776149 + wwv_flow_api.g_id_offset,
+  p_default_label_template=>98828884245570776154 + wwv_flow_api.g_id_offset,
+  p_default_menu_template=>98828885642361776154 + wwv_flow_api.g_id_offset,
+  p_default_calendar_template=>98828885860607776155 + wwv_flow_api.g_id_offset,
+  p_default_list_template=>98828883741003776152 + wwv_flow_api.g_id_offset,
+  p_default_option_label=>98828884347960776154 + wwv_flow_api.g_id_offset,
   p_default_header_template=>null + wwv_flow_api.g_id_offset,
   p_default_footer_template=>null + wwv_flow_api.g_id_offset,
   p_default_page_transition=>'NONE',
   p_default_popup_transition=>'NONE',
-  p_default_required_label=>2521501792817092 + wwv_flow_api.g_id_offset);
+  p_default_required_label=>98828884540671776154 + wwv_flow_api.g_id_offset);
 end;
 /
  
@@ -7958,7 +8051,7 @@ end;
 /
 
 --application/shared_components/globalization/language
-prompt  ...Language Maps for Application 102
+prompt  ...Language Maps for Application 26482
 --
  
 begin
@@ -7985,12 +8078,12 @@ prompt  ...report layouts
 prompt  ...authentication schemes
 --
 --application/shared_components/security/authentication/application_express_authentication
-prompt  ......authentication 2523501530817096
+prompt  ......authentication 98828886540409776158
  
 begin
  
 wwv_flow_api.create_authentication (
-  p_id => 2523501530817096 + wwv_flow_api.g_id_offset
+  p_id => 98828886540409776158 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_name => 'Application Express Authentication'
  ,p_scheme_type => 'NATIVE_APEX_ACCOUNTS'
@@ -8019,7 +8112,7 @@ prompt  ...plugins
 begin
  
 wwv_flow_api.create_plugin (
-  p_id => 4835324487570127 + wwv_flow_api.g_id_offset
+  p_id => 98831198363366529189 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_plugin_type => 'PROCESS TYPE'
  ,p_name => 'GPV_IR_XML'
@@ -8060,9 +8153,9 @@ wwv_flow_api.create_plugin (
  ,p_about_url => 'http://glebovpavel.github.io/plugin'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 4835641222668775 + wwv_flow_api.g_id_offset
+  p_id => 98831198680101627837 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 1
  ,p_display_sequence => 10
@@ -8076,25 +8169,25 @@ wwv_flow_api.create_plugin_attribute (
 ''
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 4835936262671086 + wwv_flow_api.g_id_offset
+  p_id => 98831198975141630148 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 4835641222668775 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 98831198680101627837 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 10
  ,p_display_value => 'Generated XML-data'
  ,p_return_value => 'X'
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 4836333243672409 + wwv_flow_api.g_id_offset
+  p_id => 98831199372122631471 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 4835641222668775 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 98831198680101627837 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 20
  ,p_display_value => 'Debug Information'
  ,p_return_value => 'Q'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 4836942264713816 + wwv_flow_api.g_id_offset
+  p_id => 98831199981143672878 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 2
  ,p_display_sequence => 20
@@ -8107,9 +8200,9 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" will be excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 4837227574751080 + wwv_flow_api.g_id_offset
+  p_id => 98831200266453710142 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 3
  ,p_display_sequence => 30
@@ -8121,9 +8214,9 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" is automatically excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 2933227631498070 + wwv_flow_api.g_id_offset
+  p_id => 98829296266510457132 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 4
  ,p_display_sequence => 40
@@ -8146,9 +8239,9 @@ wwv_flow_api.create_plugin_attribute (
 ''
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 4842850124652287 + wwv_flow_api.g_id_offset
+  p_id => 98831205889003611349 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 5
  ,p_display_sequence => 50
@@ -8177,21 +8270,11 @@ declare
     s varchar2(32767) := null;
     l_clob clob;
 begin
-s:=s||'drop package ir_to_xml;'||unistr('\000a')||
-'drop function apex_error_custom;'||unistr('\000a')||
-'drop table error_log;'||unistr('\000a')||
-'/'||unistr('\000a')||
-'';
-
+s := null;
 wwv_flow_api.create_install (
-  p_id => 2920819445927387 + wwv_flow_api.g_id_offset,
+  p_id => 49413219127950509377 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
   p_include_in_export_yn => 'Y',
-  p_deinstall_script_clob => s,
-  p_prompt_sub_string_01 => 'Y',
-  p_install_prompt_01    => 'User Name for Autologin',
-  p_prompt_sub_string_02 => 'Y',
-  p_install_prompt_02    => 'Password for Autologin',
   p_deinstall_message=> '');
 end;
  
@@ -8210,87 +8293,92 @@ declare
     l_clob clob;
     l_length number := 1;
 begin
-s:=s||'CREATE TABLE  "EBA_DEMO_IR_PROJECTS" '||unistr('\000a')||
-'   (    "ID" NUMBER, '||unistr('\000a')||
-'    "ROW_VERSION_NUMBER" NUMBER, '||unistr('\000a')||
-'    "PROJECT" VARCHAR2(30), '||unistr('\000a')||
-'    "TASK_NAME" VARCHAR2(255), '||unistr('\000a')||
-'    "START_DATE" DATE, '||unistr('\000a')||
-'    "END_DATE" DATE, '||unistr('\000a')||
-'    "STATUS" VARCHAR2(30), '||unistr('\000a')||
-'    "ASSIGNED_TO" VARCHAR2(30), '||unistr('\000a')||
-'    "COST" NUMBER, '||unistr('\000a')||
+s:=s||'CREATE TABLE  "EBA_DEMO_IR_PROJECTS"'||unistr('\000a')||
+'   (    "ID" NUMBER,'||unistr('\000a')||
+'    "ROW_VERSION_NUMBER" NUMBER,'||unistr('\000a')||
+'    "PROJECT" VARCHAR2(30),'||unistr('\000a')||
+'    "TASK_NAME" VARCHAR2(255),'||unistr('\000a')||
+'    "START_DATE" DATE,'||unistr('\000a')||
+'    "END_DATE" DATE,'||unistr('\000a')||
+'    "STATUS" VARCHAR2(30),'||unistr('\000a')||
+'    "ASSIGNED_TO" VARCHAR2(30),'||unistr('\000a')||
+'    "COST" NUMBER,'||unistr('\000a')||
 '    "BUDGET" NUMBER'||unistr('\000a')||
 '   ) ;'||unistr('\000a')||
-' CREATE TABLE  "ERROR_LOG" '||unistr('\000a')||
-'   (    "LOG_DATE" DATE, '||unistr('\000a')||
-'    "LOG_MESSAGE" CLOB, '||unistr('\000a')||
-'    "APEX_ME';
+''||unistr('\000a')||
+''||unistr('\000a')||
+''||unistr('\000a')||
+'';
 
-s:=s||'SSAGE" CLOB, '||unistr('\000a')||
-'    "APEX_SQLERRM" CLOB, '||unistr('\000a')||
-'    "APEX_BACKTRACE" CLOB'||unistr('\000a')||
-'   ) ;'||unistr('\000a')||
-' CREATE OR REPLACE FUNCTION  "APEX_ERROR_CUSTOM" (p_error in apex_error.t_error )'||unistr('\000a')||
-'return apex_error.t_error_result'||unistr('\000a')||
-'is'||unistr('\000a')||
-'  v_result apex_error.t_error_result;'||unistr('\000a')||
-'  v_log    clob;'||unistr('\000a')||
-'  l_id number;'||unistr('\000a')||
-'begin'||unistr('\000a')||
-'  v_log := ir_to_xml.get_log; '||unistr('\000a')||
-'  insert into error_log(log_date,log_message,apex_message,apex_sqlerrm,apex_backtrace) '||unistr('\000a')||
-'  values(sysda';
+wwv_flow_api.create_install_script(
+  p_id => 49413618223888565020 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_install_id=> 49413219127950509377 + wwv_flow_api.g_id_offset,
+  p_name => 'DDL',
+  p_sequence=> 10,
+  p_script_type=> 'INSTALL',
+  p_condition_type=> 'NOT_EXISTS',
+  p_condition=> 'select * from all_tables where table_name like ''EBA_DEMO_IR_PROJECTS''',
+  p_script_clob=> s);
+end;
+ 
+ 
+end;
+/
 
-s:=s||'te,v_log,p_error.message,p_error.ora_sqlerrm,p_error.error_backtrace);'||unistr('\000a')||
-'  begin'||unistr('\000a')||
-'    l_id := apex_mail.send('||unistr('\000a')||
-'          p_to       => ''todante@gmail.com'',   -- change to your email address'||unistr('\000a')||
-'          p_from     => ''todante@gmail.com'', -- change to a real senders email address'||unistr('\000a')||
-'          p_body     => ''Error in apex plugin ''||to_char(sysdate,''dd.mm.yyyy hh24:mi:ss''),'||unistr('\000a')||
-'          p_subj     => p_error.ora_';
-
-s:=s||'sqlerrm);'||unistr('\000a')||
-'   exception'||unistr('\000a')||
-'     when others then'||unistr('\000a')||
-'        null;'||unistr('\000a')||
-'   end;'||unistr('\000a')||
-'  commit;'||unistr('\000a')||
-'  v_result.message := ''Ooops.Internal error.If you want to send debug Information to the developer, press this button <button onclick="javascript:apex.submit(''''SendDebugInfo'''');">Send Debug Info</button>'';'||unistr('\000a')||
-'  return v_result; '||unistr('\000a')||
-'end apex_error_custom;'||unistr('\000a')||
-'/'||unistr('\000a')||
-' CREATE OR REPLACE PACKAGE  "IR_TO_XML" AS    '||unistr('\000a')||
+ 
+begin
+ 
+declare
+    s varchar2(32767) := null;
+    l_clob clob;
+    l_length number := 1;
+begin
+s:=s||'CREATE OR REPLACE PACKAGE IR_TO_XML AS    '||unistr('\000a')||
 '  '||unistr('\000a')||
-'  -- download interact';
-
-s:=s||'ive report as PDF'||unistr('\000a')||
+'  -- download interactive report as PDF'||unistr('\000a')||
 '  PROCEDURE get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
 '                           p_page_id         in number,                                '||unistr('\000a')||
 '                           p_return_type     IN CHAR DEFAULT ''X'', -- "Q" for debug information "X" for XML-Data'||unistr('\000a')||
-'                           p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
-'                         ';
+'                           p_get_page_items  IN CHAR DEFAU';
 
-s:=s||'  p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+s:=s||'LT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                           p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
 '                           p_collection_name IN VARCHAR2,         -- name of APEX COLLECTION to save XML, when null - download as file'||unistr('\000a')||
-'                           p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
-'                          );'||unistr('\000a')||
-'  --return debu';
+'                           p_max_rows        IN NUMBER            -- maximum rows for export     ';
 
-s:=s||'g information'||unistr('\000a')||
+s:=s||'                       '||unistr('\000a')||
+'                          );'||unistr('\000a')||
+'  --return debug information'||unistr('\000a')||
 '  function get_log return clob;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  function get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
+'                          p_page_id         in number,                                '||unistr('\000a')||
+'                          p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                          p_items_list   ';
+
+s:=s||'   in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+'                          p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
+'                         )'||unistr('\000a')||
+'  return xmltype;     '||unistr('\000a')||
 '                              '||unistr('\000a')||
 'END IR_TO_XML;'||unistr('\000a')||
 '/'||unistr('\000a')||
-'CREATE OR REPLACE PACKAGE BODY  "IR_TO_XML" AS   '||unistr('\000a')||
+''||unistr('\000a')||
+''||unistr('\000a')||
+'CREATE OR REPLACE package body ir_to_xml as   '||unistr('\000a')||
+'  '||unistr('\000a')||
+'  subtype largevarchar2 is varchar2(32000); '||unistr('\000a')||
 ' '||unistr('\000a')||
-'  cursor cur_highlight(p_report_id in APEX_APPLICATION_PAGE_IR_RPT.REPORT_ID%TYPE,'||unistr('\000a')||
+'';
+
+s:=s||'  cursor cur_highlight(p_report_id in APEX_APPLICATION_PAGE_IR_RPT.REPORT_ID%TYPE,'||unistr('\000a')||
 '                       p_delimetered_column_list in varchar2) '||unistr('\000a')||
 '  IS'||unistr('\000a')||
-'  select replace(replace(replace(replace(condition_sql,''#APXWS_EXPR#'',''''''''||CONDITION_EXPRESSION||'''''''')';
+'  select replace(replace(replace(replace(condition_sql,''#APXWS_EXPR#'',''''''''||CONDITION_EXPRESSION||''''''''),''#APXWS_EXPR2#'',''''''''||CONDITION_EXPRESSION2||''''''''),''#APXWS_HL_ID#'',''1''),''#APXWS_CC_EXPR#'',''"''||CONDITION_COLUMN_NAME||''"'')  condition_sql,'||unistr('\000a')||
+'      ';
 
-s:=s||',''#APXWS_EXPR2#'',''''''''||CONDITION_EXPRESSION2||''''''''),''#APXWS_HL_ID#'',''1''),''#APXWS_CC_EXPR#'',''"''||CONDITION_COLUMN_NAME||''"'')  condition_sql,'||unistr('\000a')||
-'       CONDITION_COLUMN_NAME,'||unistr('\000a')||
+s:=s||' CONDITION_COLUMN_NAME,'||unistr('\000a')||
 '       CONDITION_ENABLED,'||unistr('\000a')||
 '       HIGHLIGHT_ROW_COLOR,'||unistr('\000a')||
 '       HIGHLIGHT_ROW_FONT_COLOR,'||unistr('\000a')||
@@ -8298,69 +8386,75 @@ s:=s||',''#APXWS_EXPR2#'',''''''''||CONDITION_EXPRESSION2||''''''''),''#APXWS_HL
 '       HIGHLIGHT_CELL_FONT_COLOR,'||unistr('\000a')||
 '       rownum COND_NUMBER,'||unistr('\000a')||
 '       ''HIGHLIGHT_''||rownum COND_NAME'||unistr('\000a')||
-'  from APEX_APP';
-
-s:=s||'LICATION_PAGE_IR_COND'||unistr('\000a')||
+'  from APEX_APPLICATION_PAGE_IR_COND'||unistr('\000a')||
 '  where condition_type = ''Highlight'''||unistr('\000a')||
 '    and report_id = p_report_id'||unistr('\000a')||
 '    and condition_enabled = ''Yes'''||unistr('\000a')||
-'    and instr('':''||p_delimetered_column_list||'':'','':''||CONDITION_COLUMN_NAME||'':'') > 0'||unistr('\000a')||
+'    and instr('':''||p_';
+
+s:=s||'delimetered_column_list||'':'','':''||CONDITION_COLUMN_NAME||'':'') > 0'||unistr('\000a')||
 '    order by --rows highlights first '||unistr('\000a')||
 '           nvl2(HIGHLIGHT_ROW_COLOR,1,0) desc, '||unistr('\000a')||
 '           nvl2(HIGHLIGHT_ROW_FONT_COLOR,1,0) desc,'||unistr('\000a')||
 '           HIGHLIGHT_SEQUENCE;'||unistr('\000a')||
 '  '||unistr('\000a')||
-'  type t_col_nam';
+'  type t_col_names is table of apex_application_page_ir_col.report_label%type index by apex_application_page_ir_col.column_alias%type;'||unistr('\000a')||
+'  type t_col_format_mask is';
 
-s:=s||'es is table of apex_application_page_ir_col.report_label%type index by apex_application_page_ir_col.column_alias%type;'||unistr('\000a')||
-'  type t_col_format_mask is table of APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
-'  type t_header_alignment is table of APEX_APPLICATION_PAGE_IR_COL.heading_alignment%TYPE index by APEX_APPLICATION_PAGE_IR_COL.';
+s:=s||' table of APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
+'  type t_header_alignment is table of APEX_APPLICATION_PAGE_IR_COL.heading_alignment%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
+'  type t_column_alignment is table of apex_application_page_ir_col.column_alignment%type index by apex_application_page_ir_col.';
 
-s:=s||'column_alias%TYPE;'||unistr('\000a')||
-'  type t_column_alignment is table of apex_application_page_ir_col.column_alignment%type index by apex_application_page_ir_col.column_alias%type;'||unistr('\000a')||
+s:=s||'column_alias%type;'||unistr('\000a')||
 '  type t_column_types is table of apex_application_page_ir_col.column_type%type index by apex_application_page_ir_col.column_alias%type;'||unistr('\000a')||
 '  type t_highlight is table of cur_highlight%ROWTYPE index by binary_integer;'||unistr('\000a')||
 '  '||unistr('\000a')||
-'  type ir_report ';
-
-s:=s||'is record'||unistr('\000a')||
+'  type ir_report is record'||unistr('\000a')||
 '   ('||unistr('\000a')||
 '    report                    apex_ir.t_report,'||unistr('\000a')||
 '    ir_data                   APEX_APPLICATION_PAGE_IR_RPT%ROWTYPE,'||unistr('\000a')||
-'    report_columns            APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    displayed_c';
+
+s:=s||'olumns         APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '    break_on                  APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '    break_really_on           APEX_APPLICATION_GLOBAL.VC_ARR2, -- "break on" except hidden columns'||unistr('\000a')||
-'    sum_columns_on_break      APEX_APPLICATI';
-
-s:=s||'ON_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    sum_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '    avg_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '    max_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
-'    min_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+' ';
+
+s:=s||'   min_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '    median_columns_on_break   APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '    count_columns_on_break    APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '    count_distnt_col_on_break APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
-'   ';
+'    skipped_columns           INTEGER default 0, -- when scpecial coluns like apxws_row_pk is used'||unistr('\000a')||
+'    start_with                INTEGER default 0, -';
 
-s:=s||' skipped_columns           INTEGER default 0, -- when scpecial coluns like apxws_row_pk is used'||unistr('\000a')||
-'    start_with                INTEGER default 0, -- position of first displayed column in query'||unistr('\000a')||
+s:=s||'- position of first displayed column in query'||unistr('\000a')||
 '    end_with                  INTEGER default 0, -- position of last displayed column in query'||unistr('\000a')||
 '    agg_cols_cnt              INTEGER default 0, '||unistr('\000a')||
-'    column_names              t_col_names,       -- column name';
-
-s:=s||'s in report header'||unistr('\000a')||
+'    column_names              t_col_names,       -- column names in report header'||unistr('\000a')||
 '    col_format_mask           t_col_format_mask, -- format like $3849,56'||unistr('\000a')||
 '    row_highlight             t_highlight,'||unistr('\000a')||
-'    col_highlight             t_highlight,'||unistr('\000a')||
+'    col_hig';
+
+s:=s||'hlight             t_highlight,'||unistr('\000a')||
 '    header_alignment          t_header_alignment,'||unistr('\000a')||
 '    column_alignment          t_column_alignment,'||unistr('\000a')||
 '    column_types              t_column_types  '||unistr('\000a')||
 '   );  '||unistr('\000a')||
-'   '||unistr('\000a')||
+''||unistr('\000a')||
+'   TYPE t_cell_data IS record'||unistr('\000a')||
+'   ('||unistr('\000a')||
+'     VALUE           VARCHAR2(100),'||unistr('\000a')||
+'     text            CLOB'||unistr('\000a')||
+'   );  '||unistr('\000a')||
+''||unistr('\000a')||
 '  l_report    ir_report;   '||unistr('\000a')||
 '  v_debug     clob;'||unistr('\000a')||
-'  -------------';
+'  --------------------------------------------------------';
 
-s:=s||'-----------------------------------------------------------------'||unistr('\000a')||
+s:=s||'----------------------'||unistr('\000a')||
 '  function get_log'||unistr('\000a')||
 '  return clob'||unistr('\000a')||
 '  is'||unistr('\000a')||
@@ -8368,41 +8462,54 @@ s:=s||'-----------------------------------------------------------------'||unist
 '    return v_debug;'||unistr('\000a')||
 '  end  get_log;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  procedure add(p_clob in out nocopy clob,p_str varchar2)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    if p_str is not null then'||unistr('\000a')||
+'      dbms_lob.writeappend(p_clob,length(p_str),p_str);'||unistr('\000a')||
+'    end if;  '||unistr('\000a')||
+'  end;'||unistr('\000a')||
+'  ----------------------------------';
+
+s:=s||'--------------------------------------------'||unistr('\000a')||
 '  procedure log(p_message in varchar2)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'    v_debug := v_debug||p_message||chr(10)||chr(13);'||unistr('\000a')||
-'    apex_debug_message.log_message(p_message => substr(p_message,1';
-
-s:=s||',32767),'||unistr('\000a')||
+'    add(v_debug,p_message||chr(10));'||unistr('\000a')||
+'    apex_debug_message.log_message(p_message => substr(p_message,1,32767),'||unistr('\000a')||
 '                                   p_enabled => false,'||unistr('\000a')||
-'                                   p_level   => 4);    '||unistr('\000a')||
+'                                   p_level   => 4);'||unistr('\000a')||
 '  end log; '||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function bcoll(p_cell_order   in integer,'||unistr('\000a')||
-'                 p_font_color    in varchar2 default null,'||unistr('\000a')||
-'                 p_back_color    in varchar2 default null,'||unistr('\000a')||
-'                 p_align ';
+'  ----------------------------------------------------------------------';
 
-s:=s||'        in varchar2 default null,'||unistr('\000a')||
+s:=s||'--------'||unistr('\000a')||
+'  function bcoll(p_font_color    in varchar2 default null,'||unistr('\000a')||
+'                 p_back_color    in varchar2 default null,'||unistr('\000a')||
+'                 p_align         in varchar2 default null,'||unistr('\000a')||
 '                 p_width         in varchar2 default null,'||unistr('\000a')||
-'                 p_column_alias  in varchar2 default null,'||unistr('\000a')||
-'                 p_colmn_type    in varchar2 default null) '||unistr('\000a')||
+'                 p_column_alias  IN VARCHAR2 DEFAULT NULL,'||unistr('\000a')||
+'                 p_colmn_type    IN VARCHAR2 DEFAULT NULL,'||unistr('\000a')||
+'                 p_value         IN V';
+
+s:=s||'ARCHAR2 DEFAULT NULL,'||unistr('\000a')||
+'                 p_format_mask   IN VARCHAR2 DEFAULT NULL) '||unistr('\000a')||
 '  return varchar2'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_str varchar2(500);'||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    v_str := v_str||''<CELL '';'||unistr('\000a')||
-'    if p_column_alias is not null then v_str := v_str||''column-alias="''||p_column_alias||''" ''; end if;';
-
-s:=s||''||unistr('\000a')||
+'    if p_column_alias is not null then v_str := v_str||''column-alias="''||p_column_alias||''" ''; end if;'||unistr('\000a')||
 '    if p_font_color is not null then v_str := v_str||''color="''||p_font_color||''" ''; end if;'||unistr('\000a')||
-'    if p_colmn_type is not null then V_STR := V_STR||''data-type="''||p_colmn_type||''" ''; end if;'||unistr('\000a')||
+'    if p_colmn_type is not null then ';
+
+s:=s||'V_STR := V_STR||''data-type="''||p_colmn_type||''" ''; end if;'||unistr('\000a')||
 '    if p_back_color is not null then v_str := v_str||''background-color="''||p_back_color||''" ''; end if;'||unistr('\000a')||
 '    if p_align is not null then V_STR := V_STR||''align="''||lower(p_align)||''" ''; end if;'||unistr('\000a')||
-'    if p_width is n';
+'    IF p_width IS NOT NULL THEN v_str := v_str||''width="''||p_width||''" ''; END IF;        '||unistr('\000a')||
+'    IF p_value IS NOT NULL THEN v_str := v_str||''value="''||';
 
-s:=s||'ot null then v_str := v_str||''width="''||p_width||''" ''; end if;        '||unistr('\000a')||
+s:=s||'p_value||''" ''; END IF;'||unistr('\000a')||
+'    if p_format_mask is not null then v_str := v_str||''format_mask="''||p_format_mask||''" ''; end if;'||unistr('\000a')||
 '    v_str := v_str||''>''; '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    return v_str;'||unistr('\000a')||
@@ -8414,10 +8521,10 @@ s:=s||'ot null then v_str := v_str||''width="''||p_width||''" ''; end if;       
 '  begin'||unistr('\000a')||
 '   return ''</CELL>'';'||unistr('\000a')||
 '  end ecoll;'||unistr('\000a')||
-'    ------------------------------------------------------------------------------'||unistr('\000a')||
-'  functio';
+'    ------------------------------------';
 
-s:=s||'n get_column_names(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
+s:=s||'------------------------------------------'||unistr('\000a')||
+'  function get_column_names(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
 '  return APEX_APPLICATION_PAGE_IR_COL.report_label%TYPE'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '  begin'||unistr('\000a')||
@@ -8425,10 +8532,10 @@ s:=s||'n get_column_names(p_column_alias in apex_application_page_ir_col.column_
 '  exception'||unistr('\000a')||
 '    when others then'||unistr('\000a')||
 '       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
-'  end get_column_names;'||unistr('\000a')||
-'  -------------------------------';
+'  end';
 
-s:=s||'-----------------------------------------------'||unistr('\000a')||
+s:=s||' get_column_names;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  function get_col_format_mask(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
 '  return APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE'||unistr('\000a')||
 '  is'||unistr('\000a')||
@@ -8436,50 +8543,75 @@ s:=s||'-----------------------------------------------'||unistr('\000a')||
 '    return l_report.col_format_mask(p_column_alias);'||unistr('\000a')||
 '  exception'||unistr('\000a')||
 '    when others then'||unistr('\000a')||
-'       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alia';
+'       raise_application_error(-2000';
 
-s:=s||'s||'' ''||SQLERRM);'||unistr('\000a')||
+s:=s||'1,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
 '  end get_col_format_mask;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  function get_header_alignment(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
 '  return APEX_APPLICATION_PAGE_IR_COL.heading_alignment%TYPE'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'    return l_report.header_alignment(p_column_alias);'||unistr('\000a')||
+'    return l_report.header_alignment(p_column_alia';
+
+s:=s||'s);'||unistr('\000a')||
 '  exception'||unistr('\000a')||
 '    when others then'||unistr('\000a')||
-'       raise_ap';
-
-s:=s||'plication_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
 '  end get_header_alignment;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  function get_column_alignment(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
-'  return apex_application_page_ir_col.column_alignment%type'||unistr('\000a')||
+'  return apex_application_page_ir_col.column_align';
+
+s:=s||'ment%type'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'    return l_report.column_al';
-
-s:=s||'ignment(p_column_alias);'||unistr('\000a')||
+'    return l_report.column_alignment(p_column_alias);'||unistr('\000a')||
 '  exception'||unistr('\000a')||
 '    when others then'||unistr('\000a')||
 '       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
 '  end get_column_alignment;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function get_column_types(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
-'  return apex_application_page_ir';
+'  function get_column_types(p_column_alias in apex_application_page_ir_col.';
 
-s:=s||'_col.column_type%type'||unistr('\000a')||
+s:=s||'column_alias%type)'||unistr('\000a')||
+'  return apex_application_page_ir_col.column_type%type'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    return l_report.column_types(p_column_alias);'||unistr('\000a')||
 '  exception'||unistr('\000a')||
 '    when others then'||unistr('\000a')||
 '       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
-'  end get_column_types;'||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function get_current_row(p_current_row in apex_application_global.vc_';
+'  END get_column_types;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------  '||unistr('\000a')||
+'  function get_co';
 
-s:=s||'arr2,'||unistr('\000a')||
+s:=s||'lumn_alias(p_num in binary_integer)'||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return l_report.displayed_columns(p_num);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_alias: p_num=''||p_num||'' ''||SQLERRM);'||unistr('\000a')||
+'  END get_column_alias;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  FUNCTION get_column_alias_sql(p_num IN binary_integer -- co';
+
+s:=s||'lumn number in sql-query'||unistr('\000a')||
+'                               )'||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  BEGIN'||unistr('\000a')||
+'    return l_report.displayed_columns(p_num - l_report.start_with + 1);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    WHEN others THEN'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_alias_sql: p_num=''||p_num||'' ''||SQLERRM);'||unistr('\000a')||
+'  END get_column_alias_sql;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  fun';
+
+s:=s||'ction get_current_row(p_current_row in apex_application_global.vc_arr2,'||unistr('\000a')||
 '                           p_id in binary_integer)'||unistr('\000a')||
 '  return apex_application_page_ir_col.column_type%type'||unistr('\000a')||
 '  is'||unistr('\000a')||
@@ -8489,36 +8621,37 @@ s:=s||'arr2,'||unistr('\000a')||
 '    when others then'||unistr('\000a')||
 '       raise_application_error(-20001,''get_current_row: p_id=''||p_id||'' ''||SQLERRM);'||unistr('\000a')||
 '  end get_current_row; '||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  -- :::: -> :'||unistr('\000a')||
-'  fun';
+'  ---------------------------------';
 
-s:=s||'ction rr(p_str in varchar2)'||unistr('\000a')||
+s:=s||'---------------------------------------------'||unistr('\000a')||
+'  -- :::: -> :'||unistr('\000a')||
+'  function rr(p_str in varchar2)'||unistr('\000a')||
 '  return varchar2'||unistr('\000a')||
 '  is '||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    return ltrim(rtrim(regexp_replace(p_str,''[:]+'','':''),'':''),'':'');'||unistr('\000a')||
 '  end;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------   '||unistr('\000a')||
-'  FUNCTION get_xmlval(p_str IN CLOB)'||unistr('\000a')||
-'  return clob'||unistr('\000a')||
+'  function get_xmlval(p_str in varchar2)'||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
 '  is   '||unistr('\000a')||
-'  BEGIN'||unistr('\000a')||
-'    RETURN REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(p_str,''<'',''%26lt;''),''>'',''%26gt;''),''&'',''%26amp;''),''"'',''%26quot;'')';
+'  begin'||unistr('\000a')||
+'    return dbms_xmlgen.convert(p_str);'||unistr('\000a')||
+'  ';
 
-s:=s||','''''''',''%26apos;'');'||unistr('\000a')||
+s:=s||'  --RETURN REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(p_str,''<'',''%26lt;''),''>'',''%26gt;''),''&'',''%26amp;''),''"'',''%26quot;''),'''''''',''%26apos;'');'||unistr('\000a')||
 '  end get_xmlval;  '||unistr('\000a')||
 '  ------------------------------------------------------------------------------  '||unistr('\000a')||
 '  function intersect_arrays(p_one IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '                            p_two IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
-'  return APEX_APPLICATION_GLOBAL.VC_ARR2'||unistr('\000a')||
+'  return APEX_APPLICATI';
+
+s:=s||'ON_GLOBAL.VC_ARR2'||unistr('\000a')||
 '  is    '||unistr('\000a')||
 '    v_ret APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
 '  begin    '||unistr('\000a')||
 '    for i in 1..p_one.count loop'||unistr('\000a')||
-'';
-
-s:=s||'       for b in 1..p_two.count loop'||unistr('\000a')||
+'       for b in 1..p_two.count loop'||unistr('\000a')||
 '         if p_one(i) = p_two(b) then'||unistr('\000a')||
 '            v_ret(v_ret.count + 1) := p_one(i);'||unistr('\000a')||
 '           exit;'||unistr('\000a')||
@@ -8528,11 +8661,11 @@ s:=s||'       for b in 1..p_two.count loop'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    return v_ret;'||unistr('\000a')||
 '  end intersect_arrays;'||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function intersect_count(p_one IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
-'         ';
+'  ------------------------------------------';
 
-s:=s||'                  p_two IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
+s:=s||'------------------------------------'||unistr('\000a')||
+'  function intersect_count(p_one IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                           p_two IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
 '  return integer'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '   v_rez APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
@@ -8540,12 +8673,12 @@ s:=s||'                  p_two IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\00
 '    v_rez := intersect_arrays(p_one,p_two);'||unistr('\000a')||
 '    return v_rez.count;'||unistr('\000a')||
 '  end intersect_count; '||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  -----------------------------------------------------------';
+
+s:=s||'-------------------'||unistr('\000a')||
 '  '||unistr('\000a')||
 '  procedure init_t_report(p_app_id       in number,'||unistr('\000a')||
-'                          p_page_id     ';
-
-s:=s||' in number)'||unistr('\000a')||
+'                          p_page_id      in number)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    l_region_id     number;'||unistr('\000a')||
 '    l_report_id     number;'||unistr('\000a')||
@@ -8555,27 +8688,27 @@ s:=s||' in number)'||unistr('\000a')||
 '    into l_region_id '||unistr('\000a')||
 '    from APEX_APPLICATION_PAGE_REGIONS '||unistr('\000a')||
 '    where application_id = p_app_id '||unistr('\000a')||
-'      and page_id = p_page_id '||unistr('\000a')||
+'      and page_id = p_page_id ';
+
+s:=s||''||unistr('\000a')||
 '      and source_type = ''Interactive Report'';    '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    --get base report id    '||unistr('\000a')||
-'    log(''l_region_id=''||l_regi';
-
-s:=s||'on_id);'||unistr('\000a')||
+'    log(''l_region_id=''||l_region_id);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    l_report_id := apex_ir.get_last_viewed_report_id (p_page_id   => p_page_id,'||unistr('\000a')||
-'                                                        p_region_id => l_region_id);'||unistr('\000a')||
+'                                                      p_region_id => l_region_id);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    log(''l_base_report_id=''||l_report_id);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    select r.* '||unistr('\000a')||
 '    into l_report.ir_data       '||unistr('\000a')||
-'    from apex_application_page_ir_rpt r'||unistr('\000a')||
+'    fro';
+
+s:=s||'m apex_application_page_ir_rpt r'||unistr('\000a')||
 '    where application_id = p_app_id '||unistr('\000a')||
 '      and page_id = p_page_id'||unistr('\000a')||
-'      and ses';
-
-s:=s||'sion_id = v(''APP_SESSION'')'||unistr('\000a')||
+'      and session_id = v(''APP_SESSION'')'||unistr('\000a')||
 '      and application_user = v(''APP_USER'')'||unistr('\000a')||
 '      and base_report_id = l_report_id;'||unistr('\000a')||
 '  '||unistr('\000a')||
@@ -8583,143 +8716,155 @@ s:=s||'sion_id = v(''APP_SESSION'')'||unistr('\000a')||
 '    l_report_id := l_report.ir_data.report_id;                                                                 '||unistr('\000a')||
 '      '||unistr('\000a')||
 '      '||unistr('\000a')||
-'    l_report.report := apex_ir.get_report (p_page_id        => p_page_id,'||unistr('\000a')||
-'                                           p_regi';
+'    l_repo';
 
-s:=s||'on_id      => l_region_id,'||unistr('\000a')||
-'                                           p_report_id      => l_report_id'||unistr('\000a')||
+s:=s||'rt.report := apex_ir.get_report (p_page_id        => p_page_id,'||unistr('\000a')||
+'                                           p_region_id      => l_region_id'||unistr('\000a')||
+'                                           --p_report_id      => l_report_id'||unistr('\000a')||
 '                                          );'||unistr('\000a')||
 '    for i in (select column_alias,'||unistr('\000a')||
 '                     report_label,'||unistr('\000a')||
 '                     heading_alignment,'||unistr('\000a')||
-'                     column_alignment,'||unistr('\000a')||
-'                     column_type,'||unistr('\000a')||
-'                     NULL AS  computation_format_mask,'||unistr('\000a')||
-'               ';
+'                     column_a';
 
-s:=s||'      instr(l_report.ir_data.report_columns,column_alias) column_order'||unistr('\000a')||
+s:=s||'lignment,'||unistr('\000a')||
+'                     column_type,'||unistr('\000a')||
+'                     format_mask AS  computation_format_mask,'||unistr('\000a')||
+'                     nvl(instr(l_report.ir_data.report_columns,column_alias),0) column_order ,'||unistr('\000a')||
+'                     nvl(instr(l_report.ir_data.break_enabled_on,column_alias),0) break_column_order'||unistr('\000a')||
 '                from APEX_APPLICATION_PAGE_IR_COL'||unistr('\000a')||
 '               where application_id = p_app_id'||unistr('\000a')||
-'                 AND page_id = p_page_id'||unistr('\000a')||
-'                 AND display_text_as != ''HIDDEN'' --after report RESETTING l_report.ir_data.report_columns consists HIDDEN column - APEX bug????'||unistr('\000a')||
-'                 and instr(l_report.ir_data.rep';
+' ';
 
-s:=s||'ort_columns,column_alias) > 0'||unistr('\000a')||
+s:=s||'                AND page_id = p_page_id'||unistr('\000a')||
+'                 AND display_text_as != ''HIDDEN'' --after report RESETTING l_report.ir_data.report_columns consists HIDDEN column - APEX bug????'||unistr('\000a')||
+'                 and instr(l_report.ir_data.report_columns,column_alias) > 0'||unistr('\000a')||
 '              UNION'||unistr('\000a')||
 '              select computation_column_alias,'||unistr('\000a')||
 '                     computation_report_label,'||unistr('\000a')||
-'                     ''center'' as heading_alignment,'||unistr('\000a')||
-'                     ''right'' as column_alignment,'||unistr('\000a')||
+'                     ''cen';
+
+s:=s||'ter'' as heading_alignment,'||unistr('\000a')||
+'                     ''right'' AS column_alignment,'||unistr('\000a')||
 '                     computation_column_type,'||unistr('\000a')||
 '                     computation_format_mask,'||unistr('\000a')||
-'                     instr(l_report.ir_data.report_columns,com';
+'                     nvl(instr(l_report.ir_data.report_columns,computation_column_alias),0) column_order,'||unistr('\000a')||
+'                     nvl(instr(l_report.ir_data.break_enabled_on,computation_column_alias),0) break_column_order'||unistr('\000a')||
+'            ';
 
-s:=s||'putation_column_alias) column_order'||unistr('\000a')||
-'              from APEX_APPLICATION_PAGE_IR_COMP'||unistr('\000a')||
+s:=s||'  from APEX_APPLICATION_PAGE_IR_COMP'||unistr('\000a')||
 '              where application_id = p_app_id'||unistr('\000a')||
 '                and page_id = p_page_id'||unistr('\000a')||
 '                AND report_id = l_report_id'||unistr('\000a')||
-'                and instr(l_report.ir_data.report_columns,computation_column_alias) > 0'||unistr('\000a')||
-'              order by column_order)'||unistr('\000a')||
+'                AND instr(l_report.ir_data.report_columns,computation_column_alias) > 0'||unistr('\000a')||
+'              order by  break_column_order asc,column_order asc)'||unistr('\000a')||
 '    loop                 '||unistr('\000a')||
-'      l_report.column_names(i.colu';
+'      l_report.column_names(i.column_alias) := i.repor';
 
-s:=s||'mn_alias) := i.report_label; '||unistr('\000a')||
+s:=s||'t_label; '||unistr('\000a')||
 '      l_report.col_format_mask(i.column_alias) := i.computation_format_mask;'||unistr('\000a')||
 '      l_report.header_alignment(i.column_alias) := i.heading_alignment; '||unistr('\000a')||
 '      l_report.column_alignment(i.column_alias) := i.column_alignment; '||unistr('\000a')||
 '      l_report.column_types(i.column_alias) := i.column_type;'||unistr('\000a')||
-'      l_report.report_columns(l_report.report_columns.count + 1) := i.column_alias; '||unistr('\000a')||
-' ';
+'      IF i.column_order > 0 THEN'||unistr('\000a')||
+'        IF i.break_column_order = 0 THEN '||unistr('\000a')||
+'          --displayed column'||unistr('\000a')||
+'  ';
 
-s:=s||'     '||unistr('\000a')||
+s:=s||'        l_report.displayed_columns(l_report.displayed_columns.count + 1) := i.column_alias;'||unistr('\000a')||
+'        ELSE  '||unistr('\000a')||
+'          --break column'||unistr('\000a')||
+'          l_report.break_really_on(l_report.break_really_on.count + 1) := i.column_alias;'||unistr('\000a')||
+'        end if;'||unistr('\000a')||
+'      end if;  '||unistr('\000a')||
+'      '||unistr('\000a')||
 '      log(''column=''||i.column_alias||'' l_report.column_names=''||i.report_label);'||unistr('\000a')||
-'      log(''column=''||i.column_alias||'' l_report.col_format_mask=''||i.computation_format_mask);'||unistr('\000a')||
+'      log(''column=''||i.column_alias||'' l_report.col_format';
+
+s:=s||'_mask=''||i.computation_format_mask);'||unistr('\000a')||
 '      log(''column=''||i.column_alias||'' l_report.header_alignment=''||i.heading_alignment);'||unistr('\000a')||
 '      log(''column=''||i.column_alias||'' l_report.column_alignment=''||i.column_alignment);'||unistr('\000a')||
-'      log(''column=''||i.column_alias||'' ';
-
-s:=s||'l_report.column_types=''||i.column_type);'||unistr('\000a')||
+'      log(''column=''||i.column_alias||'' l_report.column_types=''||i.column_type);'||unistr('\000a')||
 '    end loop;    '||unistr('\000a')||
 ''||unistr('\000a')||
-'    l_report.break_on := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.break_enabled_on));    '||unistr('\000a')||
+'    --l_report.break_on := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.break_enable';
+
+s:=s||'d_on));    '||unistr('\000a')||
 '    l_report.sum_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.sum_columns_on_break));  '||unistr('\000a')||
 '    l_report.avg_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.avg_columns_on_break));  '||unistr('\000a')||
-'    l_report.max_columns_on';
+'    l_report.max_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.max_columns_on_break));  '||unistr('\000a')||
+'    l_report.min_columns_on_break := APEX_UTIL.STRING_TO_TABL';
 
-s:=s||'_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.max_columns_on_break));  '||unistr('\000a')||
-'    l_report.min_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.min_columns_on_break));  '||unistr('\000a')||
+s:=s||'E(rr(l_report.ir_data.min_columns_on_break));  '||unistr('\000a')||
 '    l_report.median_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.median_columns_on_break)); '||unistr('\000a')||
-'    l_report.count_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.count_colu';
-
-s:=s||'mns_on_break));  '||unistr('\000a')||
+'    l_report.count_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.count_columns_on_break));  '||unistr('\000a')||
 '    l_report.count_distnt_col_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.count_distnt_col_on_break)); '||unistr('\000a')||
-'    l_report.break_really_on := intersect_arrays(l_report.report_columns,l_report.break_on);  '||unistr('\000a')||
-'    l_report.agg_cols_cnt := l_report.sum_columns_on_break.count + '||unistr('\000a')||
-'                             l_report.avg_columns_on_break.count +'||unistr('\000a')||
-'                             l_rep';
+'      '||unistr('\000a')||
+'';
 
-s:=s||'ort.max_columns_on_break.count + '||unistr('\000a')||
+s:=s||'    l_report.agg_cols_cnt := l_report.sum_columns_on_break.count + '||unistr('\000a')||
+'                             l_report.avg_columns_on_break.count +'||unistr('\000a')||
+'                             l_report.max_columns_on_break.count + '||unistr('\000a')||
 '                             l_report.min_columns_on_break.count +'||unistr('\000a')||
 '                             l_report.median_columns_on_break.count +'||unistr('\000a')||
-'                             l_report.count_columns_on_break.count +'||unistr('\000a')||
+'                             l_report.count_columns_on_break';
+
+s:=s||'.count +'||unistr('\000a')||
 '                             l_report.count_distnt_col_on_break.count;'||unistr('\000a')||
 '    '||unistr('\000a')||
-'    log(''l_report.report_columns=''||rr(l_report.ir_data.report_columns));'||unistr('\000a')||
-'    log(''l';
-
-s:=s||'_report.break_on=''||rr(l_report.ir_data.break_enabled_on));'||unistr('\000a')||
+'    log(''l_report.displayed_columns=''||rr(l_report.ir_data.report_columns));'||unistr('\000a')||
+'    log(''l_report.break_on=''||rr(l_report.ir_data.break_enabled_on));'||unistr('\000a')||
 '    log(''l_report.sum_columns_on_break=''||rr(l_report.ir_data.sum_columns_on_break));'||unistr('\000a')||
-'    log(''l_report.avg_columns_on_break=''||rr(l_report.ir_data.avg_columns_on_break));'||unistr('\000a')||
-'    log(''l_report.max_columns_on_break=''||rr(l_report.ir_data.max_columns_on_break));'||unistr('\000a')||
-'    log(''l_report.min_columns_on_break=''||rr(l_report.ir_data.min_columns_on_break';
+'    log(''l_report.avg_columns_on_break=''||rr(l_report.ir_data.avg_columns_on_break';
 
 s:=s||'));'||unistr('\000a')||
-'    log(''l_report.median_columns_on_break''||rr(l_report.ir_data.median_columns_on_break));'||unistr('\000a')||
+'    log(''l_report.max_columns_on_break=''||rr(l_report.ir_data.max_columns_on_break));'||unistr('\000a')||
+'    LOG(''l_report.min_columns_on_break=''||rr(l_report.ir_data.min_columns_on_break));'||unistr('\000a')||
+'    log(''l_report.median_columns_on_break=''||rr(l_report.ir_data.median_columns_on_break));'||unistr('\000a')||
 '    log(''l_report.count_columns_on_break=''||rr(l_report.ir_data.count_distnt_col_on_break));'||unistr('\000a')||
-'    log(''l_report.count_distnt_col_on_break=''||rr(l_report.ir_data.count_columns_on_break));'||unistr('\000a')||
-'    log(''l_report.break_really_on=''||APEX_UTIL.TABLE_TO_STRING(l_report.break_really_on));'||unistr('\000a')||
-'    log(''l_report.agg_cols_c';
+'    log(''l_report.count_distnt_col_on_b';
 
-s:=s||'nt=''||l_report.agg_cols_cnt);'||unistr('\000a')||
+s:=s||'reak=''||rr(l_report.ir_data.count_columns_on_break));'||unistr('\000a')||
+'    log(''l_report.break_really_on=''||APEX_UTIL.TABLE_TO_STRING(l_report.break_really_on));'||unistr('\000a')||
+'    log(''l_report.agg_cols_cnt=''||l_report.agg_cols_cnt);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    v_query_targets(v_query_targets.count + 1) := ''rez.*'';'||unistr('\000a')||
 '     '||unistr('\000a')||
 '    for c in cur_highlight(p_report_id => l_report_id,'||unistr('\000a')||
-'                           p_delimetered_column_list => apex_util.table_to_string(l_report.report_columns,'':'')'||unistr('\000a')||
+'                           p_delimetered_column_list => l_report.ir_data';
+
+s:=s||'.report_columns'||unistr('\000a')||
 '                          ) '||unistr('\000a')||
 '    loop'||unistr('\000a')||
 '        if c.HIGHLIGHT_ROW_COLOR is not null or c.HIGHLIGHT_ROW_FONT_COLOR is not null then'||unistr('\000a')||
-'    ';
-
-s:=s||'      --is row highlight'||unistr('\000a')||
+'          --is row highlight'||unistr('\000a')||
 '          l_report.row_highlight(l_report.row_highlight.count + 1) := c;        '||unistr('\000a')||
 '        else'||unistr('\000a')||
 '          l_report.col_highlight(l_report.col_highlight.count + 1) := c;           '||unistr('\000a')||
 '        end if;  '||unistr('\000a')||
-'        v_query_targets(v_query_targets.count + 1) := c.condition_sql;'||unistr('\000a')||
+'        v_query_targets(v_que';
+
+s:=s||'ry_targets.count + 1) := c.condition_sql;'||unistr('\000a')||
 '    end loop;    '||unistr('\000a')||
 '        '||unistr('\000a')||
-'    l_report.report.sql_query := ''SELECT ''||APEX_UTIL.TABLE_TO_STRING(v_query_tar';
-
-s:=s||'gets,'','')||'' from ( '''||unistr('\000a')||
+'    l_report.report.sql_query := ''SELECT ''||APEX_UTIL.TABLE_TO_STRING(v_query_targets,'','')||'' from ( '''||unistr('\000a')||
 '                                          ||l_report.report.sql_query||'' ) rez'';'||unistr('\000a')||
-'    log(''l_report.report.sql_query=''||l_report.report.sql_query);'||unistr('\000a')||
+'    log(''l_report.report.sql_query=''||chr(10)||l_report.report.sql_query||chr(10));'||unistr('\000a')||
 '  exception'||unistr('\000a')||
 '    when no_data_found then'||unistr('\000a')||
-'      raise_application_error(-20001,''No Interactive Report found on Page=''||p_page_id||'' Application=''||p_app_id||'' Please make sure that the report was running at least once by this session';
+'      raise_application';
 
-s:=s||'.'');'||unistr('\000a')||
+s:=s||'_error(-20001,''No Interactive Report found on Page=''||p_page_id||'' Application=''||p_app_id||'' Please make sure that the report was running at least once by this session.'');'||unistr('\000a')||
 '    when others then '||unistr('\000a')||
 '      raise_application_error(-20001,''get_t_report: Page=''||p_page_id||'' Application=''||p_app_id||'' ''||sqlerrm);'||unistr('\000a')||
 '  end init_t_report;  '||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  -------------------------------------------------------------------';
+
+s:=s||'-----------'||unistr('\000a')||
 ' '||unistr('\000a')||
 '  function is_control_break(p_curr_row  IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '                            p_prev_row  IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
-'  ';
-
-s:=s||'return boolean'||unistr('\000a')||
+'  return boolean'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_start_with      integer;'||unistr('\000a')||
 '    v_end_with        integer;    '||unistr('\000a')||
@@ -8728,169 +8873,214 @@ s:=s||'return boolean'||unistr('\000a')||
 '    if nvl(l_report.break_really_on.count,0) = 0  then'||unistr('\000a')||
 '      return false; --no control break'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
-'    v_start_with := 1 + l_report.skipped_columns;    '||unistr('\000a')||
-'    v_end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0);'||unistr('\000a')||
-'    for i in v_start_with..v_';
+' ';
 
-s:=s||'end_with loop'||unistr('\000a')||
+s:=s||'   v_start_with := 1 + l_report.skipped_columns;    '||unistr('\000a')||
+'    v_end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0);'||unistr('\000a')||
+'    for i in v_start_with..v_end_with loop'||unistr('\000a')||
 '      if p_curr_row(i) != p_prev_row(i) then'||unistr('\000a')||
 '        return true;'||unistr('\000a')||
 '      end if;'||unistr('\000a')||
 '    end loop;'||unistr('\000a')||
 '    return false;'||unistr('\000a')||
 '  end is_control_break;'||unistr('\000a')||
-'  ------------------------------------------------------------------------------  '||unistr('\000a')||
-'  function get_formatted_str(p_val in varchar2, '||unistr('\000a')||
-'                             p_format in varchar2)'||unistr('\000a')||
-'  return varchar2'||unistr('\000a')||
-'  is'||unistr('\000a')||
-'  begin'||unistr('\000a')||
-'    if p_format is null then'||unistr('\000a')||
-'      r';
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+' ';
 
-s:=s||'eturn p_val;'||unistr('\000a')||
-'    else  '||unistr('\000a')||
-'      return to_char(p_val,p_format);'||unistr('\000a')||
-'    end if;  '||unistr('\000a')||
-'  exception'||unistr('\000a')||
-'    when others then'||unistr('\000a')||
-'      return p_val;'||unistr('\000a')||
-'  end get_formatted_str;'||unistr('\000a')||
-'  '||unistr('\000a')||
-'  ------------------------------------------------------------------------------  '||unistr('\000a')||
+s:=s||' FUNCTION get_cell_date(p_query_value IN VARCHAR2,p_format_mask IN VARCHAR2)'||unistr('\000a')||
+'  RETURN t_cell_data'||unistr('\000a')||
+'  IS'||unistr('\000a')||
+'    v_data t_cell_data;'||unistr('\000a')||
+'  BEGIN'||unistr('\000a')||
+'     BEGIN'||unistr('\000a')||
+'       v_data.value := to_date(p_query_value) - to_date(''01-03-1900'',''DD-MM-YYYY'') + 61;'||unistr('\000a')||
+'       if p_format_mask is not null then'||unistr('\000a')||
+'         v_data.text := to_char(to_date(p_query_value),p_format_mask);'||unistr('\000a')||
+'       ELSE'||unistr('\000a')||
+'         v_data.text := p_query_value;'||unistr('\000a')||
+'  ';
+
+s:=s||'     end if;'||unistr('\000a')||
+'      exception'||unistr('\000a')||
+'        WHEN others THEN '||unistr('\000a')||
+'          v_data.text := p_query_value;'||unistr('\000a')||
+'      END;      '||unistr('\000a')||
+'      '||unistr('\000a')||
+'      return v_data;'||unistr('\000a')||
+'  end get_cell_date;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  FUNCTION get_cell_number(p_query_value IN VARCHAR2,p_format_mask IN VARCHAR2)'||unistr('\000a')||
+'  RETURN t_cell_data'||unistr('\000a')||
+'  IS'||unistr('\000a')||
+'    v_data t_cell_data;'||unistr('\000a')||
+'  BEGIN'||unistr('\000a')||
+'     BEGIN'||unistr('\000a')||
+'       v_';
+
+s:=s||'data.value := p_query_value;'||unistr('\000a')||
+'       if p_format_mask is not null then'||unistr('\000a')||
+'         v_data.text := to_char(to_number(p_query_value),p_format_mask);'||unistr('\000a')||
+'       ELSE'||unistr('\000a')||
+'         v_data.text := p_query_value;'||unistr('\000a')||
+'       end if;'||unistr('\000a')||
+'      exception'||unistr('\000a')||
+'        WHEN others THEN '||unistr('\000a')||
+'          v_data.text := p_query_value;'||unistr('\000a')||
+'      END;      '||unistr('\000a')||
+'      '||unistr('\000a')||
+'      return v_data;'||unistr('\000a')||
+'  END get_cell_number;  '||unistr('\000a')||
+'  -------------------------------------';
+
+s:=s||'-----------------------------------------'||unistr('\000a')||
 '  function print_row(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
-'  return clob is'||unistr('\000a')||
-'    v_clob            clob;'||unistr('\000a')||
-'    v_column_alias    APEX_APPLICATION_P';
-
-s:=s||'AGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
+'  return varchar2 is'||unistr('\000a')||
+'    v_clob            largevarchar2; --change'||unistr('\000a')||
+'    v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
 '    v_format_mask     APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE;'||unistr('\000a')||
 '    v_row_color       varchar2(10); '||unistr('\000a')||
-'    v_row_back_color  varchar2(10);'||unistr('\000a')||
+'    v_row_back_color  varch';
+
+s:=s||'ar2(10);'||unistr('\000a')||
 '    v_cell_color      varchar2(10);'||unistr('\000a')||
-'    v_cell_back_color varchar2(10);        '||unistr('\000a')||
+'    v_cell_back_color VARCHAR2(10);     '||unistr('\000a')||
+'    v_column_type     VARCHAR2(10);'||unistr('\000a')||
+'    v_cell_data       t_cell_data;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'    --check that row need to be highlighted'||unistr('\000a')||
+'      --check that row need to be highlighted'||unistr('\000a')||
 '    <<row_highlights>>'||unistr('\000a')||
 '    for h in 1..l_report.row_highlight.count loop'||unistr('\000a')||
-'     BEGIN';
+'     BEGIN '||unistr('\000a')||
+'      IF get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.row_highligh';
 
-s:=s||' '||unistr('\000a')||
-'      IF get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.row_highlight(h).COND_NUMBER) IS NOT NULL THEN'||unistr('\000a')||
+s:=s||'t(h).COND_NUMBER) IS NOT NULL THEN'||unistr('\000a')||
 '         v_row_color       := l_report.row_highlight(h).HIGHLIGHT_ROW_FONT_COLOR;'||unistr('\000a')||
 '         v_row_back_color  := l_report.row_highlight(h).HIGHLIGHT_ROW_COLOR;'||unistr('\000a')||
 '      END IF;'||unistr('\000a')||
 '     exception       '||unistr('\000a')||
 '       when no_data_found then'||unistr('\000a')||
-'         log(''row_highlights: =''|';
+'         log(''row_highlights: =''||'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report.row_h';
 
-s:=s||'|'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report.row_highlight(h).cond_number||'' h=''||h);'||unistr('\000a')||
+s:=s||'ighlight(h).cond_number||'' h=''||h);'||unistr('\000a')||
 '     end; '||unistr('\000a')||
 '    end loop row_highlights;'||unistr('\000a')||
 '    --'||unistr('\000a')||
 '    <<visible_columns>>'||unistr('\000a')||
 '    for i in l_report.start_with..l_report.end_with loop'||unistr('\000a')||
-'      v_cell_color       := null;'||unistr('\000a')||
-'      v_cell_back_color  := null;'||unistr('\000a')||
-'    '||unistr('\000a')||
-'      v_column_alias := l_report.report_columns(i);'||unistr('\000a')||
-'     ';
+'      v_cell_color       := NULL;'||unistr('\000a')||
+'      v_cell_back_color  := NULL;'||unistr('\000a')||
+'      v_cell_data.VALUE  := NULL;  '||unistr('\000a')||
+'      v_cell_data.text   := NULL; '||unistr('\000a')||
+''||unistr('\000a')||
+'      v_column_alias := get_column_alias_sql(i);'||unistr('\000a')||
+'      v_column_type := get_column_types(v_colum';
 
-s:=s||' v_format_mask := get_col_format_mask(v_column_alias);'||unistr('\000a')||
+s:=s||'n_alias);'||unistr('\000a')||
+'      v_format_mask := get_col_format_mask(v_column_alias);'||unistr('\000a')||
+'      '||unistr('\000a')||
+'      IF v_column_type = ''DATE'' THEN'||unistr('\000a')||
+'         v_cell_data := get_cell_date(get_current_row(p_current_row,i),v_format_mask);                   '||unistr('\000a')||
+'      ELSIF  v_column_type = ''NUMBER'' THEN      '||unistr('\000a')||
+'         v_cell_data := get_cell_number(get_current_row(p_current_row,i),v_format_mask);'||unistr('\000a')||
+'      ELSE --STRING'||unistr('\000a')||
+'        v_format_mask ';
+
+s:=s||':= NULL;'||unistr('\000a')||
+'        v_cell_data.VALUE  := NULL;  '||unistr('\000a')||
+'        v_cell_data.text   := get_current_row(p_current_row,i);'||unistr('\000a')||
+'      end if; '||unistr('\000a')||
+'       '||unistr('\000a')||
 '      --check that cell need to be highlighted'||unistr('\000a')||
 '      <<column_highlights>>'||unistr('\000a')||
 '      for h in 1..l_report.col_highlight.count loop'||unistr('\000a')||
 '        begin'||unistr('\000a')||
 '          --debug'||unistr('\000a')||
-'          if get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.col_highlight(h).COND_NUMBER) is not null '||unistr('\000a')||
-'             and v_column_alias = l_report.col_';
+'          if get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.col_highlig';
 
-s:=s||'highlight(h).CONDITION_COLUMN_NAME '||unistr('\000a')||
+s:=s||'ht(h).COND_NUMBER) is not null '||unistr('\000a')||
+'             and v_column_alias = l_report.col_highlight(h).CONDITION_COLUMN_NAME '||unistr('\000a')||
 '          then'||unistr('\000a')||
 '            v_cell_color       := l_report.col_highlight(h).HIGHLIGHT_CELL_FONT_COLOR;'||unistr('\000a')||
-'            v_cell_back_color  := l_report.col_highlight(h).HIGHLIGHT_CELL_COLOR;          '||unistr('\000a')||
+'            v_cell_back_color  := l_report.col_highlight(h).HIGHLIGHT_CELL_COLOR;'||unistr('\000a')||
 '          end if;'||unistr('\000a')||
 '        exception'||unistr('\000a')||
 '       when no_data_found then'||unistr('\000a')||
-'         log(''col_highlights: =''||'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_';
+'         log(''col_highlights: =''||';
 
-s:=s||'cnt||'' COND_NUMBER=''||l_report.col_highlight(h).cond_number||'' h=''||h); '||unistr('\000a')||
+s:=s||''' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report.col_highlight(h).cond_number||'' h=''||h); '||unistr('\000a')||
 '       end;'||unistr('\000a')||
-'      end loop column_highlights;'||unistr('\000a')||
-'      v_clob := v_clob ||bcoll(p_cell_order   => i,'||unistr('\000a')||
-'                               p_font_color   => nvl(v_cell_color,v_row_color),'||unistr('\000a')||
-'                               p_back_color   => get_column_alignment(v_column_alias),'||unistr('\000a')||
-'                               p_column_alias => v_column_alia';
+'      END loop column_highlights;'||unistr('\000a')||
+'      '||unistr('\000a')||
+'      v_clob := v_clob ||bcoll(p_font_color   => nvl(v_cell_color,v_row_color),'||unistr('\000a')||
+'                               p_back_color   => nvl(v_cell_back_color,v_row_back_color),'||unistr('\000a')||
+'                               p_al';
 
-s:=s||'s,'||unistr('\000a')||
-'                               p_colmn_type   => get_column_types(v_column_alias)'||unistr('\000a')||
+s:=s||'ign        => get_column_alignment(v_column_alias),'||unistr('\000a')||
+'                               p_column_alias => v_column_alias,'||unistr('\000a')||
+'                               p_colmn_type   => v_column_type,'||unistr('\000a')||
+'                               p_value        => v_cell_data.value,'||unistr('\000a')||
+'                               p_format_mask  => replace(v_format_mask,''"'','''')'||unistr('\000a')||
 '                              )'||unistr('\000a')||
-'                       ||get_xmlval(get_formatted_str(nvl(get_current_row(p_current_row,i),'' ''),v_format_mask))'||unistr('\000a')||
+'                       ||get_xmlval(v_ce';
+
+s:=s||'ll_data.text)'||unistr('\000a')||
 '                       ||ecoll(i);'||unistr('\000a')||
 '    end loop visible_columns;'||unistr('\000a')||
-'    '||unistr('\000a')||
 '    return  ''<ROW>''||v_clob || ''</ROW>''||chr(10);    '||unistr('\000a')||
 '  end print_row;'||unistr('\000a')||
 '  '||unistr('\000a')||
-'  -------------------------';
-
-s:=s||'----------------------------------------------------- '||unistr('\000a')||
+'  ------------------------------------------------------------------------------ '||unistr('\000a')||
 ' '||unistr('\000a')||
 '  function print_header'||unistr('\000a')||
-'  return clob is'||unistr('\000a')||
-'    v_clob            clob;'||unistr('\000a')||
+'  return varchar2 is'||unistr('\000a')||
+'    v_header_xml      largevarchar2;'||unistr('\000a')||
 '    v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'    v_clob := v_clob || ''<HEADER>'';'||unistr('\000a')||
-'    <<headers>>'||unistr('\000a')||
-'    for i in 1..l_report.end_with  loop'||unistr('\000a')||
-'      V_COLUMN_ALIAS := L_REPORT.REPORT_COLUMNS(I);'||unistr('\000a')||
-'      -- if current column is not control break colu';
+'   ';
 
-s:=s||'mn'||unistr('\000a')||
+s:=s||' v_header_xml := ''<HEADER>'';'||unistr('\000a')||
+'    <<headers>>'||unistr('\000a')||
+'    for i in 1..l_report.displayed_columns.count   loop'||unistr('\000a')||
+'      V_COLUMN_ALIAS := get_column_alias(i);'||unistr('\000a')||
+'      -- if current column is not control break column'||unistr('\000a')||
 '      if apex_plugin_util.get_position_in_list(l_report.break_on,v_column_alias) is null then      '||unistr('\000a')||
-'        v_clob := v_clob ||bcoll(i,p_column_alias=>v_column_alias,p_align=>get_header_alignment(v_column_alias))'||unistr('\000a')||
-'                         ||get_xmlval(get_column_names(v_column_alias))'||unistr('\000a')||
-'                         ||ecoll(i);'||unistr('\000a')||
+'        v_header_xml := v_header_xml ||bcoll(p_column_alias=>v_column_alias,p_align=>get_header_ali';
+
+s:=s||'gnment(v_column_alias))'||unistr('\000a')||
+'                                     ||get_xmlval(regexp_replace(get_column_names(v_column_alias),''<[^>]*>'','' ''))'||unistr('\000a')||
+'                                     ||ecoll(i);'||unistr('\000a')||
 '      end if;  '||unistr('\000a')||
 '    end loop headers;'||unistr('\000a')||
-'    return  v_clob || ''</HEADER>''||ch';
-
-s:=s||'r(10);'||unistr('\000a')||
+'    return  v_header_xml || ''</HEADER>''||chr(10);'||unistr('\000a')||
 '  end print_header; '||unistr('\000a')||
 '  ------------------------------------------------------------------------------  '||unistr('\000a')||
-'  '||unistr('\000a')||
-'  function print_control_break_header(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) '||unistr('\000a')||
-'  return clob'||unistr('\000a')||
+'  function print_cont';
+
+s:=s||'rol_break_header(p_current_row     in apex_application_global.vc_arr2) '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
 '  is'||unistr('\000a')||
-'    v_clob            clob;'||unistr('\000a')||
-'    v_start_with      integer;'||unistr('\000a')||
-'    v_end_with        integer;      '||unistr('\000a')||
+'    v_cb_xml  largevarchar2;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    if nvl(l_report.break_really_on.count,0) = 0  then'||unistr('\000a')||
-'      return ''''';
-
-s:=s||'; --no control break'||unistr('\000a')||
+'      return ''''; --no control break'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
 '    '||unistr('\000a')||
-'    v_start_with := 1 + l_report.skipped_columns;    '||unistr('\000a')||
-'    v_end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0);'||unistr('\000a')||
-'    <<visible_columns>>'||unistr('\000a')||
-'    for i in v_start_with..v_end_with loop'||unistr('\000a')||
+'    <<break_columns>>'||unistr('\000a')||
+'    for i in 1..nvl(l_report.break_really_on.count,0) loop'||unistr('\000a')||
 '      --TODO: Add column header'||unistr('\000a')||
-'      v_clob := v_clob || get_column_names(l_report.report_columns(i))||'': ''||get_current_row(p_current_row,i)||'','';'||unistr('\000a')||
-'    en';
+'      v_cb_xml := v_cb_xml ||get_column_names(l';
 
-s:=s||'d loop visible_columns;'||unistr('\000a')||
+s:=s||'_report.break_really_on(i))||'': ''||get_current_row(p_current_row,i + l_report.skipped_columns)||'','';'||unistr('\000a')||
+'    end loop visible_columns;'||unistr('\000a')||
 '    '||unistr('\000a')||
-'    return  ''<BREAK_HEADER>''||get_xmlval(rtrim(v_clob,'','')) || ''</BREAK_HEADER>''||chr(10);    '||unistr('\000a')||
+'    return  ''<BREAK_HEADER>''||get_xmlval(rtrim(v_cb_xml,'','')) || ''</BREAK_HEADER>''||chr(10);    '||unistr('\000a')||
 '  end print_control_break_header;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function find_rel_position (p_curr_col_name    IN varchar2,'||unistr('\000a')||
-'                              p_agg_rows         IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
-'  return integ';
+'  function find_rel_position (p_curr_col_name    IN ';
 
-s:=s||'er'||unistr('\000a')||
+s:=s||'varchar2,'||unistr('\000a')||
+'                              p_agg_rows         IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
+'  return integer'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_relative_position integer;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
@@ -8903,96 +9093,38 @@ s:=s||'er'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    return null;'||unistr('\000a')||
 '  end find_rel_position;'||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function get_agg_text(p_curr_col_name   IN';
+'  --------------';
 
-s:=s||' varchar2,'||unistr('\000a')||
+s:=s||'----------------------------------------------------------------'||unistr('\000a')||
+'  function get_agg_text(p_curr_col_name   IN varchar2,'||unistr('\000a')||
 '                        p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '                        p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '                        p_agg_text        IN varchar2,'||unistr('\000a')||
-'                        p_position        IN integer, --start position in sql-query'||unistr('\000a')||
-'                        p_col_number      IN INTEGER, --column position when displayed'||unistr('\000a')||
-'       ';
+'                        p_position        IN integer, --start positio';
 
-s:=s||'                 p_default_format_mask     IN varchar2 default null )  '||unistr('\000a')||
-'  return clob'||unistr('\000a')||
+s:=s||'n in sql-query'||unistr('\000a')||
+'                        p_col_number      IN INTEGER, --column position when displayed'||unistr('\000a')||
+'                        p_default_format_mask     IN varchar2 default null )  '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_tmp_pos       integer;  -- current column position in sql-query '||unistr('\000a')||
 '    v_format_mask   APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'      v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); '||unistr('\000a')||
+'      v_tmp_pos := find_rel_position ';
+
+s:=s||'(p_curr_col_name,p_agg_rows); '||unistr('\000a')||
 '      if v_tmp_pos is not null then'||unistr('\000a')||
-'        v_format_mask := nvl(get_col_format_ma';
-
-s:=s||'sk(l_report.report_columns(p_col_number)),p_default_format_mask);'||unistr('\000a')||
-'        return  get_xmlval(p_agg_text||get_formatted_str(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask)||chr(10));   '||unistr('\000a')||
-'      else'||unistr('\000a')||
-'        return  '''';'||unistr('\000a')||
-'      end if;        '||unistr('\000a')||
-'  end get_agg_text;'||unistr('\000a')||
-'  '||unistr('\000a')||
-'  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function print_aggregate(p_current_';
-
-s:=s||'row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) '||unistr('\000a')||
-'  return clob'||unistr('\000a')||
-'  is'||unistr('\000a')||
-'    v_clob            clob;'||unistr('\000a')||
-'    v_start_with      integer;'||unistr('\000a')||
-'    v_end_with        integer;'||unistr('\000a')||
-'    v_position        integer;    '||unistr('\000a')||
-'  begin'||unistr('\000a')||
-'    if l_report.agg_cols_cnt  = 0 then'||unistr('\000a')||
-'      return ''''; --no aggregate'||unistr('\000a')||
-'    end if;    '||unistr('\000a')||
-'    v_clob := v_clob || ''<AGGREGATE>'';'||unistr('\000a')||
-'    '||unistr('\000a')||
-'    v_start_with := l_report.skipped_columns + 1 + nvl(l_report.break_re';
-
-s:=s||'ally_on.count,0);    '||unistr('\000a')||
-'    v_end_with   := l_report.skipped_columns + l_report.report_columns.count;    '||unistr('\000a')||
-'    '||unistr('\000a')||
-'    <<visible_columns>>'||unistr('\000a')||
-'    for i in v_start_with..v_end_with loop'||unistr('\000a')||
-'      v_position := v_end_with; --aggregate are placed after displayed columns and computations'||unistr('\000a')||
-'      v_clob := v_clob || bcoll(i,p_column_alias=>L_REPORT.REPORT_COLUMNS(I));'||unistr('\000a')||
-'      --one column cah have only one aggregate of';
-
-s:=s||' each type'||unistr('\000a')||
-'      v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.sum_columns_on_break,'||unistr('\000a')||
-'                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => '' '','||unistr('\000a')||
-'                                       p_position      => v_position,'||unistr('\000a')||
-'        ';
-
-s:=s||'                               p_col_number    => i);'||unistr('\000a')||
-'      v_position := v_position + l_report.sum_columns_on_break.count;'||unistr('\000a')||
-'      v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.avg_columns_on_break,'||unistr('\000a')||
-'                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                            ';
-
-s:=s||'           p_agg_text      => ''Avgerage: '','||unistr('\000a')||
-'                                       p_position      => v_position,'||unistr('\000a')||
-'                                       p_col_number    => i,'||unistr('\000a')||
-'                                       p_default_format_mask   => ''999G999G999G999G990D000'');'||unistr('\000a')||
-'      v_position := v_position + l_report.avg_columns_on_break.count;                                       '||unistr('\000a')||
-'      v_clob := v_clob';
-
-s:=s||' || get_agg_text(p_curr_col_name => l_report.report_columns(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.max_columns_on_break,'||unistr('\000a')||
-'                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => ''Max: '','||unistr('\000a')||
-'                                       p_position      => v_position,'||unistr('\000a')||
-'                                     ';
+'        v_format_mask := nvl(get_col_format_mask(get_column_alias_sql(p_col_number)),p_default_format_mask);'||unistr('\000a')||
+'--!!!!!!'||unistr('\000a')||
+'        --return  get_xmlval(p_agg_text||get_formatted_str(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask)||chr(10));'||unistr('\000a')||
+'        return  get_xmlval(p_agg_text||to_char(get_current_row(p_current_row';
 
 wwv_flow_api.create_install_script(
-  p_id => 3027732571644592 + wwv_flow_api.g_id_offset,
+  p_id => 49413661524132586688 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
-  p_install_id=> 2920819445927387 + wwv_flow_api.g_id_offset,
-  p_name => 'DDL',
-  p_sequence=> 10,
+  p_install_id=> 49413219127950509377 + wwv_flow_api.g_id_offset,
+  p_name => 'IR_TO_XML Package',
+  p_sequence=> 20,
   p_script_type=> 'INSTALL',
   p_script_clob=> s);
 end;
@@ -9007,224 +9139,282 @@ begin
 declare
     s varchar2(32767) := null;
 begin
-s:=s||'  p_col_number    => i);'||unistr('\000a')||
-'      v_position := v_position + l_report.max_columns_on_break.count;                                 '||unistr('\000a')||
-'      v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.min_columns_on_break,'||unistr('\000a')||
-'                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                        ';
+s:=s||',p_position + v_tmp_pos),v_format_mask)||chr(10));'||unistr('\000a')||
+'      else'||unistr('\000a')||
+'        return  '''';'||unistr('\000a')||
+'      end if;        '||unistr('\000a')||
+'  end get_agg_text;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function print_aggregate(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_aggregate_xml   largevarchar2;'||unistr('\000a')||
+'    v_position        INTEGER;    '||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    if ';
 
-s:=s||'               p_agg_text      => ''Min: '','||unistr('\000a')||
+s:=s||'l_report.agg_cols_cnt  = 0 then'||unistr('\000a')||
+'      return ''''; --no aggregate'||unistr('\000a')||
+'    end if;    '||unistr('\000a')||
+'    v_aggregate_xml := ''<AGGREGATE>'';'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    <<visible_columns>>'||unistr('\000a')||
+'    FOR i IN l_report.start_with..l_report.end_with loop'||unistr('\000a')||
+'      v_position := l_report.end_with; --aggregate are placed after displayed columns and computations'||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || bcoll(p_column_alias=>get_column_alias_sql(I));'||unistr('\000a')||
+' ';
+
+s:=s||'     --one column cah have only one aggregate of each type'||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.sum_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => '' '','||unistr('\000a')||
+'               ';
+
+s:=s||'                        p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v_position := v_position + l_report.sum_columns_on_break.count;'||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.avg_columns_on_break,'||unistr('\000a')||
+'                       ';
+
+s:=s||'                p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Avgerage: '','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i,'||unistr('\000a')||
+'                                       p_default_format_mask   => ''999G999G999G999G990D000'');'||unistr('\000a')||
+'      v_position := v_position + l_report.avg_columns';
+
+s:=s||'_on_break.count;                                       '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.max_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Max: '','||unistr('\000a')||
+'              ';
+
+s:=s||'                         p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v_position := v_position + l_report.max_columns_on_break.count;                                 '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.min_columns';
+
+s:=s||'_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Min: '','||unistr('\000a')||
 '                                       p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i);'||unistr('\000a')||
 '      v_position := v_position + l_report.min_columns_on_break.count;                                 '||unistr('\000a')||
-'      v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),'||unistr('\000a')||
-'                                    ';
+'      v_aggreg';
 
-s:=s||'   p_agg_rows      => l_report.median_columns_on_break,'||unistr('\000a')||
+s:=s||'ate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.median_columns_on_break,'||unistr('\000a')||
 '                                       p_current_row   => p_current_row,'||unistr('\000a')||
 '                                       p_agg_text      => ''Median: '','||unistr('\000a')||
 '                                       p_position      => v_position,'||unistr('\000a')||
-'                                       p_col_number    => i,'||unistr('\000a')||
-'                                       p_default_format_mask   => ''999';
+'        ';
 
-s:=s||'G999G999G999G990D000'');'||unistr('\000a')||
+s:=s||'                               p_col_number    => i,'||unistr('\000a')||
+'                                       p_default_format_mask   => ''999G999G999G999G990D000'');'||unistr('\000a')||
 '      v_position := v_position + l_report.median_columns_on_break.count;                                 '||unistr('\000a')||
-'      v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.count_columns_on_break,'||unistr('\000a')||
-'                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                    ';
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_r';
 
-s:=s||'                   p_agg_text      => ''Count: '','||unistr('\000a')||
+s:=s||'ows      => l_report.count_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Count: '','||unistr('\000a')||
 '                                       p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i);'||unistr('\000a')||
-'      v_position := v_position + l_report.count_columns_on_break.count;                                 '||unistr('\000a')||
-'      v_clob := v_clob || get_agg_text(p_curr_col_name => l_report.report_columns(i),'||unistr('\000a')||
-'                            ';
+'      v_position := v_position + l_report.count_columns_on_break.count;          ';
 
-s:=s||'           p_agg_rows      => l_report.count_distnt_col_on_break,'||unistr('\000a')||
+s:=s||'                       '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.count_distnt_col_on_break,'||unistr('\000a')||
 '                                       p_current_row   => p_current_row,'||unistr('\000a')||
 '                                       p_agg_text      => ''Count distinct: '','||unistr('\000a')||
-'                                       p_position      => v_position,'||unistr('\000a')||
-'                                       p_col_number    => i);'||unistr('\000a')||
-'      v_clob := v_clob || ecoll(i);'||unistr('\000a')||
-'    end loop vi';
+'                              ';
 
-s:=s||'sible_columns;'||unistr('\000a')||
-'    return  v_clob || ''</AGGREGATE>''||chr(10);'||unistr('\000a')||
+s:=s||'         p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || ecoll(i);'||unistr('\000a')||
+'    end loop visible_columns;'||unistr('\000a')||
+'    return  v_aggregate_xml || ''</AGGREGATE>''||chr(10);'||unistr('\000a')||
 '  end print_aggregate;    '||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function get_page_items(p_app_id         in number,'||unistr('\000a')||
+'  function get_page_items(p_app_id         in numb';
+
+s:=s||'er,'||unistr('\000a')||
 '                          p_page_id        in number,'||unistr('\000a')||
 '                          p_items_list     in varchar2,'||unistr('\000a')||
 '                          p_get_page_items in char)'||unistr('\000a')||
 '  return clob'||unistr('\000a')||
-'';
-
-s:=s||'  is'||unistr('\000a')||
+'  is'||unistr('\000a')||
 '    v_clob  clob;    '||unistr('\000a')||
 '    v_item_names  APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
+'    v_clob := to_clob( ''<ITEMS>''||chr(10));'||unistr('\000a')||
+'    '||unistr('\000a')||
 '    select item_name'||unistr('\000a')||
 '    bulk collect into v_item_names  '||unistr('\000a')||
-'    from apex_application_page_items'||unistr('\000a')||
+'    from apex_application_p';
+
+s:=s||'age_items'||unistr('\000a')||
 '    where application_id = p_app_id'||unistr('\000a')||
 '      and ((page_id = p_page_id and p_get_page_items = ''Y'')'||unistr('\000a')||
 '          or'||unistr('\000a')||
 '          (P_ITEMS_LIST is not null and INSTR('',''||P_ITEMS_LIST||'','','',''||ITEM_NAME||'','') >  0))'||unistr('\000a')||
 '    union '||unistr('\000a')||
-'  ';
-
-s:=s||'  select item_name'||unistr('\000a')||
+'    select item_name'||unistr('\000a')||
 '    from APEX_APPLICATION_ITEMS'||unistr('\000a')||
 '    where application_id = p_app_id  '||unistr('\000a')||
 '      and P_ITEMS_LIST is not null '||unistr('\000a')||
-'      and instr('',''||p_items_list||'','','',''||item_name||'','') >  0;    '||unistr('\000a')||
+'      and instr('',''||p_items_list||'','','',''||it';
+
+s:=s||'em_name||'','') >  0;    '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    <<items>>'||unistr('\000a')||
 '    for i in 1..v_item_names.count loop'||unistr('\000a')||
-'     v_clob := v_clob||''<''||upper(v_item_names(i))||''>'''||unistr('\000a')||
-'                     ||get_xmlval(v(v_item_names(i)))'||unistr('\000a')||
-'                     ||''</''||upper(v';
-
-s:=s||'_item_names(i))||''>''||chr(10);'||unistr('\000a')||
+'     v_clob := v_clob||to_clob(''<''||upper(v_item_names(i))||''>'''||unistr('\000a')||
+'                                ||get_xmlval(v(v_item_names(i)))'||unistr('\000a')||
+'                                ||''</''||upper(v_item_names(i))||''>''||chr(10));'||unistr('\000a')||
 '    end loop items;'||unistr('\000a')||
 '    '||unistr('\000a')||
-'    return ''<ITEMS>''||chr(10)||v_clob||''</ITEMS>''||chr(10); '||unistr('\000a')||
+'    return v_clob||to_clob(''</ITEMS>''||chr(10)); '||unistr('\000a')||
 '  end get_page_items;  '||unistr('\000a')||
 ' '||unistr('\000a')||
-'  ------------------------------------------------------------------------------    '||unistr('\000a')||
-'  function get_xml_from_ir(p_max_rows in integer)'||unistr('\000a')||
-'  return clob'||unistr('\000a')||
+'  ------';
+
+s:=s||'------------------------------------------------------------------------    '||unistr('\000a')||
+'  procedure get_xml_from_ir(v_data in out nocopy clob,p_max_rows in integer)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '   v_cur         INTEGER; '||unistr('\000a')||
 '   v_result      INTEGER;'||unistr('\000a')||
 '   v_colls_count INTEGER;'||unistr('\000a')||
-'   v_row         APEX_AP';
-
-s:=s||'PLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'   v_row         APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
 '   v_prev_row    APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
 '   v_columns     APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
-'   v_current_row number default 0;'||unistr('\000a')||
-'   v_xml         CLOB;  '||unistr('\000a')||
+'   v_current';
+
+s:=s||'_row number default 0;'||unistr('\000a')||
 '   v_desc_tab    DBMS_SQL.DESC_TAB2;'||unistr('\000a')||
 '   v_inside      boolean default false;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    v_cur := dbms_sql.open_cursor; '||unistr('\000a')||
 '    dbms_sql.parse(v_cur,l_report.report.sql_query,dbms_sql.native);     '||unistr('\000a')||
-'    --v_xml := v_xm';
-
-s:=s||'l||''<QUERY>''||get_xmlval(l_report.report.sql_query)||''</QUERY>''||chr(10);'||unistr('\000a')||
 '    dbms_sql.describe_columns2(v_cur,v_colls_count,v_desc_tab);    '||unistr('\000a')||
 '    --skip internal primary key if need'||unistr('\000a')||
 '    if lower(v_desc_tab(1).col_name) = ''apxws_row_pk'' then'||unistr('\000a')||
-'      l_report.skipped_columns := 1;'||unistr('\000a')||
+'      l_report.';
+
+s:=s||'skipped_columns := 1;'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
 '    l_report.start_with := l_report.skipped_columns + 1 + nvl(l_report.break_really_on.count,0);'||unistr('\000a')||
-'    l_report.';
-
-s:=s||'end_with   := l_report.skipped_columns + l_report.report_columns.count;    '||unistr('\000a')||
+'    l_report.end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0) + l_report.displayed_columns.count;    '||unistr('\000a')||
 '    log(''l_report.start_with=''||l_report.start_with);'||unistr('\000a')||
 '    log(''l_report.end_with=''||l_report.end_with);'||unistr('\000a')||
-'    log(''l_report.skipped_columns=''||l_report.skipped_columns);'||unistr('\000a')||
+'    log(''l_report.skipped_columns';
+
+s:=s||'=''||l_report.skipped_columns);'||unistr('\000a')||
 '    '||unistr('\000a')||
-'    v_xml := v_xml||print_header;'||unistr('\000a')||
+'    add(v_data,print_header); '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    <<bind_variables>>'||unistr('\000a')||
 '    for i in 1..l_report.report.binds.count loop'||unistr('\000a')||
 '      --remove MAX_ROWS'||unistr('\000a')||
-'      if l_repor';
-
-s:=s||'t.report.binds(i).name = ''APXWS_MAX_ROW_CNT'' then      '||unistr('\000a')||
+'      if l_report.report.binds(i).name = ''APXWS_MAX_ROW_CNT'' then      '||unistr('\000a')||
 '        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.report.binds(i).name,p_max_rows);      '||unistr('\000a')||
 '        null;'||unistr('\000a')||
 '      else'||unistr('\000a')||
-'        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.report.binds(i).name,l_report.report.binds(i).value);      '||unistr('\000a')||
+'        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.r';
+
+s:=s||'eport.binds(i).name,l_report.report.binds(i).value);      '||unistr('\000a')||
 '      end if;'||unistr('\000a')||
 '    end loop bind_variables;'||unistr('\000a')||
 ''||unistr('\000a')||
 '    <<query_columns>>'||unistr('\000a')||
 '    for i in 1..v_colls_count loop'||unistr('\000a')||
 '     v_row(i) := '''';'||unistr('\000a')||
-'   ';
-
-s:=s||'  dbms_sql.define_column(v_cur, i, v_row(i),32767);'||unistr('\000a')||
+'     dbms_sql.define_column(v_cur, i, v_row(i),32767);'||unistr('\000a')||
 '    end loop query_columns;'||unistr('\000a')||
 '    '||unistr('\000a')||
-'    v_result := dbms_sql.execute(v_cur);     '||unistr('\000a')||
+'    v_result := dbms_sql.execute(v_cur);         '||unistr('\000a')||
 '    <<main_cycle>>'||unistr('\000a')||
 '    LOOP '||unistr('\000a')||
-'         IF DBMS_SQL.FETCH_ROWS(v_cur)>0 THEN          '||unistr('\000a')||
+'         IF DBMS_SQL.FETCH_ROWS(v_cur)>0 THEN       ';
+
+s:=s||'   '||unistr('\000a')||
 '           -- get column values of the row '||unistr('\000a')||
 '            v_current_row := v_current_row + 1;'||unistr('\000a')||
 '            <<query_columns>>'||unistr('\000a')||
 '            for i in 1..v_colls_count loop'||unistr('\000a')||
-'               DBMS';
-
-s:=s||'_SQL.COLUMN_VALUE(v_cur, i,v_row(i));                '||unistr('\000a')||
+'               DBMS_SQL.COLUMN_VALUE(v_cur, i,v_row(i));                '||unistr('\000a')||
 '            end loop;     '||unistr('\000a')||
 '            --check control break'||unistr('\000a')||
 '            if v_current_row > 1 then'||unistr('\000a')||
-'             if is_control_break(v_row,v_prev_row) then                                             '||unistr('\000a')||
-'               v_xml := v_xml||''</ROWSET>''||chr(10);'||unistr('\000a')||
+'             if is_control_break(v_row,v_prev_row) then    ';
+
+s:=s||'                                         '||unistr('\000a')||
+'               add(v_data,''</ROWSET>''||chr(10));'||unistr('\000a')||
 '               v_inside := false;'||unistr('\000a')||
 '             end if;'||unistr('\000a')||
 '            end if;'||unistr('\000a')||
-'            if not';
-
-s:=s||' v_inside then'||unistr('\000a')||
-'              v_xml := v_xml||''<ROWSET>''||chr(10);              '||unistr('\000a')||
-'              v_xml := v_xml||print_control_break_header(v_row);              '||unistr('\000a')||
+'            if not v_inside then'||unistr('\000a')||
+'              add(v_data,''<ROWSET>''||chr(10));'||unistr('\000a')||
+'              add(v_data,print_control_break_header(v_row));'||unistr('\000a')||
 '              --print aggregates'||unistr('\000a')||
-'              v_xml := v_xml||print_aggregate(v_row);'||unistr('\000a')||
-'              v_inside := true;'||unistr('\000a')||
+'              add(v_data,print_aggregate(v_row));'||unistr('\000a')||
+'          ';
+
+s:=s||'    v_inside := true;'||unistr('\000a')||
 '            END IF;            --            '||unistr('\000a')||
 '            <<query_columns>>'||unistr('\000a')||
 '            for i in 1..v_colls_count loop'||unistr('\000a')||
-'   ';
-
-s:=s||'           v_prev_row(i) := v_row(i);                           '||unistr('\000a')||
+'              v_prev_row(i) := v_row(i);                           '||unistr('\000a')||
 '            end loop;                 '||unistr('\000a')||
-'            v_xml := v_xml||print_row(v_row);            '||unistr('\000a')||
+'            --v_xml := v_xml||to_clob(print_row(v_row));'||unistr('\000a')||
+'            add(v_data,print_row(v_row));'||unistr('\000a')||
 '         ELSE --DBMS_SQL.FETCH_ROWS(v_cur)>0'||unistr('\000a')||
-'           EXIT; '||unistr('\000a')||
+'        ';
+
+s:=s||'   EXIT; '||unistr('\000a')||
 '         END IF; '||unistr('\000a')||
 '    END LOOP main_cycle;        '||unistr('\000a')||
 '    if v_inside then'||unistr('\000a')||
-'       v_xml := v_xml||''</ROWSET>'';'||unistr('\000a')||
+'       add(v_data,''</ROWSET>'');'||unistr('\000a')||
 '       v_inside := false;'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
-'   dbms_sql.close_cursor(v_cu';
-
-s:=s||'r); '||unistr('\000a')||
+'   dbms_sql.close_cursor(v_cur); '||unistr('\000a')||
 '   '||unistr('\000a')||
-'   return v_xml;'||unistr('\000a')||
 '  end get_xml_from_ir;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function get_final_xml(p_app_id      in number,'||unistr('\000a')||
-'                         p_page_id     in number,'||unistr('\000a')||
-'                         p_items_list  in varchar2,'||unistr('\000a')||
-'                         p_get_page_items in char,'||unistr('\000a')||
-'                         p_max_rows       in number)'||unistr('\000a')||
-'  return clob'||unistr('\000a')||
-'';
+'  procedure get_final_xml( p_clob           in out nocopy clob,'||unistr('\000a')||
+'                          p_app_id        ';
 
-s:=s||'  is'||unistr('\000a')||
+s:=s||' in number,'||unistr('\000a')||
+'                          p_page_id        in number,'||unistr('\000a')||
+'                          p_items_list     in varchar2,'||unistr('\000a')||
+'                          p_get_page_items in char,'||unistr('\000a')||
+'                          p_max_rows       in number)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'   v_rows  apex_application_global.vc_arr2;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'   return ''<?xml version="1.0" encoding="UTF-8"?>''||chr(10)||'||unistr('\000a')||
-'          ''<DOCUMENT>''||chr(10)||'||unistr('\000a')||
-'          get_page_items(p_app_id,p_page_id,p_items_list,p_get_page_items)||'||unistr('\000a')||
-'          ''<DATA>''||chr(10)||'||unistr('\000a')||
-'           get_xml_from_ir(p_max_rows)||'||unistr('\000a')||
-'          ''</DATA>''||chr(10)||'||unistr('\000a')||
-'          ''</DOCUMENT>'';'||unistr('\000a')||
+'    add(p_clob,''<?xml version="1.0" encoding="UTF-8"?>''||chr(10)||''<DOCUMENT>''||chr(10));    '||unistr('\000a')||
+'    add(p_clob,get_pa';
+
+s:=s||'ge_items(p_app_id,p_page_id,p_items_list,p_get_page_items));'||unistr('\000a')||
+'    add(p_clob,''<DATA>''||chr(10));'||unistr('\000a')||
+'   '||unistr('\000a')||
+'    get_xml_from_ir(p_clob,p_max_rows);    '||unistr('\000a')||
+'   '||unistr('\000a')||
+'    add(p_clob,''</DATA>''||chr(10));'||unistr('\000a')||
+'    add(p_clob,''</DOCUMENT>''||chr(10));'||unistr('\000a')||
 '  end get_final_xml;'||unistr('\000a')||
 ' '||unistr('\000a')||
-'  --------------------------------------------------------------';
-
-s:=s||'----------------'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  procedure download_file(p_data        in clob,'||unistr('\000a')||
-'                          p_mime_header in varchar2,'||unistr('\000a')||
+'                       ';
+
+s:=s||'   p_mime_header in varchar2,'||unistr('\000a')||
 '                          p_file_name   in varchar2)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_blob        blob;'||unistr('\000a')||
@@ -9233,19 +9423,19 @@ s:=s||'----------------'||unistr('\000a')||
 '    v_lang        PLS_INTEGER := 0;'||unistr('\000a')||
 '    v_warning     PLS_INTEGER := 0;   '||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'        dbms_lob.createtemporary(v_blob,true';
+'        dbms_lob.createtemporary(v_blob,true);'||unistr('\000a')||
+'        dbms_lob.converttoblob(v_blob, p_data, dbms_lob.getlength(p_data), v_desc_offs';
 
-s:=s||');'||unistr('\000a')||
-'        dbms_lob.converttoblob(v_blob, p_data, dbms_lob.getlength(p_data), v_desc_offset, v_src_offset, dbms_lob.default_csid, v_lang, v_warning);'||unistr('\000a')||
+s:=s||'et, v_src_offset, dbms_lob.default_csid, v_lang, v_warning);'||unistr('\000a')||
 '        sys.htp.init;'||unistr('\000a')||
 '        sys.owa_util.mime_header(p_mime_header, FALSE );'||unistr('\000a')||
 '        sys.htp.p(''Content-length: '' || sys.dbms_lob.getlength( v_blob));'||unistr('\000a')||
 '        sys.htp.p(''Content-Disposition: attachment; filename="''||p_file_name||''"'' );'||unistr('\000a')||
-'        sys.';
-
-s:=s||'owa_util.http_header_close;'||unistr('\000a')||
+'        sys.owa_util.http_header_close;'||unistr('\000a')||
 '        sys.wpg_docload.download_file( v_blob );'||unistr('\000a')||
-'        dbms_lob.freetemporary(v_blob);'||unistr('\000a')||
+'        dbms';
+
+s:=s||'_lob.freetemporary(v_blob);'||unistr('\000a')||
 '  end download_file;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  procedure set_collection(p_collection_name in varchar2,p_data in clob)'||unistr('\000a')||
@@ -9254,13 +9444,13 @@ s:=s||'owa_util.http_header_close;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    IF apex_collection.collection_exists (p_collection_name) = FALSE'||unistr('\000a')||
 '    THEN'||unistr('\000a')||
-'  ';
-
-s:=s||'    apex_collection.create_collection (p_collection_name);'||unistr('\000a')||
+'      apex_collection.create_collection (p_collection_name);'||unistr('\000a')||
 '    END IF;'||unistr('\000a')||
 ''||unistr('\000a')||
 '   begin'||unistr('\000a')||
-'     select ''1'' --clob001'||unistr('\000a')||
+'     sel';
+
+s:=s||'ect ''1'' --clob001'||unistr('\000a')||
 '     into v_tmp'||unistr('\000a')||
 '     from apex_collections '||unistr('\000a')||
 '     where collection_name = p_collection_name'||unistr('\000a')||
@@ -9268,39 +9458,38 @@ s:=s||'    apex_collection.create_collection (p_collection_name);'||unistr('\000
 '        '||unistr('\000a')||
 '     apex_collection.update_member ( p_collection_name => p_collection_name'||unistr('\000a')||
 '                                    , p_seq            => 1'||unistr('\000a')||
-'                                 ';
-
-s:=s||'   , p_clob001        => p_data);'||unistr('\000a')||
+'                                    , p_clob001        => p_data);'||unistr('\000a')||
 '   exception'||unistr('\000a')||
 '     when no_data_found then'||unistr('\000a')||
-'      apex_collection.add_member ( p_collection_name => p_collection_name'||unistr('\000a')||
+'      apex_co';
+
+s:=s||'llection.add_member ( p_collection_name => p_collection_name'||unistr('\000a')||
 '                                 , p_clob001         => p_data );'||unistr('\000a')||
 '       '||unistr('\000a')||
 '   end;'||unistr('\000a')||
 '  end set_collection;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  procedure get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
-'         ';
+'                           p_page_id         in number,                                '||unistr('\000a')||
+'          ';
 
-s:=s||'                  p_page_id         in number,                                '||unistr('\000a')||
-'                           p_return_type     IN CHAR DEFAULT ''X'', -- "Q" for debug information, "X" for XML-Data'||unistr('\000a')||
+s:=s||'                 p_return_type     IN CHAR DEFAULT ''X'', -- "Q" for debug information, "X" for XML-Data'||unistr('\000a')||
 '                           p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
-'                           p_items_list      in varchar2,         -- "," delimetered list of items that for';
+'                           p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+'                           p_collection_name IN VARCHAR2,         -- na';
 
-s:=s||' including in XML'||unistr('\000a')||
-'                           p_collection_name IN VARCHAR2,         -- name of APEX COLLECTION to save XML, when null - download as file'||unistr('\000a')||
+s:=s||'me of APEX COLLECTION to save XML, when null - download as file'||unistr('\000a')||
 '                           p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
 '                          )'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_data      clob;'||unistr('\000a')||
-'    v_template  clob;    '||unistr('\000a')||
-'    v_file       BLOB;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'    --APEX_DEB';
-
-s:=s||'UG_MESSAGE.ENABLE_DEBUG_MESSAGES(p_level => 7);'||unistr('\000a')||
+'    dbms_lob.createtemporary(v_data,true);'||unistr('\000a')||
+'    --APEX_DEBUG_MESSAGE.ENABLE_DEBUG_MESSAGES(p_level => 7);'||unistr('\000a')||
 '    log(''p_app_id=''||p_app_id);'||unistr('\000a')||
-'    log(''p_page_id=''||p_page_id);'||unistr('\000a')||
+'    log(''p_page';
+
+s:=s||'_id=''||p_page_id);'||unistr('\000a')||
 '    log(''p_return_type=''||p_return_type);'||unistr('\000a')||
 '    log(''p_get_page_items=''||p_get_page_items);'||unistr('\000a')||
 '    log(''p_items_list=''||p_items_list);'||unistr('\000a')||
@@ -9308,44 +9497,74 @@ s:=s||'UG_MESSAGE.ENABLE_DEBUG_MESSAGES(p_level => 7);'||unistr('\000a')||
 '    log(''p_max_rows=''||p_max_rows);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    init_t_report(p_app_id,p_page_id);    '||unistr('\000a')||
-'    if p_return_type =';
-
-s:=s||' ''Q'' then  -- debug information    '||unistr('\000a')||
+'    if p_return_type = ''Q'' then  -- debug information    '||unistr('\000a')||
 '        begin'||unistr('\000a')||
-'          v_data := get_final_xml(p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
+'          get_final_xml(v_data,p_app_id,p_pag';
+
+s:=s||'e_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
 '          if p_collection_name is not null then  '||unistr('\000a')||
 '            set_collection(upper(p_collection_name),v_data);'||unistr('\000a')||
 '          end if;'||unistr('\000a')||
 '        exception'||unistr('\000a')||
 '          when others then'||unistr('\000a')||
-'            log(''Error in IR_TO_XML.get_report_document ''||sqlerrm||chr(10)||chr';
-
-s:=s||'(10)||dbms_utility.format_error_backtrace);            '||unistr('\000a')||
+'            log(''Error in IR_TO_XML.get_report_document ''||sqlerrm||chr(10)||chr(10)||dbms_utility.format_error_backtrace);            '||unistr('\000a')||
 '        end;'||unistr('\000a')||
-'        download_file(v_debug,''text/txt'',''log.txt'');'||unistr('\000a')||
+'        download_file(v_debug';
+
+s:=s||',''text/txt'',''log.txt'');'||unistr('\000a')||
 '    elsif p_return_type = ''X'' then --XML-Data'||unistr('\000a')||
-'        v_data := get_final_xml(p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
+'        get_final_xml(v_data,p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
 '        if p_collection_name is not null then  '||unistr('\000a')||
 '          set_collection(upper(p_collection_name),v_data);'||unistr('\000a')||
 '        else'||unistr('\000a')||
-'          download';
-
-s:=s||'_file(v_data,''application/xml'',''report_data.xml'');'||unistr('\000a')||
+'          download_file(v_data,''application/xml'',''report_data.xml'');'||unistr('\000a')||
 '        end if;'||unistr('\000a')||
 '    else'||unistr('\000a')||
-'      raise_application_error(-20001,''Unknown parameter p_download_type=''||p_return_type);'||unistr('\000a')||
+'      raise_application_e';
+
+s:=s||'rror(-20001,''Unknown parameter p_download_type=''||p_return_type);'||unistr('\000a')||
+'      dbms_lob.freetemporary(v_data);'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
-'  exception'||unistr('\000a')||
-'    when others then '||unistr('\000a')||
-'      raise_application_error(-20001,''Error in IR_TO_XML.get_report_document ''||SQLERRM);'||unistr('\000a')||
+'    dbms_lob.freetemporary(v_data);'||unistr('\000a')||
 '  end get_report_xml; '||unistr('\000a')||
-'  '||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
+'                          p_page_id         in number,                                '||unistr('\000a')||
+'  ';
+
+s:=s||'                        p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                          p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+'                          p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
+'                         )'||unistr('\000a')||
+'  return xmltype               ';
+
+s:=s||'            '||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_data      clob;    '||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    dbms_lob.createtemporary(v_data,true, DBMS_LOB.CALL);'||unistr('\000a')||
+'    log(''p_app_id=''||p_app_id);'||unistr('\000a')||
+'    log(''p_page_id=''||p_page_id);'||unistr('\000a')||
+'    log(''p_get_page_items=''||p_get_page_items);'||unistr('\000a')||
+'    log(''p_items_list=''||p_items_list);'||unistr('\000a')||
+'    log(''p_max_rows=''||p_max_rows);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    init_t_report(p_app_id,p_page_id);'||unistr('\000a')||
+'    get_final_xml(v_data,p_app_id,p_page_id,p_items_list';
+
+s:=s||',p_get_page_items,p_max_rows);    '||unistr('\000a')||
+'    '||unistr('\000a')||
+'    return xmltype(v_data);    '||unistr('\000a')||
+'  end get_report_xml; '||unistr('\000a')||
+''||unistr('\000a')||
+'begin'||unistr('\000a')||
+'  dbms_lob.createtemporary(v_debug,true, DBMS_LOB.CALL);  '||unistr('\000a')||
 'END IR_TO_XML;'||unistr('\000a')||
 '/'||unistr('\000a')||
-' ';
+'';
 
 wwv_flow_api.append_to_install_script(
-  p_id => 3027732571644592 + wwv_flow_api.g_id_offset,
+  p_id => 49413661524132586688 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
   p_script_clob => s);
 end;
@@ -9560,12 +9779,14 @@ s:=s||'g'',''0'',''500'');'||unistr('\000a')||
 '';
 
 wwv_flow_api.create_install_script(
-  p_id => 3027923945648615 + wwv_flow_api.g_id_offset,
+  p_id => 49413977416231610103 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
-  p_install_id=> 2920819445927387 + wwv_flow_api.g_id_offset,
+  p_install_id=> 49413219127950509377 + wwv_flow_api.g_id_offset,
   p_name => 'TABLE_INSERTS',
-  p_sequence=> 20,
+  p_sequence=> 30,
   p_script_type=> 'INSTALL',
+  p_condition_type=> 'NOT_EXISTS',
+  p_condition=> 'select * from EBA_DEMO_IR_PROJECTS',
   p_script_clob=> s);
 end;
  
