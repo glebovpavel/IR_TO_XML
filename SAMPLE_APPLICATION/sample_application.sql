@@ -12,12 +12,12 @@ prompt  APPLICATION 26482 - Sample Application
 -- Application Export:
 --   Application:     26482
 --   Name:            Sample Application
---   Date and Time:   14:13 Monday June 30, 2014
---   Exported By:     TODANTE@GMAIL.COM
+--   Date and Time:   16:06 Friday August 1, 2014
+--   Exported By:     GPV
 --   Flashback:       0
 --   Export Type:     Application Export
 --   Version:         4.2.5.00.08
---   Instance ID:     63113759365424
+--   Instance ID:     69407370551712
 --
 -- Import:
 --   Using Application Builder
@@ -67,7 +67,7 @@ prompt  Set Credentials...
 begin
  
   -- Assumes you are running the script connected to SQL*Plus as the Oracle user APEX_040200 or as the owner (parsing schema) of the application.
-  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,47013086401943669753));
+  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,2226724507504475));
  
 end;
 /
@@ -151,7 +151,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_10226482'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20140630141324',
+  p_checksum_salt_last_reset => '20140801160605',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -192,8 +192,8 @@ wwv_flow_api.create_flow(
   p_substitution_value_01  => '',
   p_substitution_string_02 => 'AUTOLOGIN_PASSWORD',
   p_substitution_value_02  => '',
-  p_last_updated_by => 'TODANTE@GMAIL.COM',
-  p_last_upd_yyyymmddhh24miss=> '20140630141324',
+  p_last_updated_by => 'GPV',
+  p_last_upd_yyyymmddhh24miss=> '20140801160605',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -8112,7 +8112,7 @@ prompt  ...plugins
 begin
  
 wwv_flow_api.create_plugin (
-  p_id => 98831198363366529189 + wwv_flow_api.g_id_offset
+  p_id => 7212926663487408 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_plugin_type => 'PROCESS TYPE'
  ,p_name => 'GPV_IR_XML'
@@ -8127,19 +8127,22 @@ wwv_flow_api.create_plugin (
 'is'||unistr('\000a')||
 'begin'||unistr('\000a')||
 '    IR_TO_XML.get_report_xml(p_app_id               => :APP_ID,'||unistr('\000a')||
-'                                p_page_id           => :APP_PAGE_ID,       '||unistr('\000a')||
-'                                p_return_type       => p_process.attribute_01,                 '||
-'       '||unistr('\000a')||
-'                                p_get_page_items    => p_process.attribute_02,'||unistr('\000a')||
-'                                p_items_list        => p_process.attribute_03,'||unistr('\000a')||
-'                                p_collection_name   => p_process.attribute_04,'||unistr('\000a')||
-'                                p_max_rows          => p_process.attribute_05);'||unistr('\000a')||
+'                             p_page_id           => :APP_PAGE_ID,       '||unistr('\000a')||
+'                             p_return_type       => p_process.attribute_01,                       '||
+' '||unistr('\000a')||
+'                             p_get_page_items    => p_process.attribute_02,'||unistr('\000a')||
+'                             p_items_list        => p_process.attribute_03,'||unistr('\000a')||
+'                             p_collection_name   => p_process.attribute_04,'||unistr('\000a')||
+'                             p_max_rows          => p_process.attribute_05'||unistr('\000a')||
+'                            );'||unistr('\000a')||
 ''||unistr('\000a')||
 '  return null;'||unistr('\000a')||
 'exception'||unistr('\000a')||
 '  when others then'||unistr('\000a')||
-'    raise_application_error(-2'||
-'0001,''Error in plugin "Advanced Printing IR to PDF" :''||SQLERRM);'||unistr('\000a')||
+'    --After adding\'||
+'removing columns internal APEX views will not be refreshed - another download attempt needed'||unistr('\000a')||
+'    apex_application.g_print_success_message := apex_application.g_print_success_message||chr(10)||p_process.attribute_06;'||unistr('\000a')||
+'   return null;'||unistr('\000a')||
 'end gpv_get_xml_from_ir;'
  ,p_execution_function => 'gpv_get_xml_from_ir'
  ,p_substitute_attributes => true
@@ -8153,9 +8156,9 @@ wwv_flow_api.create_plugin (
  ,p_about_url => 'http://glebovpavel.github.io/plugin'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 98831198680101627837 + wwv_flow_api.g_id_offset
+  p_id => 7213243398586056 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 1
  ,p_display_sequence => 10
@@ -8169,25 +8172,25 @@ wwv_flow_api.create_plugin_attribute (
 ''
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 98831198975141630148 + wwv_flow_api.g_id_offset
+  p_id => 7213538438588367 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 98831198680101627837 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 7213243398586056 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 10
  ,p_display_value => 'Generated XML-data'
  ,p_return_value => 'X'
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 98831199372122631471 + wwv_flow_api.g_id_offset
+  p_id => 7213935419589690 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 98831198680101627837 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 7213243398586056 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 20
  ,p_display_value => 'Debug Information'
  ,p_return_value => 'Q'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 98831199981143672878 + wwv_flow_api.g_id_offset
+  p_id => 7214544440631097 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 2
  ,p_display_sequence => 20
@@ -8200,9 +8203,9 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" will be excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 98831200266453710142 + wwv_flow_api.g_id_offset
+  p_id => 7214829750668361 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 3
  ,p_display_sequence => 30
@@ -8214,9 +8217,9 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" is automatically excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 98829296266510457132 + wwv_flow_api.g_id_offset
+  p_id => 5310829807415351 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 4
  ,p_display_sequence => 40
@@ -8239,9 +8242,9 @@ wwv_flow_api.create_plugin_attribute (
 ''
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 98831205889003611349 + wwv_flow_api.g_id_offset
+  p_id => 7220452300569568 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 98831198363366529189 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 5
  ,p_display_sequence => 50
@@ -8252,6 +8255,22 @@ wwv_flow_api.create_plugin_attribute (
  ,p_is_translatable => false
  ,p_help_text => 'Rows grater this value will be not exported. '||unistr('\000a')||
 'To export <b>all rows</b>  set value of 1000000000. '
+  );
+wwv_flow_api.create_plugin_attribute (
+  p_id => 4749217100660720 + wwv_flow_api.g_id_offset
+ ,p_flow_id => wwv_flow.g_flow_id
+ ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
+ ,p_attribute_scope => 'COMPONENT'
+ ,p_attribute_sequence => 6
+ ,p_display_sequence => 60
+ ,p_prompt => '"try again" message'
+ ,p_attribute_type => 'TEXT'
+ ,p_is_required => false
+ ,p_default_value => 'Report refreshed. Please try download again.'
+ ,p_is_translatable => false
+ ,p_help_text => 'After adding\removing columns report need to be refreshed through pressing “Go”-Button.  When user did not do that, download stopped. After that another download attempt needed.'||unistr('\000a')||
+'In this case, this message will be displayed.'||unistr('\000a')||
+''
   );
 null;
  
@@ -8275,6 +8294,7 @@ wwv_flow_api.create_install (
   p_id => 49413219127950509377 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
   p_include_in_export_yn => 'Y',
+  p_deinstall_script_clob => s,
   p_deinstall_message=> '');
 end;
  

@@ -17,7 +17,7 @@ prompt  Set Credentials...
 begin
  
   -- Assumes you are running the script connected to SQL*Plus as the Oracle user APEX_040200 or as the owner (parsing schema) of the application.
-  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,2143728413512787));
+  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,2226724507504475));
  
 end;
 /
@@ -92,19 +92,22 @@ wwv_flow_api.create_plugin (
 'is'||unistr('\000a')||
 'begin'||unistr('\000a')||
 '    IR_TO_XML.get_report_xml(p_app_id               => :APP_ID,'||unistr('\000a')||
-'                                p_page_id           => :APP_PAGE_ID,       '||unistr('\000a')||
-'                                p_return_type       => p_process.attribute_01,                 '||
-'       '||unistr('\000a')||
-'                                p_get_page_items    => p_process.attribute_02,'||unistr('\000a')||
-'                                p_items_list        => p_process.attribute_03,'||unistr('\000a')||
-'                                p_collection_name   => p_process.attribute_04,'||unistr('\000a')||
-'                                p_max_rows          => p_process.attribute_05);'||unistr('\000a')||
+'                             p_page_id           => :APP_PAGE_ID,       '||unistr('\000a')||
+'                             p_return_type       => p_process.attribute_01,                       '||
+' '||unistr('\000a')||
+'                             p_get_page_items    => p_process.attribute_02,'||unistr('\000a')||
+'                             p_items_list        => p_process.attribute_03,'||unistr('\000a')||
+'                             p_collection_name   => p_process.attribute_04,'||unistr('\000a')||
+'                             p_max_rows          => p_process.attribute_05'||unistr('\000a')||
+'                            );'||unistr('\000a')||
 ''||unistr('\000a')||
 '  return null;'||unistr('\000a')||
 'exception'||unistr('\000a')||
 '  when others then'||unistr('\000a')||
-'    raise_application_error(-2'||
-'0001,''Error in plugin "Advanced Printing IR to PDF" :''||SQLERRM);'||unistr('\000a')||
+'    --After adding\'||
+'removing columns internal APEX views will not be refreshed - another download attempt needed'||unistr('\000a')||
+'    apex_application.g_print_success_message := apex_application.g_print_success_message||chr(10)||p_process.attribute_06;'||unistr('\000a')||
+'   return null;'||unistr('\000a')||
 'end gpv_get_xml_from_ir;'
  ,p_execution_function => 'gpv_get_xml_from_ir'
  ,p_substitute_attributes => true
@@ -217,6 +220,22 @@ wwv_flow_api.create_plugin_attribute (
  ,p_is_translatable => false
  ,p_help_text => 'Rows grater this value will be not exported. '||unistr('\000a')||
 'To export <b>all rows</b>  set value of 1000000000. '
+  );
+wwv_flow_api.create_plugin_attribute (
+  p_id => 2371614924743439 + wwv_flow_api.g_id_offset
+ ,p_flow_id => wwv_flow.g_flow_id
+ ,p_plugin_id => 4835324487570127 + wwv_flow_api.g_id_offset
+ ,p_attribute_scope => 'COMPONENT'
+ ,p_attribute_sequence => 6
+ ,p_display_sequence => 60
+ ,p_prompt => '"try again" message'
+ ,p_attribute_type => 'TEXT'
+ ,p_is_required => false
+ ,p_default_value => 'Report refreshed. Please try download again.'
+ ,p_is_translatable => false
+ ,p_help_text => 'After adding\removing columns report need to be refreshed through pressing “Go”-Button.  When user did not do that, download stopped. After that another download attempt needed.'||unistr('\000a')||
+'In this case, this message will be displayed.'||unistr('\000a')||
+''
   );
 null;
  
