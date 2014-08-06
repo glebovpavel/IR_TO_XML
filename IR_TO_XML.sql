@@ -471,7 +471,7 @@ CREATE OR REPLACE package body ir_to_xml as
      BEGIN
        v_data.value := p_query_value;
        if p_format_mask is not null then
-         v_data.text := to_char(to_number(p_query_value),p_format_mask);
+         v_data.text := trim(to_char(to_number(p_query_value),p_format_mask));
        ELSE
          v_data.text := p_query_value;
        end if;
@@ -620,41 +620,73 @@ CREATE OR REPLACE package body ir_to_xml as
                         p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,
                         p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,
                         p_agg_text        IN varchar2,
-                        p_position        IN integer, --start position in sql-query
+                        p_position        in integer, --start position in sql-query
                         p_col_number      IN INTEGER, --column position when displayed
                         p_default_format_mask     IN varchar2 default null )  
   return varchar2
   is
     v_tmp_pos       integer;  -- current column position in sql-query 
-    v_format_mask   APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE;
+    v_format_mask   apex_application_page_ir_comp.computation_format_mask%type;
+    v_agg_value     varchar2(1000);
   begin
       v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); 
       if v_tmp_pos is not null then
         v_format_mask := nvl(get_col_format_mask(get_column_alias_sql(p_col_number)),p_default_format_mask);
---!!!!!!
-        --return  get_xmlval(p_agg_text||get_formatted_str(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask)||chr(10));
-        return  get_xmlval(p_agg_text||to_char(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask)||chr(10));
+        v_agg_value := trim(to_char(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask));
+        
+        return  get_xmlval(p_agg_text||v_agg_value||' '||chr(10));
       else
         return  '';
       end if;        
   end get_agg_text;
+  ------------------------------------------------------------------------------
+  function get_agg_value(p_curr_col_name   in varchar2,
+                         p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,
+                         p_current_row     in apex_application_global.vc_arr2,
+                         p_position        in integer --start position in sql-query
+                        )  
+  return varchar2
+  is
+    v_tmp_pos       integer;  -- current column position in sql-query 
+    v_format_mask   apex_application_page_ir_comp.computation_format_mask%type;
+    v_agg_value     varchar2(100);
+  begin
+      v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); 
+      if v_tmp_pos is not null then
+        v_agg_value := get_current_row(p_current_row,p_position + v_tmp_pos);
+        return  get_xmlval(v_agg_value);
+      else
+        return  '';
+      end if;        
+  end get_agg_value;
   
   ------------------------------------------------------------------------------
   function print_aggregate(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) 
   return varchar2
   is
     v_aggregate_xml   largevarchar2;
-    v_position        INTEGER;    
+    v_position        integer;    
+    v_sum_value       varchar2(100);
   begin
     if l_report.agg_cols_cnt  = 0 then
       return ''; --no aggregate
     end if;    
-    v_aggregate_xml := '<AGGREGATE>';
+    v_aggregate_xml := '<AGGREGATE>';   
+      
     
     <<visible_columns>>
-    FOR i IN l_report.start_with..l_report.end_with loop
+    for i in l_report.start_with..l_report.end_with loop
       v_position := l_report.end_with; --aggregate are placed after displayed columns and computations
-      v_aggregate_xml := v_aggregate_xml || bcoll(p_column_alias=>get_column_alias_sql(I));
+      v_sum_value := get_agg_value(p_curr_col_name => get_column_alias_sql(i),
+                         p_agg_rows      => l_report.sum_columns_on_break,
+                         p_current_row   => p_current_row,
+                         p_position      => v_position
+                        );
+                        
+      v_aggregate_xml := v_aggregate_xml || bcoll(p_column_alias=>get_column_alias_sql(i),
+                                                  p_value => v_sum_value,
+                                                  p_format_mask => get_col_format_mask(get_column_alias_sql(i))
+                                                  );
       --one column cah have only one aggregate of each type
       v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),
                                        p_agg_rows      => l_report.sum_columns_on_break,
@@ -666,7 +698,7 @@ CREATE OR REPLACE package body ir_to_xml as
       v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),
                                        p_agg_rows      => l_report.avg_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       p_agg_text      => 'Avgerage: ',
+                                       p_agg_text      => 'Avgerage:',
                                        p_position      => v_position,
                                        p_col_number    => i,
                                        p_default_format_mask   => '999G999G999G999G990D000');
@@ -674,21 +706,21 @@ CREATE OR REPLACE package body ir_to_xml as
       v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),
                                        p_agg_rows      => l_report.max_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       p_agg_text      => 'Max: ',
+                                       p_agg_text      => 'Max:',
                                        p_position      => v_position,
                                        p_col_number    => i);
       v_position := v_position + l_report.max_columns_on_break.count;                                 
       v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),
                                        p_agg_rows      => l_report.min_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       p_agg_text      => 'Min: ',
+                                       p_agg_text      => 'Min:',
                                        p_position      => v_position,
                                        p_col_number    => i);
       v_position := v_position + l_report.min_columns_on_break.count;                                 
       v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),
                                        p_agg_rows      => l_report.median_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       p_agg_text      => 'Median: ',
+                                       p_agg_text      => 'Median:',
                                        p_position      => v_position,
                                        p_col_number    => i,
                                        p_default_format_mask   => '999G999G999G999G990D000');
@@ -696,14 +728,14 @@ CREATE OR REPLACE package body ir_to_xml as
       v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),
                                        p_agg_rows      => l_report.count_columns_on_break,
                                        p_current_row   => p_current_row,
-                                       p_agg_text      => 'Count: ',
+                                       p_agg_text      => 'Count:',
                                        p_position      => v_position,
                                        p_col_number    => i);
       v_position := v_position + l_report.count_columns_on_break.count;                                 
       v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),
                                        p_agg_rows      => l_report.count_distnt_col_on_break,
                                        p_current_row   => p_current_row,
-                                       p_agg_text      => 'Count distinct: ',
+                                       p_agg_text      => 'Count distinct:',
                                        p_position      => v_position,
                                        p_col_number    => i);
       v_aggregate_xml := v_aggregate_xml || ecoll(i);
