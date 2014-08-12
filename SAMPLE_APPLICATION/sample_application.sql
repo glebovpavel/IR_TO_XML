@@ -12,12 +12,12 @@ prompt  APPLICATION 26482 - Sample Application
 -- Application Export:
 --   Application:     26482
 --   Name:            Sample Application
---   Date and Time:   16:06 Friday August 1, 2014
---   Exported By:     GPV
+--   Date and Time:   15:13 Thursday August 7, 2014
+--   Exported By:     TODANTE@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Application Export
 --   Version:         4.2.5.00.08
---   Instance ID:     69407370551712
+--   Instance ID:     63113759365424
 --
 -- Import:
 --   Using Application Builder
@@ -67,7 +67,7 @@ prompt  Set Credentials...
 begin
  
   -- Assumes you are running the script connected to SQL*Plus as the Oracle user APEX_040200 or as the owner (parsing schema) of the application.
-  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,2226724507504475));
+  wwv_flow_api.set_security_group_id(p_security_group_id=>nvl(wwv_flow_application_install.get_workspace_id,47013086401943669753));
  
 end;
 /
@@ -151,7 +151,7 @@ wwv_flow_api.create_flow(
   p_alias => nvl(wwv_flow_application_install.get_application_alias,'F_10226482'),
   p_page_view_logging => 'YES',
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20140801160605',
+  p_checksum_salt_last_reset => '20140807151328',
   p_max_session_length_sec=> null,
   p_compatibility_mode=> '4.2',
   p_html_escaping_mode=> 'E',
@@ -192,8 +192,8 @@ wwv_flow_api.create_flow(
   p_substitution_value_01  => '',
   p_substitution_string_02 => 'AUTOLOGIN_PASSWORD',
   p_substitution_value_02  => '',
-  p_last_updated_by => 'GPV',
-  p_last_upd_yyyymmddhh24miss=> '20140801160605',
+  p_last_updated_by => 'TODANTE@GMAIL.COM',
+  p_last_upd_yyyymmddhh24miss=> '20140807151328',
   p_ui_type_name => null,
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
@@ -934,7 +934,7 @@ end;
 declare
     rc1 varchar2(32767) := null;
 begin
-rc1:=rc1||'ID:PROJECT:TASK_NAME:START_DATE:END_DATE:STATUS:ASSIGNED_TO:COST:BUDGET:AVAILABLE_BUDGET';
+rc1:=rc1||'PROJECT:TASK_NAME:START_DATE:END_DATE:STATUS:ASSIGNED_TO:COST:BUDGET';
 
 wwv_flow_api.create_worksheet_rpt(
   p_id => 98828890853117840261+wwv_flow_api.g_id_offset,
@@ -951,6 +951,9 @@ wwv_flow_api.create_worksheet_rpt(
   p_is_default              =>'Y',
   p_display_rows            =>15,
   p_report_columns          =>rc1,
+  p_break_on                =>'PROJECT',
+  p_break_enabled_on        =>'PROJECT',
+  p_sum_columns_on_break    =>'BUDGET',
   p_flashback_enabled       =>'N',
   p_calendar_display_column =>'');
 end;
@@ -8112,7 +8115,7 @@ prompt  ...plugins
 begin
  
 wwv_flow_api.create_plugin (
-  p_id => 7212926663487408 + wwv_flow_api.g_id_offset
+  p_id => 52020365231180686989 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
  ,p_plugin_type => 'PROCESS TYPE'
  ,p_name => 'GPV_IR_XML'
@@ -8152,13 +8155,13 @@ wwv_flow_api.create_plugin (
 '	This pack includes this plugin and IR_TO_XML package. The package includes all functionality, the plugin provides simple user interface for APEX developer to make development easier.<br />'||unistr('\000a')||
 '	&nbsp;</p>'||unistr('\000a')||
 ''
- ,p_version_identifier => '1.0'
+ ,p_version_identifier => '1.1'
  ,p_about_url => 'http://glebovpavel.github.io/plugin'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 7213243398586056 + wwv_flow_api.g_id_offset
+  p_id => 52020365547915785637 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 52020365231180686989 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 1
  ,p_display_sequence => 10
@@ -8172,25 +8175,25 @@ wwv_flow_api.create_plugin_attribute (
 ''
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 7213538438588367 + wwv_flow_api.g_id_offset
+  p_id => 52020365842955787948 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 7213243398586056 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 52020365547915785637 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 10
  ,p_display_value => 'Generated XML-data'
  ,p_return_value => 'X'
   );
 wwv_flow_api.create_plugin_attr_value (
-  p_id => 7213935419589690 + wwv_flow_api.g_id_offset
+  p_id => 52020366239936789271 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_attribute_id => 7213243398586056 + wwv_flow_api.g_id_offset
+ ,p_plugin_attribute_id => 52020365547915785637 + wwv_flow_api.g_id_offset
  ,p_display_sequence => 20
  ,p_display_value => 'Debug Information'
  ,p_return_value => 'Q'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 7214544440631097 + wwv_flow_api.g_id_offset
+  p_id => 52020366848957830678 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 52020365231180686989 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 2
  ,p_display_sequence => 20
@@ -8203,9 +8206,9 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" will be excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 7214829750668361 + wwv_flow_api.g_id_offset
+  p_id => 52020367134267867942 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 52020365231180686989 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 3
  ,p_display_sequence => 30
@@ -8217,9 +8220,9 @@ wwv_flow_api.create_plugin_attribute (
 '"Item to Return" is automatically excluded from export.'
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 5310829807415351 + wwv_flow_api.g_id_offset
+  p_id => 52018463134324614932 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 52020365231180686989 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 4
  ,p_display_sequence => 40
@@ -8242,9 +8245,9 @@ wwv_flow_api.create_plugin_attribute (
 ''
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 7220452300569568 + wwv_flow_api.g_id_offset
+  p_id => 52020372756817769149 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 52020365231180686989 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 5
  ,p_display_sequence => 50
@@ -8257,9 +8260,9 @@ wwv_flow_api.create_plugin_attribute (
 'To export <b>all rows</b>  set value of 1000000000. '
   );
 wwv_flow_api.create_plugin_attribute (
-  p_id => 4749217100660720 + wwv_flow_api.g_id_offset
+  p_id => 52017901521617860301 + wwv_flow_api.g_id_offset
  ,p_flow_id => wwv_flow.g_flow_id
- ,p_plugin_id => 7212926663487408 + wwv_flow_api.g_id_offset
+ ,p_plugin_id => 52020365231180686989 + wwv_flow_api.g_id_offset
  ,p_attribute_scope => 'COMPONENT'
  ,p_attribute_sequence => 6
  ,p_display_sequence => 60
@@ -8294,7 +8297,6 @@ wwv_flow_api.create_install (
   p_id => 49413219127950509377 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
   p_include_in_export_yn => 'Y',
-  p_deinstall_script_clob => s,
   p_deinstall_message=> '');
 end;
  
@@ -8939,7 +8941,7 @@ s:=s||'     end if;'||unistr('\000a')||
 
 s:=s||'data.value := p_query_value;'||unistr('\000a')||
 '       if p_format_mask is not null then'||unistr('\000a')||
-'         v_data.text := to_char(to_number(p_query_value),p_format_mask);'||unistr('\000a')||
+'         v_data.text := trim(to_char(to_number(p_query_value),p_format_mask));'||unistr('\000a')||
 '       ELSE'||unistr('\000a')||
 '         v_data.text := p_query_value;'||unistr('\000a')||
 '       end if;'||unistr('\000a')||
@@ -8950,18 +8952,18 @@ s:=s||'data.value := p_query_value;'||unistr('\000a')||
 '      '||unistr('\000a')||
 '      return v_data;'||unistr('\000a')||
 '  END get_cell_number;  '||unistr('\000a')||
-'  -------------------------------------';
+'  -------------------------------';
 
-s:=s||'-----------------------------------------'||unistr('\000a')||
+s:=s||'-----------------------------------------------'||unistr('\000a')||
 '  function print_row(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
 '  return varchar2 is'||unistr('\000a')||
 '    v_clob            largevarchar2; --change'||unistr('\000a')||
 '    v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
 '    v_format_mask     APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE;'||unistr('\000a')||
 '    v_row_color       varchar2(10); '||unistr('\000a')||
-'    v_row_back_color  varch';
+'    v_row_back_color ';
 
-s:=s||'ar2(10);'||unistr('\000a')||
+s:=s||' varchar2(10);'||unistr('\000a')||
 '    v_cell_color      varchar2(10);'||unistr('\000a')||
 '    v_cell_back_color VARCHAR2(10);     '||unistr('\000a')||
 '    v_column_type     VARCHAR2(10);'||unistr('\000a')||
@@ -8971,17 +8973,17 @@ s:=s||'ar2(10);'||unistr('\000a')||
 '    <<row_highlights>>'||unistr('\000a')||
 '    for h in 1..l_report.row_highlight.count loop'||unistr('\000a')||
 '     BEGIN '||unistr('\000a')||
-'      IF get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.row_highligh';
+'      IF get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.row_hi';
 
-s:=s||'t(h).COND_NUMBER) IS NOT NULL THEN'||unistr('\000a')||
+s:=s||'ghlight(h).COND_NUMBER) IS NOT NULL THEN'||unistr('\000a')||
 '         v_row_color       := l_report.row_highlight(h).HIGHLIGHT_ROW_FONT_COLOR;'||unistr('\000a')||
 '         v_row_back_color  := l_report.row_highlight(h).HIGHLIGHT_ROW_COLOR;'||unistr('\000a')||
 '      END IF;'||unistr('\000a')||
 '     exception       '||unistr('\000a')||
 '       when no_data_found then'||unistr('\000a')||
-'         log(''row_highlights: =''||'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report.row_h';
+'         log(''row_highlights: =''||'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report';
 
-s:=s||'ighlight(h).cond_number||'' h=''||h);'||unistr('\000a')||
+s:=s||'.row_highlight(h).cond_number||'' h=''||h);'||unistr('\000a')||
 '     end; '||unistr('\000a')||
 '    end loop row_highlights;'||unistr('\000a')||
 '    --'||unistr('\000a')||
@@ -8993,9 +8995,9 @@ s:=s||'ighlight(h).cond_number||'' h=''||h);'||unistr('\000a')||
 '      v_cell_data.text   := NULL; '||unistr('\000a')||
 ''||unistr('\000a')||
 '      v_column_alias := get_column_alias_sql(i);'||unistr('\000a')||
-'      v_column_type := get_column_types(v_colum';
+'      v_column_type := get_column_types(v';
 
-s:=s||'n_alias);'||unistr('\000a')||
+s:=s||'_column_alias);'||unistr('\000a')||
 '      v_format_mask := get_col_format_mask(v_column_alias);'||unistr('\000a')||
 '      '||unistr('\000a')||
 '      IF v_column_type = ''DATE'' THEN'||unistr('\000a')||
@@ -9003,9 +9005,9 @@ s:=s||'n_alias);'||unistr('\000a')||
 '      ELSIF  v_column_type = ''NUMBER'' THEN      '||unistr('\000a')||
 '         v_cell_data := get_cell_number(get_current_row(p_current_row,i),v_format_mask);'||unistr('\000a')||
 '      ELSE --STRING'||unistr('\000a')||
-'        v_format_mask ';
+'        v_format';
 
-s:=s||':= NULL;'||unistr('\000a')||
+s:=s||'_mask := NULL;'||unistr('\000a')||
 '        v_cell_data.VALUE  := NULL;  '||unistr('\000a')||
 '        v_cell_data.text   := get_current_row(p_current_row,i);'||unistr('\000a')||
 '      end if; '||unistr('\000a')||
@@ -9015,9 +9017,9 @@ s:=s||':= NULL;'||unistr('\000a')||
 '      for h in 1..l_report.col_highlight.count loop'||unistr('\000a')||
 '        begin'||unistr('\000a')||
 '          --debug'||unistr('\000a')||
-'          if get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.col_highlig';
+'          if get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.col_h';
 
-s:=s||'ht(h).COND_NUMBER) is not null '||unistr('\000a')||
+s:=s||'ighlight(h).COND_NUMBER) is not null '||unistr('\000a')||
 '             and v_column_alias = l_report.col_highlight(h).CONDITION_COLUMN_NAME '||unistr('\000a')||
 '          then'||unistr('\000a')||
 '            v_cell_color       := l_report.col_highlight(h).HIGHLIGHT_CELL_FONT_COLOR;'||unistr('\000a')||
@@ -9025,25 +9027,25 @@ s:=s||'ht(h).COND_NUMBER) is not null '||unistr('\000a')||
 '          end if;'||unistr('\000a')||
 '        exception'||unistr('\000a')||
 '       when no_data_found then'||unistr('\000a')||
-'         log(''col_highlights: =''||';
+'         log(''col_highlights';
 
-s:=s||''' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report.col_highlight(h).cond_number||'' h=''||h); '||unistr('\000a')||
+s:=s||': =''||'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report.col_highlight(h).cond_number||'' h=''||h); '||unistr('\000a')||
 '       end;'||unistr('\000a')||
 '      END loop column_highlights;'||unistr('\000a')||
 '      '||unistr('\000a')||
 '      v_clob := v_clob ||bcoll(p_font_color   => nvl(v_cell_color,v_row_color),'||unistr('\000a')||
 '                               p_back_color   => nvl(v_cell_back_color,v_row_back_color),'||unistr('\000a')||
-'                               p_al';
+'                             ';
 
-s:=s||'ign        => get_column_alignment(v_column_alias),'||unistr('\000a')||
+s:=s||'  p_align        => get_column_alignment(v_column_alias),'||unistr('\000a')||
 '                               p_column_alias => v_column_alias,'||unistr('\000a')||
 '                               p_colmn_type   => v_column_type,'||unistr('\000a')||
 '                               p_value        => v_cell_data.value,'||unistr('\000a')||
 '                               p_format_mask  => replace(v_format_mask,''"'','''')'||unistr('\000a')||
 '                              )'||unistr('\000a')||
-'                       ||get_xmlval(v_ce';
+'                       ||get_xmlva';
 
-s:=s||'ll_data.text)'||unistr('\000a')||
+s:=s||'l(v_cell_data.text)'||unistr('\000a')||
 '                       ||ecoll(i);'||unistr('\000a')||
 '    end loop visible_columns;'||unistr('\000a')||
 '    return  ''<ROW>''||v_clob || ''</ROW>''||chr(10);    '||unistr('\000a')||
@@ -9055,18 +9057,18 @@ s:=s||'ll_data.text)'||unistr('\000a')||
 '  return varchar2 is'||unistr('\000a')||
 '    v_header_xml      largevarchar2;'||unistr('\000a')||
 '    v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
-'  begin'||unistr('\000a')||
-'   ';
+'  beg';
 
-s:=s||' v_header_xml := ''<HEADER>'';'||unistr('\000a')||
+s:=s||'in'||unistr('\000a')||
+'    v_header_xml := ''<HEADER>'';'||unistr('\000a')||
 '    <<headers>>'||unistr('\000a')||
 '    for i in 1..l_report.displayed_columns.count   loop'||unistr('\000a')||
 '      V_COLUMN_ALIAS := get_column_alias(i);'||unistr('\000a')||
 '      -- if current column is not control break column'||unistr('\000a')||
 '      if apex_plugin_util.get_position_in_list(l_report.break_on,v_column_alias) is null then      '||unistr('\000a')||
-'        v_header_xml := v_header_xml ||bcoll(p_column_alias=>v_column_alias,p_align=>get_header_ali';
+'        v_header_xml := v_header_xml ||bcoll(p_column_alias=>v_column_alias,p_align=>get_head';
 
-s:=s||'gnment(v_column_alias))'||unistr('\000a')||
+s:=s||'er_alignment(v_column_alias))'||unistr('\000a')||
 '                                     ||get_xmlval(regexp_replace(get_column_names(v_column_alias),''<[^>]*>'','' ''))'||unistr('\000a')||
 '                                     ||ecoll(i);'||unistr('\000a')||
 '      end if;  '||unistr('\000a')||
@@ -9074,9 +9076,9 @@ s:=s||'gnment(v_column_alias))'||unistr('\000a')||
 '    return  v_header_xml || ''</HEADER>''||chr(10);'||unistr('\000a')||
 '  end print_header; '||unistr('\000a')||
 '  ------------------------------------------------------------------------------  '||unistr('\000a')||
-'  function print_cont';
+'  function prin';
 
-s:=s||'rol_break_header(p_current_row     in apex_application_global.vc_arr2) '||unistr('\000a')||
+s:=s||'t_control_break_header(p_current_row     in apex_application_global.vc_arr2) '||unistr('\000a')||
 '  return varchar2'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_cb_xml  largevarchar2;'||unistr('\000a')||
@@ -9088,17 +9090,17 @@ s:=s||'rol_break_header(p_current_row     in apex_application_global.vc_arr2) '|
 '    <<break_columns>>'||unistr('\000a')||
 '    for i in 1..nvl(l_report.break_really_on.count,0) loop'||unistr('\000a')||
 '      --TODO: Add column header'||unistr('\000a')||
-'      v_cb_xml := v_cb_xml ||get_column_names(l';
+'      v_cb_xml := v_cb_xml ||get_column_n';
 
-s:=s||'_report.break_really_on(i))||'': ''||get_current_row(p_current_row,i + l_report.skipped_columns)||'','';'||unistr('\000a')||
+s:=s||'ames(l_report.break_really_on(i))||'': ''||get_current_row(p_current_row,i + l_report.skipped_columns)||'','';'||unistr('\000a')||
 '    end loop visible_columns;'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    return  ''<BREAK_HEADER>''||get_xmlval(rtrim(v_cb_xml,'','')) || ''</BREAK_HEADER>''||chr(10);    '||unistr('\000a')||
 '  end print_control_break_header;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function find_rel_position (p_curr_col_name    IN ';
+'  function find_rel_position (p_curr_col_name ';
 
-s:=s||'varchar2,'||unistr('\000a')||
+s:=s||'   IN varchar2,'||unistr('\000a')||
 '                              p_agg_rows         IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
 '  return integer'||unistr('\000a')||
 '  is'||unistr('\000a')||
@@ -9113,39 +9115,40 @@ s:=s||'varchar2,'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    return null;'||unistr('\000a')||
 '  end find_rel_position;'||unistr('\000a')||
-'  --------------';
+'  --------';
 
-s:=s||'----------------------------------------------------------------'||unistr('\000a')||
+s:=s||'----------------------------------------------------------------------'||unistr('\000a')||
 '  function get_agg_text(p_curr_col_name   IN varchar2,'||unistr('\000a')||
 '                        p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '                        p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
 '                        p_agg_text        IN varchar2,'||unistr('\000a')||
-'                        p_position        IN integer, --start positio';
+'                        p_position        in integer, --start p';
 
-s:=s||'n in sql-query'||unistr('\000a')||
+s:=s||'osition in sql-query'||unistr('\000a')||
 '                        p_col_number      IN INTEGER, --column position when displayed'||unistr('\000a')||
 '                        p_default_format_mask     IN varchar2 default null )  '||unistr('\000a')||
 '  return varchar2'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_tmp_pos       integer;  -- current column position in sql-query '||unistr('\000a')||
-'    v_format_mask   APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE;'||unistr('\000a')||
-'  begin'||unistr('\000a')||
-'      v_tmp_pos := find_rel_position ';
+'    v_format_mask   apex_application_page_ir_comp.computation_format_mask%type;'||unistr('\000a')||
+'    v_agg_value     varchar2(1000);'||unistr('\000a')||
+'  b';
 
-s:=s||'(p_curr_col_name,p_agg_rows); '||unistr('\000a')||
+s:=s||'egin'||unistr('\000a')||
+'      v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); '||unistr('\000a')||
 '      if v_tmp_pos is not null then'||unistr('\000a')||
 '        v_format_mask := nvl(get_col_format_mask(get_column_alias_sql(p_col_number)),p_default_format_mask);'||unistr('\000a')||
-'--!!!!!!'||unistr('\000a')||
-'        --return  get_xmlval(p_agg_text||get_formatted_str(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask)||chr(10));'||unistr('\000a')||
-'        return  get_xmlval(p_agg_text||to_char(get_current_row(p_current_row';
+'        v_agg_value := trim(to_char(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask));'||unistr('\000a')||
+'        '||unistr('\000a')||
+'        return  get_xmlval(p_agg_text||v_agg_value||'' ''||chr(10));';
 
 wwv_flow_api.create_install_script(
-  p_id => 49413661524132586688 + wwv_flow_api.g_id_offset,
+  p_id => 52016399427851211691 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
   p_install_id=> 49413219127950509377 + wwv_flow_api.g_id_offset,
-  p_name => 'IR_TO_XML Package',
-  p_sequence=> 20,
-  p_script_type=> 'INSTALL',
+  p_name => 'Upgrade to new version of IR_TO_XML.sql',
+  p_sequence=> 10,
+  p_script_type=> 'UPGRADE',
   p_script_clob=> s);
 end;
  
@@ -9159,114 +9162,153 @@ begin
 declare
     s varchar2(32767) := null;
 begin
-s:=s||',p_position + v_tmp_pos),v_format_mask)||chr(10));'||unistr('\000a')||
+s:=s||''||unistr('\000a')||
 '      else'||unistr('\000a')||
 '        return  '''';'||unistr('\000a')||
 '      end if;        '||unistr('\000a')||
 '  end get_agg_text;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_agg_value(p_curr_col_name   in varchar2,'||unistr('\000a')||
+'                         p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                         p_current_row     in apex_application_global.vc_arr2,'||unistr('\000a')||
+'                         p_posi';
+
+s:=s||'tion        in integer --start position in sql-query'||unistr('\000a')||
+'                        )  '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_tmp_pos       integer;  -- current column position in sql-query '||unistr('\000a')||
+'    v_format_mask   apex_application_page_ir_comp.computation_format_mask%type;'||unistr('\000a')||
+'    v_agg_value     varchar2(100);'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'      v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); '||unistr('\000a')||
+'      if v_tmp_pos is not null the';
+
+s:=s||'n'||unistr('\000a')||
+'        v_agg_value := get_current_row(p_current_row,p_position + v_tmp_pos);'||unistr('\000a')||
+'        return  get_xmlval(v_agg_value);'||unistr('\000a')||
+'      else'||unistr('\000a')||
+'        return  '''';'||unistr('\000a')||
+'      end if;        '||unistr('\000a')||
+'  end get_agg_value;'||unistr('\000a')||
 '  '||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  function print_aggregate(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) '||unistr('\000a')||
 '  return varchar2'||unistr('\000a')||
 '  is'||unistr('\000a')||
-'    v_aggregate_xml   largevarchar2;'||unistr('\000a')||
-'    v_position        INTEGER;    '||unistr('\000a')||
-'  begin'||unistr('\000a')||
-'    if ';
+'    v_aggregate_';
 
-s:=s||'l_report.agg_cols_cnt  = 0 then'||unistr('\000a')||
+s:=s||'xml   largevarchar2;'||unistr('\000a')||
+'    v_position        integer;    '||unistr('\000a')||
+'    v_sum_value       varchar2(100);'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    if l_report.agg_cols_cnt  = 0 then'||unistr('\000a')||
 '      return ''''; --no aggregate'||unistr('\000a')||
 '    end if;    '||unistr('\000a')||
-'    v_aggregate_xml := ''<AGGREGATE>'';'||unistr('\000a')||
+'    v_aggregate_xml := ''<AGGREGATE>'';   '||unistr('\000a')||
+'      '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    <<visible_columns>>'||unistr('\000a')||
-'    FOR i IN l_report.start_with..l_report.end_with loop'||unistr('\000a')||
-'      v_position := l_report.end_with; --aggregate are placed after displayed columns and computations'||unistr('\000a')||
-'      v_aggregate_xml := v_aggregate_xml || bcoll(p_column_alias=>get_column_alias_sql(I));'||unistr('\000a')||
-' ';
+'    for i in l_report.start_with..l_report.end_with loop'||unistr('\000a')||
+'      v_position := l_report.end_with; --aggregate are placed after displayed ';
 
-s:=s||'     --one column cah have only one aggregate of each type'||unistr('\000a')||
-'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+s:=s||'columns and computations'||unistr('\000a')||
+'      v_sum_value := get_agg_value(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                         p_agg_rows      => l_report.sum_columns_on_break,'||unistr('\000a')||
+'                         p_current_row   => p_current_row,'||unistr('\000a')||
+'                         p_position      => v_position'||unistr('\000a')||
+'                        );'||unistr('\000a')||
+'                        '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || bcoll(p_col';
+
+s:=s||'umn_alias=>get_column_alias_sql(i),'||unistr('\000a')||
+'                                                  p_value => v_sum_value,'||unistr('\000a')||
+'                                                  p_format_mask => get_col_format_mask(get_column_alias_sql(i))'||unistr('\000a')||
+'                                                  );'||unistr('\000a')||
+'      --one column cah have only one aggregate of each type'||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_c';
+
+s:=s||'ol_name => get_column_alias_sql(i),'||unistr('\000a')||
 '                                       p_agg_rows      => l_report.sum_columns_on_break,'||unistr('\000a')||
 '                                       p_current_row   => p_current_row,'||unistr('\000a')||
 '                                       p_agg_text      => '' '','||unistr('\000a')||
-'               ';
-
-s:=s||'                        p_position      => v_position,'||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i);'||unistr('\000a')||
-'      v_position := v_position + l_report.sum_columns_on_break.count;'||unistr('\000a')||
+'      v';
+
+s:=s||'_position := v_position + l_report.sum_columns_on_break.count;'||unistr('\000a')||
 '      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
 '                                       p_agg_rows      => l_report.avg_columns_on_break,'||unistr('\000a')||
-'                       ';
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Avgerage:'','||unistr('\000a')||
+'   ';
 
-s:=s||'                p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => ''Avgerage: '','||unistr('\000a')||
-'                                       p_position      => v_position,'||unistr('\000a')||
+s:=s||'                                    p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i,'||unistr('\000a')||
 '                                       p_default_format_mask   => ''999G999G999G999G990D000'');'||unistr('\000a')||
-'      v_position := v_position + l_report.avg_columns';
+'      v_position := v_position + l_report.avg_columns_on_break.count;                                       '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_n';
 
-s:=s||'_on_break.count;                                       '||unistr('\000a')||
-'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+s:=s||'ame => get_column_alias_sql(i),'||unistr('\000a')||
 '                                       p_agg_rows      => l_report.max_columns_on_break,'||unistr('\000a')||
 '                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => ''Max: '','||unistr('\000a')||
-'              ';
-
-s:=s||'                         p_position      => v_position,'||unistr('\000a')||
+'                                       p_agg_text      => ''Max:'','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i);'||unistr('\000a')||
-'      v_position := v_position + l_report.max_columns_on_break.count;                                 '||unistr('\000a')||
-'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.min_columns';
+'      v_';
 
-s:=s||'_on_break,'||unistr('\000a')||
+s:=s||'position := v_position + l_report.max_columns_on_break.count;                                 '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.min_columns_on_break,'||unistr('\000a')||
 '                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => ''Min: '','||unistr('\000a')||
+'                                       p_a';
+
+s:=s||'gg_text      => ''Min:'','||unistr('\000a')||
 '                                       p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i);'||unistr('\000a')||
 '      v_position := v_position + l_report.min_columns_on_break.count;                                 '||unistr('\000a')||
-'      v_aggreg';
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p';
 
-s:=s||'ate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.median_columns_on_break,'||unistr('\000a')||
+s:=s||'_agg_rows      => l_report.median_columns_on_break,'||unistr('\000a')||
 '                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => ''Median: '','||unistr('\000a')||
+'                                       p_agg_text      => ''Median:'','||unistr('\000a')||
 '                                       p_position      => v_position,'||unistr('\000a')||
-'        ';
+'                                       p_col_number    => i,'||unistr('\000a')||
+'                                       p_default_format_mask   => ''999G999G';
 
-s:=s||'                               p_col_number    => i,'||unistr('\000a')||
-'                                       p_default_format_mask   => ''999G999G999G999G990D000'');'||unistr('\000a')||
+s:=s||'999G999G990D000'');'||unistr('\000a')||
 '      v_position := v_position + l_report.median_columns_on_break.count;                                 '||unistr('\000a')||
 '      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
-'                                       p_agg_r';
-
-s:=s||'ows      => l_report.count_columns_on_break,'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.count_columns_on_break,'||unistr('\000a')||
 '                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => ''Count: '','||unistr('\000a')||
+'          ';
+
+s:=s||'                             p_agg_text      => ''Count:'','||unistr('\000a')||
 '                                       p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i);'||unistr('\000a')||
-'      v_position := v_position + l_report.count_columns_on_break.count;          ';
-
-s:=s||'                       '||unistr('\000a')||
+'      v_position := v_position + l_report.count_columns_on_break.count;                                 '||unistr('\000a')||
 '      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
-'                                       p_agg_rows      => l_report.count_distnt_col_on_break,'||unistr('\000a')||
-'                                       p_current_row   => p_current_row,'||unistr('\000a')||
-'                                       p_agg_text      => ''Count distinct: '','||unistr('\000a')||
-'                              ';
+'    ';
 
-s:=s||'         p_position      => v_position,'||unistr('\000a')||
+s:=s||'                                   p_agg_rows      => l_report.count_distnt_col_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Count distinct:'','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
 '                                       p_col_number    => i);'||unistr('\000a')||
-'      v_aggregate_xml := v_aggregate_xml || ecoll(i);'||unistr('\000a')||
+'      v_aggregate_xml := v_a';
+
+s:=s||'ggregate_xml || ecoll(i);'||unistr('\000a')||
 '    end loop visible_columns;'||unistr('\000a')||
 '    return  v_aggregate_xml || ''</AGGREGATE>''||chr(10);'||unistr('\000a')||
 '  end print_aggregate;    '||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  function get_page_items(p_app_id         in numb';
-
-s:=s||'er,'||unistr('\000a')||
+'  function get_page_items(p_app_id         in number,'||unistr('\000a')||
 '                          p_page_id        in number,'||unistr('\000a')||
 '                          p_items_list     in varchar2,'||unistr('\000a')||
-'                          p_get_page_items in char)'||unistr('\000a')||
+'                ';
+
+s:=s||'          p_get_page_items in char)'||unistr('\000a')||
 '  return clob'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_clob  clob;    '||unistr('\000a')||
@@ -9276,25 +9318,25 @@ s:=s||'er,'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    select item_name'||unistr('\000a')||
 '    bulk collect into v_item_names  '||unistr('\000a')||
-'    from apex_application_p';
-
-s:=s||'age_items'||unistr('\000a')||
+'    from apex_application_page_items'||unistr('\000a')||
 '    where application_id = p_app_id'||unistr('\000a')||
 '      and ((page_id = p_page_id and p_get_page_items = ''Y'')'||unistr('\000a')||
 '          or'||unistr('\000a')||
-'          (P_ITEMS_LIST is not null and INSTR('',''||P_ITEMS_LIST||'','','',''||ITEM_NAME||'','') >  0))'||unistr('\000a')||
+'          (';
+
+s:=s||'P_ITEMS_LIST is not null and INSTR('',''||P_ITEMS_LIST||'','','',''||ITEM_NAME||'','') >  0))'||unistr('\000a')||
 '    union '||unistr('\000a')||
 '    select item_name'||unistr('\000a')||
 '    from APEX_APPLICATION_ITEMS'||unistr('\000a')||
 '    where application_id = p_app_id  '||unistr('\000a')||
 '      and P_ITEMS_LIST is not null '||unistr('\000a')||
-'      and instr('',''||p_items_list||'','','',''||it';
-
-s:=s||'em_name||'','') >  0;    '||unistr('\000a')||
+'      and instr('',''||p_items_list||'','','',''||item_name||'','') >  0;    '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    <<items>>'||unistr('\000a')||
 '    for i in 1..v_item_names.count loop'||unistr('\000a')||
-'     v_clob := v_clob||to_clob(''<''||upper(v_item_names(i))||''>'''||unistr('\000a')||
+'     v_clob := v_clob||to_clob(''<''||upper(v_ite';
+
+s:=s||'m_names(i))||''>'''||unistr('\000a')||
 '                                ||get_xmlval(v(v_item_names(i)))'||unistr('\000a')||
 '                                ||''</''||upper(v_item_names(i))||''>''||chr(10));'||unistr('\000a')||
 '    end loop items;'||unistr('\000a')||
@@ -9302,10 +9344,10 @@ s:=s||'em_name||'','') >  0;    '||unistr('\000a')||
 '    return v_clob||to_clob(''</ITEMS>''||chr(10)); '||unistr('\000a')||
 '  end get_page_items;  '||unistr('\000a')||
 ' '||unistr('\000a')||
-'  ------';
+'  ------------------------------------------------------------------------------    '||unistr('\000a')||
+'  procedure get_xml_from_ir(v_data in out nocopy clob';
 
-s:=s||'------------------------------------------------------------------------    '||unistr('\000a')||
-'  procedure get_xml_from_ir(v_data in out nocopy clob,p_max_rows in integer)'||unistr('\000a')||
+s:=s||',p_max_rows in integer)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '   v_cur         INTEGER; '||unistr('\000a')||
 '   v_result      INTEGER;'||unistr('\000a')||
@@ -9313,46 +9355,46 @@ s:=s||'------------------------------------------------------------------------ 
 '   v_row         APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
 '   v_prev_row    APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
 '   v_columns     APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
-'   v_current';
-
-s:=s||'_row number default 0;'||unistr('\000a')||
+'   v_current_row number default 0;'||unistr('\000a')||
 '   v_desc_tab    DBMS_SQL.DESC_TAB2;'||unistr('\000a')||
 '   v_inside      boolean default false;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
-'    v_cur := dbms_sql.open_cursor; '||unistr('\000a')||
+'    v_cur := dbms_sql.';
+
+s:=s||'open_cursor; '||unistr('\000a')||
 '    dbms_sql.parse(v_cur,l_report.report.sql_query,dbms_sql.native);     '||unistr('\000a')||
 '    dbms_sql.describe_columns2(v_cur,v_colls_count,v_desc_tab);    '||unistr('\000a')||
 '    --skip internal primary key if need'||unistr('\000a')||
 '    if lower(v_desc_tab(1).col_name) = ''apxws_row_pk'' then'||unistr('\000a')||
-'      l_report.';
-
-s:=s||'skipped_columns := 1;'||unistr('\000a')||
+'      l_report.skipped_columns := 1;'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
-'    l_report.start_with := l_report.skipped_columns + 1 + nvl(l_report.break_really_on.count,0);'||unistr('\000a')||
+'    l_report.start_with := l_report.skipped_columns + 1 + nvl(l_report.break_really_on.count,0);';
+
+s:=s||''||unistr('\000a')||
 '    l_report.end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0) + l_report.displayed_columns.count;    '||unistr('\000a')||
 '    log(''l_report.start_with=''||l_report.start_with);'||unistr('\000a')||
 '    log(''l_report.end_with=''||l_report.end_with);'||unistr('\000a')||
-'    log(''l_report.skipped_columns';
-
-s:=s||'=''||l_report.skipped_columns);'||unistr('\000a')||
+'    log(''l_report.skipped_columns=''||l_report.skipped_columns);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    add(v_data,print_header); '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    <<bind_variables>>'||unistr('\000a')||
-'    for i in 1..l_report.report.binds.count loop'||unistr('\000a')||
+'    for i in 1..l_report.report.bin';
+
+s:=s||'ds.count loop'||unistr('\000a')||
 '      --remove MAX_ROWS'||unistr('\000a')||
 '      if l_report.report.binds(i).name = ''APXWS_MAX_ROW_CNT'' then      '||unistr('\000a')||
 '        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.report.binds(i).name,p_max_rows);      '||unistr('\000a')||
 '        null;'||unistr('\000a')||
 '      else'||unistr('\000a')||
-'        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.r';
-
-s:=s||'eport.binds(i).name,l_report.report.binds(i).value);      '||unistr('\000a')||
+'        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.report.binds(i).name,l_report.report.binds(i).value);      '||unistr('\000a')||
 '      end if;'||unistr('\000a')||
 '    end loop bind_variables;'||unistr('\000a')||
 ''||unistr('\000a')||
 '    <<query_columns>>'||unistr('\000a')||
-'    for i in 1..v_colls_count loop'||unistr('\000a')||
+'    f';
+
+s:=s||'or i in 1..v_colls_count loop'||unistr('\000a')||
 '     v_row(i) := '''';'||unistr('\000a')||
 '     dbms_sql.define_column(v_cur, i, v_row(i),32767);'||unistr('\000a')||
 '    end loop query_columns;'||unistr('\000a')||
@@ -9360,71 +9402,71 @@ s:=s||'eport.binds(i).name,l_report.report.binds(i).value);      '||unistr('\000
 '    v_result := dbms_sql.execute(v_cur);         '||unistr('\000a')||
 '    <<main_cycle>>'||unistr('\000a')||
 '    LOOP '||unistr('\000a')||
-'         IF DBMS_SQL.FETCH_ROWS(v_cur)>0 THEN       ';
-
-s:=s||'   '||unistr('\000a')||
+'         IF DBMS_SQL.FETCH_ROWS(v_cur)>0 THEN          '||unistr('\000a')||
 '           -- get column values of the row '||unistr('\000a')||
 '            v_current_row := v_current_row + 1;'||unistr('\000a')||
 '            <<query_columns>>'||unistr('\000a')||
-'            for i in 1..v_colls_count loop'||unistr('\000a')||
+'    ';
+
+s:=s||'        for i in 1..v_colls_count loop'||unistr('\000a')||
 '               DBMS_SQL.COLUMN_VALUE(v_cur, i,v_row(i));                '||unistr('\000a')||
 '            end loop;     '||unistr('\000a')||
 '            --check control break'||unistr('\000a')||
 '            if v_current_row > 1 then'||unistr('\000a')||
-'             if is_control_break(v_row,v_prev_row) then    ';
-
-s:=s||'                                         '||unistr('\000a')||
+'             if is_control_break(v_row,v_prev_row) then                                             '||unistr('\000a')||
 '               add(v_data,''</ROWSET>''||chr(10));'||unistr('\000a')||
 '               v_inside := false;'||unistr('\000a')||
-'             end if;'||unistr('\000a')||
+'     ';
+
+s:=s||'        end if;'||unistr('\000a')||
 '            end if;'||unistr('\000a')||
 '            if not v_inside then'||unistr('\000a')||
 '              add(v_data,''<ROWSET>''||chr(10));'||unistr('\000a')||
 '              add(v_data,print_control_break_header(v_row));'||unistr('\000a')||
 '              --print aggregates'||unistr('\000a')||
 '              add(v_data,print_aggregate(v_row));'||unistr('\000a')||
-'          ';
-
-s:=s||'    v_inside := true;'||unistr('\000a')||
+'              v_inside := true;'||unistr('\000a')||
 '            END IF;            --            '||unistr('\000a')||
 '            <<query_columns>>'||unistr('\000a')||
-'            for i in 1..v_colls_count loop'||unistr('\000a')||
+'            for i in 1..v_colls_';
+
+s:=s||'count loop'||unistr('\000a')||
 '              v_prev_row(i) := v_row(i);                           '||unistr('\000a')||
 '            end loop;                 '||unistr('\000a')||
 '            --v_xml := v_xml||to_clob(print_row(v_row));'||unistr('\000a')||
 '            add(v_data,print_row(v_row));'||unistr('\000a')||
 '         ELSE --DBMS_SQL.FETCH_ROWS(v_cur)>0'||unistr('\000a')||
-'        ';
-
-s:=s||'   EXIT; '||unistr('\000a')||
+'           EXIT; '||unistr('\000a')||
 '         END IF; '||unistr('\000a')||
 '    END LOOP main_cycle;        '||unistr('\000a')||
 '    if v_inside then'||unistr('\000a')||
 '       add(v_data,''</ROWSET>'');'||unistr('\000a')||
-'       v_inside := false;'||unistr('\000a')||
+'       v_inside ';
+
+s:=s||':= false;'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
 '   dbms_sql.close_cursor(v_cur); '||unistr('\000a')||
 '   '||unistr('\000a')||
 '  end get_xml_from_ir;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  procedure get_final_xml( p_clob           in out nocopy clob,'||unistr('\000a')||
-'                          p_app_id        ';
-
-s:=s||' in number,'||unistr('\000a')||
+'                          p_app_id         in number,'||unistr('\000a')||
 '                          p_page_id        in number,'||unistr('\000a')||
 '                          p_items_list     in varchar2,'||unistr('\000a')||
-'                          p_get_page_items in char,'||unistr('\000a')||
+'        ';
+
+s:=s||'                  p_get_page_items in char,'||unistr('\000a')||
 '                          p_max_rows       in number)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '   v_rows  apex_application_global.vc_arr2;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    add(p_clob,''<?xml version="1.0" encoding="UTF-8"?>''||chr(10)||''<DOCUMENT>''||chr(10));    '||unistr('\000a')||
-'    add(p_clob,get_pa';
-
-s:=s||'ge_items(p_app_id,p_page_id,p_items_list,p_get_page_items));'||unistr('\000a')||
+'    add(p_clob,get_page_items(p_app_id,p_page_id,p_items_list,p_get_page_items));'||unistr('\000a')||
 '    add(p_clob,''<DATA>''||chr(10));'||unistr('\000a')||
 '   '||unistr('\000a')||
-'    get_xml_from_ir(p_clob,p_max_rows);    '||unistr('\000a')||
+'    get_xml_from_ir(p_clob,p_m';
+
+s:=s||'ax_rows);    '||unistr('\000a')||
 '   '||unistr('\000a')||
 '    add(p_clob,''</DATA>''||chr(10));'||unistr('\000a')||
 '    add(p_clob,''</DOCUMENT>''||chr(10));'||unistr('\000a')||
@@ -9432,33 +9474,33 @@ s:=s||'ge_items(p_app_id,p_page_id,p_items_list,p_get_page_items));'||unistr('\0
 ' '||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  procedure download_file(p_data        in clob,'||unistr('\000a')||
-'                       ';
-
-s:=s||'   p_mime_header in varchar2,'||unistr('\000a')||
+'                          p_mime_header in varchar2,'||unistr('\000a')||
 '                          p_file_name   in varchar2)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_blob        blob;'||unistr('\000a')||
-'    v_desc_offset PLS_INTEGER := 1;'||unistr('\000a')||
+'    v_desc_offset ';
+
+s:=s||'PLS_INTEGER := 1;'||unistr('\000a')||
 '    v_src_offset  PLS_INTEGER := 1;'||unistr('\000a')||
 '    v_lang        PLS_INTEGER := 0;'||unistr('\000a')||
 '    v_warning     PLS_INTEGER := 0;   '||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '        dbms_lob.createtemporary(v_blob,true);'||unistr('\000a')||
-'        dbms_lob.converttoblob(v_blob, p_data, dbms_lob.getlength(p_data), v_desc_offs';
-
-s:=s||'et, v_src_offset, dbms_lob.default_csid, v_lang, v_warning);'||unistr('\000a')||
+'        dbms_lob.converttoblob(v_blob, p_data, dbms_lob.getlength(p_data), v_desc_offset, v_src_offset, dbms_lob.default_csid, v_lang, v_warning);'||unistr('\000a')||
 '        sys.htp.init;'||unistr('\000a')||
-'        sys.owa_util.mime_header(p_mime_header, FALSE );'||unistr('\000a')||
+'        sys.owa_util.mime_header(p_mime_header,';
+
+s:=s||' FALSE );'||unistr('\000a')||
 '        sys.htp.p(''Content-length: '' || sys.dbms_lob.getlength( v_blob));'||unistr('\000a')||
 '        sys.htp.p(''Content-Disposition: attachment; filename="''||p_file_name||''"'' );'||unistr('\000a')||
 '        sys.owa_util.http_header_close;'||unistr('\000a')||
 '        sys.wpg_docload.download_file( v_blob );'||unistr('\000a')||
-'        dbms';
-
-s:=s||'_lob.freetemporary(v_blob);'||unistr('\000a')||
+'        dbms_lob.freetemporary(v_blob);'||unistr('\000a')||
 '  end download_file;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
-'  procedure set_collection(p_collection_name in varchar2,p_data in clob)'||unistr('\000a')||
+'';
+
+s:=s||'  procedure set_collection(p_collection_name in varchar2,p_data in clob)'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '   v_tmp char;'||unistr('\000a')||
 '  begin'||unistr('\000a')||
@@ -9468,38 +9510,38 @@ s:=s||'_lob.freetemporary(v_blob);'||unistr('\000a')||
 '    END IF;'||unistr('\000a')||
 ''||unistr('\000a')||
 '   begin'||unistr('\000a')||
-'     sel';
-
-s:=s||'ect ''1'' --clob001'||unistr('\000a')||
+'     select ''1'' --clob001'||unistr('\000a')||
 '     into v_tmp'||unistr('\000a')||
 '     from apex_collections '||unistr('\000a')||
 '     where collection_name = p_collection_name'||unistr('\000a')||
-'        and seq_id = 1;'||unistr('\000a')||
+'        and seq_id = ';
+
+s:=s||'1;'||unistr('\000a')||
 '        '||unistr('\000a')||
 '     apex_collection.update_member ( p_collection_name => p_collection_name'||unistr('\000a')||
 '                                    , p_seq            => 1'||unistr('\000a')||
 '                                    , p_clob001        => p_data);'||unistr('\000a')||
 '   exception'||unistr('\000a')||
 '     when no_data_found then'||unistr('\000a')||
-'      apex_co';
-
-s:=s||'llection.add_member ( p_collection_name => p_collection_name'||unistr('\000a')||
+'      apex_collection.add_member ( p_collection_name => p_collection_name'||unistr('\000a')||
 '                                 , p_clob001         => p_data );'||unistr('\000a')||
-'       '||unistr('\000a')||
+'   ';
+
+s:=s||'    '||unistr('\000a')||
 '   end;'||unistr('\000a')||
 '  end set_collection;'||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  procedure get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
 '                           p_page_id         in number,                                '||unistr('\000a')||
-'          ';
+'                           p_return_type     IN CHAR DEFAULT ''X'', -- "Q" for debug information, "X" for XML-Data'||unistr('\000a')||
+'                           ';
 
-s:=s||'                 p_return_type     IN CHAR DEFAULT ''X'', -- "Q" for debug information, "X" for XML-Data'||unistr('\000a')||
-'                           p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+s:=s||'p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
 '                           p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
-'                           p_collection_name IN VARCHAR2,         -- na';
+'                           p_collection_name IN VARCHAR2,         -- name of APEX COLLECTION to save XML, when null - download as file'||unistr('\000a')||
+'                           p_max_rows        IN NUMBER            ';
 
-s:=s||'me of APEX COLLECTION to save XML, when null - download as file'||unistr('\000a')||
-'                           p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
+s:=s||'-- maximum rows for export                            '||unistr('\000a')||
 '                          )'||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_data      clob;'||unistr('\000a')||
@@ -9507,84 +9549,84 @@ s:=s||'me of APEX COLLECTION to save XML, when null - download as file'||unistr(
 '    dbms_lob.createtemporary(v_data,true);'||unistr('\000a')||
 '    --APEX_DEBUG_MESSAGE.ENABLE_DEBUG_MESSAGES(p_level => 7);'||unistr('\000a')||
 '    log(''p_app_id=''||p_app_id);'||unistr('\000a')||
-'    log(''p_page';
-
-s:=s||'_id=''||p_page_id);'||unistr('\000a')||
+'    log(''p_page_id=''||p_page_id);'||unistr('\000a')||
 '    log(''p_return_type=''||p_return_type);'||unistr('\000a')||
 '    log(''p_get_page_items=''||p_get_page_items);'||unistr('\000a')||
-'    log(''p_items_list=''||p_items_list);'||unistr('\000a')||
+'    log(''p_items_list';
+
+s:=s||'=''||p_items_list);'||unistr('\000a')||
 '    log(''p_collection_name=''||p_collection_name);'||unistr('\000a')||
 '    log(''p_max_rows=''||p_max_rows);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    init_t_report(p_app_id,p_page_id);    '||unistr('\000a')||
 '    if p_return_type = ''Q'' then  -- debug information    '||unistr('\000a')||
 '        begin'||unistr('\000a')||
-'          get_final_xml(v_data,p_app_id,p_pag';
-
-s:=s||'e_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
+'          get_final_xml(v_data,p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
 '          if p_collection_name is not null then  '||unistr('\000a')||
-'            set_collection(upper(p_collection_name),v_data);'||unistr('\000a')||
+'            set_collection(upper';
+
+s:=s||'(p_collection_name),v_data);'||unistr('\000a')||
 '          end if;'||unistr('\000a')||
 '        exception'||unistr('\000a')||
 '          when others then'||unistr('\000a')||
 '            log(''Error in IR_TO_XML.get_report_document ''||sqlerrm||chr(10)||chr(10)||dbms_utility.format_error_backtrace);            '||unistr('\000a')||
 '        end;'||unistr('\000a')||
-'        download_file(v_debug';
-
-s:=s||',''text/txt'',''log.txt'');'||unistr('\000a')||
+'        download_file(v_debug,''text/txt'',''log.txt'');'||unistr('\000a')||
 '    elsif p_return_type = ''X'' then --XML-Data'||unistr('\000a')||
-'        get_final_xml(v_data,p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
+'        get_final_xml(v_data,p_app_id,p_page_id,p_items_list';
+
+s:=s||',p_get_page_items,p_max_rows);'||unistr('\000a')||
 '        if p_collection_name is not null then  '||unistr('\000a')||
 '          set_collection(upper(p_collection_name),v_data);'||unistr('\000a')||
 '        else'||unistr('\000a')||
 '          download_file(v_data,''application/xml'',''report_data.xml'');'||unistr('\000a')||
 '        end if;'||unistr('\000a')||
 '    else'||unistr('\000a')||
-'      raise_application_e';
-
-s:=s||'rror(-20001,''Unknown parameter p_download_type=''||p_return_type);'||unistr('\000a')||
+'      raise_application_error(-20001,''Unknown parameter p_download_type=''||p_return_type);'||unistr('\000a')||
 '      dbms_lob.freetemporary(v_data);'||unistr('\000a')||
 '    end if;'||unistr('\000a')||
-'    dbms_lob.freetemporary(v_data);'||unistr('\000a')||
+'    dbms_lob.f';
+
+s:=s||'reetemporary(v_data);'||unistr('\000a')||
 '  end get_report_xml; '||unistr('\000a')||
 '  ------------------------------------------------------------------------------'||unistr('\000a')||
 '  function get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
 '                          p_page_id         in number,                                '||unistr('\000a')||
-'  ';
+'                          p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                          p_item';
 
-s:=s||'                        p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
-'                          p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+s:=s||'s_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
 '                          p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
 '                         )'||unistr('\000a')||
-'  return xmltype               ';
-
-s:=s||'            '||unistr('\000a')||
+'  return xmltype                           '||unistr('\000a')||
 '  is'||unistr('\000a')||
 '    v_data      clob;    '||unistr('\000a')||
 '  begin'||unistr('\000a')||
 '    dbms_lob.createtemporary(v_data,true, DBMS_LOB.CALL);'||unistr('\000a')||
-'    log(''p_app_id=''||p_app_id);'||unistr('\000a')||
+'    log(''p_app_id=''|';
+
+s:=s||'|p_app_id);'||unistr('\000a')||
 '    log(''p_page_id=''||p_page_id);'||unistr('\000a')||
 '    log(''p_get_page_items=''||p_get_page_items);'||unistr('\000a')||
 '    log(''p_items_list=''||p_items_list);'||unistr('\000a')||
 '    log(''p_max_rows=''||p_max_rows);'||unistr('\000a')||
 '    '||unistr('\000a')||
 '    init_t_report(p_app_id,p_page_id);'||unistr('\000a')||
-'    get_final_xml(v_data,p_app_id,p_page_id,p_items_list';
-
-s:=s||',p_get_page_items,p_max_rows);    '||unistr('\000a')||
+'    get_final_xml(v_data,p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);    '||unistr('\000a')||
 '    '||unistr('\000a')||
 '    return xmltype(v_data);    '||unistr('\000a')||
 '  end get_report_xml; '||unistr('\000a')||
 ''||unistr('\000a')||
 'begin'||unistr('\000a')||
-'  dbms_lob.createtemporary(v_debug,true, DBMS_LOB.CALL);  '||unistr('\000a')||
+'  dbms_lob.createtemporary(v';
+
+s:=s||'_debug,true, DBMS_LOB.CALL);  '||unistr('\000a')||
 'END IR_TO_XML;'||unistr('\000a')||
 '/'||unistr('\000a')||
 '';
 
 wwv_flow_api.append_to_install_script(
-  p_id => 49413661524132586688 + wwv_flow_api.g_id_offset,
+  p_id => 52016399427851211691 + wwv_flow_api.g_id_offset,
   p_flow_id => wwv_flow.g_flow_id,
   p_script_clob => s);
 end;
@@ -9808,6 +9850,1293 @@ wwv_flow_api.create_install_script(
   p_condition_type=> 'NOT_EXISTS',
   p_condition=> 'select * from EBA_DEMO_IR_PROJECTS',
   p_script_clob=> s);
+end;
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+    s varchar2(32767) := null;
+    l_clob clob;
+    l_length number := 1;
+begin
+s:=s||'CREATE OR REPLACE PACKAGE IR_TO_XML AS    '||unistr('\000a')||
+'  '||unistr('\000a')||
+'  -- download interactive report as PDF'||unistr('\000a')||
+'  PROCEDURE get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
+'                           p_page_id         in number,                                '||unistr('\000a')||
+'                           p_return_type     IN CHAR DEFAULT ''X'', -- "Q" for debug information "X" for XML-Data'||unistr('\000a')||
+'                           p_get_page_items  IN CHAR DEFAU';
+
+s:=s||'LT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                           p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+'                           p_collection_name IN VARCHAR2,         -- name of APEX COLLECTION to save XML, when null - download as file'||unistr('\000a')||
+'                           p_max_rows        IN NUMBER            -- maximum rows for export     ';
+
+s:=s||'                       '||unistr('\000a')||
+'                          );'||unistr('\000a')||
+'  --return debug information'||unistr('\000a')||
+'  function get_log return clob;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  function get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
+'                          p_page_id         in number,                                '||unistr('\000a')||
+'                          p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                          p_items_list   ';
+
+s:=s||'   in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+'                          p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
+'                         )'||unistr('\000a')||
+'  return xmltype;     '||unistr('\000a')||
+'                              '||unistr('\000a')||
+'END IR_TO_XML;'||unistr('\000a')||
+'/'||unistr('\000a')||
+''||unistr('\000a')||
+''||unistr('\000a')||
+'CREATE OR REPLACE package body ir_to_xml as   '||unistr('\000a')||
+'  '||unistr('\000a')||
+'  subtype largevarchar2 is varchar2(32000); '||unistr('\000a')||
+' '||unistr('\000a')||
+'';
+
+s:=s||'  cursor cur_highlight(p_report_id in APEX_APPLICATION_PAGE_IR_RPT.REPORT_ID%TYPE,'||unistr('\000a')||
+'                       p_delimetered_column_list in varchar2) '||unistr('\000a')||
+'  IS'||unistr('\000a')||
+'  select replace(replace(replace(replace(condition_sql,''#APXWS_EXPR#'',''''''''||CONDITION_EXPRESSION||''''''''),''#APXWS_EXPR2#'',''''''''||CONDITION_EXPRESSION2||''''''''),''#APXWS_HL_ID#'',''1''),''#APXWS_CC_EXPR#'',''"''||CONDITION_COLUMN_NAME||''"'')  condition_sql,'||unistr('\000a')||
+'      ';
+
+s:=s||' CONDITION_COLUMN_NAME,'||unistr('\000a')||
+'       CONDITION_ENABLED,'||unistr('\000a')||
+'       HIGHLIGHT_ROW_COLOR,'||unistr('\000a')||
+'       HIGHLIGHT_ROW_FONT_COLOR,'||unistr('\000a')||
+'       HIGHLIGHT_CELL_COLOR,'||unistr('\000a')||
+'       HIGHLIGHT_CELL_FONT_COLOR,'||unistr('\000a')||
+'       rownum COND_NUMBER,'||unistr('\000a')||
+'       ''HIGHLIGHT_''||rownum COND_NAME'||unistr('\000a')||
+'  from APEX_APPLICATION_PAGE_IR_COND'||unistr('\000a')||
+'  where condition_type = ''Highlight'''||unistr('\000a')||
+'    and report_id = p_report_id'||unistr('\000a')||
+'    and condition_enabled = ''Yes'''||unistr('\000a')||
+'    and instr('':''||p_';
+
+s:=s||'delimetered_column_list||'':'','':''||CONDITION_COLUMN_NAME||'':'') > 0'||unistr('\000a')||
+'    order by --rows highlights first '||unistr('\000a')||
+'           nvl2(HIGHLIGHT_ROW_COLOR,1,0) desc, '||unistr('\000a')||
+'           nvl2(HIGHLIGHT_ROW_FONT_COLOR,1,0) desc,'||unistr('\000a')||
+'           HIGHLIGHT_SEQUENCE;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  type t_col_names is table of apex_application_page_ir_col.report_label%type index by apex_application_page_ir_col.column_alias%type;'||unistr('\000a')||
+'  type t_col_format_mask is';
+
+s:=s||' table of APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
+'  type t_header_alignment is table of APEX_APPLICATION_PAGE_IR_COL.heading_alignment%TYPE index by APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
+'  type t_column_alignment is table of apex_application_page_ir_col.column_alignment%type index by apex_application_page_ir_col.';
+
+s:=s||'column_alias%type;'||unistr('\000a')||
+'  type t_column_types is table of apex_application_page_ir_col.column_type%type index by apex_application_page_ir_col.column_alias%type;'||unistr('\000a')||
+'  type t_highlight is table of cur_highlight%ROWTYPE index by binary_integer;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  type ir_report is record'||unistr('\000a')||
+'   ('||unistr('\000a')||
+'    report                    apex_ir.t_report,'||unistr('\000a')||
+'    ir_data                   APEX_APPLICATION_PAGE_IR_RPT%ROWTYPE,'||unistr('\000a')||
+'    displayed_c';
+
+s:=s||'olumns         APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    break_on                  APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    break_really_on           APEX_APPLICATION_GLOBAL.VC_ARR2, -- "break on" except hidden columns'||unistr('\000a')||
+'    sum_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    avg_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    max_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+' ';
+
+s:=s||'   min_columns_on_break      APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    median_columns_on_break   APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    count_columns_on_break    APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    count_distnt_col_on_break APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'    skipped_columns           INTEGER default 0, -- when scpecial coluns like apxws_row_pk is used'||unistr('\000a')||
+'    start_with                INTEGER default 0, -';
+
+s:=s||'- position of first displayed column in query'||unistr('\000a')||
+'    end_with                  INTEGER default 0, -- position of last displayed column in query'||unistr('\000a')||
+'    agg_cols_cnt              INTEGER default 0, '||unistr('\000a')||
+'    column_names              t_col_names,       -- column names in report header'||unistr('\000a')||
+'    col_format_mask           t_col_format_mask, -- format like $3849,56'||unistr('\000a')||
+'    row_highlight             t_highlight,'||unistr('\000a')||
+'    col_hig';
+
+s:=s||'hlight             t_highlight,'||unistr('\000a')||
+'    header_alignment          t_header_alignment,'||unistr('\000a')||
+'    column_alignment          t_column_alignment,'||unistr('\000a')||
+'    column_types              t_column_types  '||unistr('\000a')||
+'   );  '||unistr('\000a')||
+''||unistr('\000a')||
+'   TYPE t_cell_data IS record'||unistr('\000a')||
+'   ('||unistr('\000a')||
+'     VALUE           VARCHAR2(100),'||unistr('\000a')||
+'     text            CLOB'||unistr('\000a')||
+'   );  '||unistr('\000a')||
+''||unistr('\000a')||
+'  l_report    ir_report;   '||unistr('\000a')||
+'  v_debug     clob;'||unistr('\000a')||
+'  --------------------------------------------------------';
+
+s:=s||'----------------------'||unistr('\000a')||
+'  function get_log'||unistr('\000a')||
+'  return clob'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return v_debug;'||unistr('\000a')||
+'  end  get_log;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  procedure add(p_clob in out nocopy clob,p_str varchar2)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    if p_str is not null then'||unistr('\000a')||
+'      dbms_lob.writeappend(p_clob,length(p_str),p_str);'||unistr('\000a')||
+'    end if;  '||unistr('\000a')||
+'  end;'||unistr('\000a')||
+'  ----------------------------------';
+
+s:=s||'--------------------------------------------'||unistr('\000a')||
+'  procedure log(p_message in varchar2)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    add(v_debug,p_message||chr(10));'||unistr('\000a')||
+'    apex_debug_message.log_message(p_message => substr(p_message,1,32767),'||unistr('\000a')||
+'                                   p_enabled => false,'||unistr('\000a')||
+'                                   p_level   => 4);'||unistr('\000a')||
+'  end log; '||unistr('\000a')||
+'  ----------------------------------------------------------------------';
+
+s:=s||'--------'||unistr('\000a')||
+'  function bcoll(p_font_color    in varchar2 default null,'||unistr('\000a')||
+'                 p_back_color    in varchar2 default null,'||unistr('\000a')||
+'                 p_align         in varchar2 default null,'||unistr('\000a')||
+'                 p_width         in varchar2 default null,'||unistr('\000a')||
+'                 p_column_alias  IN VARCHAR2 DEFAULT NULL,'||unistr('\000a')||
+'                 p_colmn_type    IN VARCHAR2 DEFAULT NULL,'||unistr('\000a')||
+'                 p_value         IN V';
+
+s:=s||'ARCHAR2 DEFAULT NULL,'||unistr('\000a')||
+'                 p_format_mask   IN VARCHAR2 DEFAULT NULL) '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_str varchar2(500);'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    v_str := v_str||''<CELL '';'||unistr('\000a')||
+'    if p_column_alias is not null then v_str := v_str||''column-alias="''||p_column_alias||''" ''; end if;'||unistr('\000a')||
+'    if p_font_color is not null then v_str := v_str||''color="''||p_font_color||''" ''; end if;'||unistr('\000a')||
+'    if p_colmn_type is not null then ';
+
+s:=s||'V_STR := V_STR||''data-type="''||p_colmn_type||''" ''; end if;'||unistr('\000a')||
+'    if p_back_color is not null then v_str := v_str||''background-color="''||p_back_color||''" ''; end if;'||unistr('\000a')||
+'    if p_align is not null then V_STR := V_STR||''align="''||lower(p_align)||''" ''; end if;'||unistr('\000a')||
+'    IF p_width IS NOT NULL THEN v_str := v_str||''width="''||p_width||''" ''; END IF;        '||unistr('\000a')||
+'    IF p_value IS NOT NULL THEN v_str := v_str||''value="''||';
+
+s:=s||'p_value||''" ''; END IF;'||unistr('\000a')||
+'    if p_format_mask is not null then v_str := v_str||''format_mask="''||p_format_mask||''" ''; end if;'||unistr('\000a')||
+'    v_str := v_str||''>''; '||unistr('\000a')||
+'    '||unistr('\000a')||
+'    return v_str;'||unistr('\000a')||
+'  end bcoll;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function ecoll(i integer) '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'   return ''</CELL>'';'||unistr('\000a')||
+'  end ecoll;'||unistr('\000a')||
+'    ------------------------------------';
+
+s:=s||'------------------------------------------'||unistr('\000a')||
+'  function get_column_names(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
+'  return APEX_APPLICATION_PAGE_IR_COL.report_label%TYPE'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return l_report.column_names(p_column_alias);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
+'  end';
+
+s:=s||' get_column_names;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_col_format_mask(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
+'  return APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return l_report.col_format_mask(p_column_alias);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-2000';
+
+s:=s||'1,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
+'  end get_col_format_mask;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_header_alignment(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
+'  return APEX_APPLICATION_PAGE_IR_COL.heading_alignment%TYPE'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return l_report.header_alignment(p_column_alia';
+
+s:=s||'s);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
+'  end get_header_alignment;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_column_alignment(p_column_alias in apex_application_page_ir_col.column_alias%type)'||unistr('\000a')||
+'  return apex_application_page_ir_col.column_align';
+
+s:=s||'ment%type'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return l_report.column_alignment(p_column_alias);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
+'  end get_column_alignment;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_column_types(p_column_alias in apex_application_page_ir_col.';
+
+s:=s||'column_alias%type)'||unistr('\000a')||
+'  return apex_application_page_ir_col.column_type%type'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return l_report.column_types(p_column_alias);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_names: p_column_alias=''||p_column_alias||'' ''||SQLERRM);'||unistr('\000a')||
+'  END get_column_types;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------  '||unistr('\000a')||
+'  function get_co';
+
+s:=s||'lumn_alias(p_num in binary_integer)'||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return l_report.displayed_columns(p_num);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_alias: p_num=''||p_num||'' ''||SQLERRM);'||unistr('\000a')||
+'  END get_column_alias;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  FUNCTION get_column_alias_sql(p_num IN binary_integer -- co';
+
+s:=s||'lumn number in sql-query'||unistr('\000a')||
+'                               )'||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  BEGIN'||unistr('\000a')||
+'    return l_report.displayed_columns(p_num - l_report.start_with + 1);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    WHEN others THEN'||unistr('\000a')||
+'       raise_application_error(-20001,''get_column_alias_sql: p_num=''||p_num||'' ''||SQLERRM);'||unistr('\000a')||
+'  END get_column_alias_sql;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  fun';
+
+s:=s||'ction get_current_row(p_current_row in apex_application_global.vc_arr2,'||unistr('\000a')||
+'                           p_id in binary_integer)'||unistr('\000a')||
+'  return apex_application_page_ir_col.column_type%type'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return p_current_row(p_id);'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when others then'||unistr('\000a')||
+'       raise_application_error(-20001,''get_current_row: p_id=''||p_id||'' ''||SQLERRM);'||unistr('\000a')||
+'  end get_current_row; '||unistr('\000a')||
+'  ---------------------------------';
+
+s:=s||'---------------------------------------------'||unistr('\000a')||
+'  -- :::: -> :'||unistr('\000a')||
+'  function rr(p_str in varchar2)'||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is '||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return ltrim(rtrim(regexp_replace(p_str,''[:]+'','':''),'':''),'':'');'||unistr('\000a')||
+'  end;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------   '||unistr('\000a')||
+'  function get_xmlval(p_str in varchar2)'||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is   '||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    return dbms_xmlgen.convert(p_str);'||unistr('\000a')||
+'  ';
+
+s:=s||'  --RETURN REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(p_str,''<'',''%26lt;''),''>'',''%26gt;''),''&'',''%26amp;''),''"'',''%26quot;''),'''''''',''%26apos;'');'||unistr('\000a')||
+'  end get_xmlval;  '||unistr('\000a')||
+'  ------------------------------------------------------------------------------  '||unistr('\000a')||
+'  function intersect_arrays(p_one IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                            p_two IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
+'  return APEX_APPLICATI';
+
+s:=s||'ON_GLOBAL.VC_ARR2'||unistr('\000a')||
+'  is    '||unistr('\000a')||
+'    v_ret APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'  begin    '||unistr('\000a')||
+'    for i in 1..p_one.count loop'||unistr('\000a')||
+'       for b in 1..p_two.count loop'||unistr('\000a')||
+'         if p_one(i) = p_two(b) then'||unistr('\000a')||
+'            v_ret(v_ret.count + 1) := p_one(i);'||unistr('\000a')||
+'           exit;'||unistr('\000a')||
+'         end if;'||unistr('\000a')||
+'       end loop;        '||unistr('\000a')||
+'    end loop;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    return v_ret;'||unistr('\000a')||
+'  end intersect_arrays;'||unistr('\000a')||
+'  ------------------------------------------';
+
+s:=s||'------------------------------------'||unistr('\000a')||
+'  function intersect_count(p_one IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                           p_two IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
+'  return integer'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'   v_rez APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    v_rez := intersect_arrays(p_one,p_two);'||unistr('\000a')||
+'    return v_rez.count;'||unistr('\000a')||
+'  end intersect_count; '||unistr('\000a')||
+'  -----------------------------------------------------------';
+
+s:=s||'-------------------'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  procedure init_t_report(p_app_id       in number,'||unistr('\000a')||
+'                          p_page_id      in number)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    l_region_id     number;'||unistr('\000a')||
+'    l_report_id     number;'||unistr('\000a')||
+'    v_query_targets APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    select region_id '||unistr('\000a')||
+'    into l_region_id '||unistr('\000a')||
+'    from APEX_APPLICATION_PAGE_REGIONS '||unistr('\000a')||
+'    where application_id = p_app_id '||unistr('\000a')||
+'      and page_id = p_page_id ';
+
+s:=s||''||unistr('\000a')||
+'      and source_type = ''Interactive Report'';    '||unistr('\000a')||
+'    '||unistr('\000a')||
+'    --get base report id    '||unistr('\000a')||
+'    log(''l_region_id=''||l_region_id);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    l_report_id := apex_ir.get_last_viewed_report_id (p_page_id   => p_page_id,'||unistr('\000a')||
+'                                                      p_region_id => l_region_id);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    log(''l_base_report_id=''||l_report_id);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    select r.* '||unistr('\000a')||
+'    into l_report.ir_data       '||unistr('\000a')||
+'    fro';
+
+s:=s||'m apex_application_page_ir_rpt r'||unistr('\000a')||
+'    where application_id = p_app_id '||unistr('\000a')||
+'      and page_id = p_page_id'||unistr('\000a')||
+'      and session_id = v(''APP_SESSION'')'||unistr('\000a')||
+'      and application_user = v(''APP_USER'')'||unistr('\000a')||
+'      and base_report_id = l_report_id;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'    log(''l_report_id=''||l_report_id);'||unistr('\000a')||
+'    l_report_id := l_report.ir_data.report_id;                                                                 '||unistr('\000a')||
+'      '||unistr('\000a')||
+'      '||unistr('\000a')||
+'    l_repo';
+
+s:=s||'rt.report := apex_ir.get_report (p_page_id        => p_page_id,'||unistr('\000a')||
+'                                           p_region_id      => l_region_id'||unistr('\000a')||
+'                                           --p_report_id      => l_report_id'||unistr('\000a')||
+'                                          );'||unistr('\000a')||
+'    for i in (select column_alias,'||unistr('\000a')||
+'                     report_label,'||unistr('\000a')||
+'                     heading_alignment,'||unistr('\000a')||
+'                     column_a';
+
+s:=s||'lignment,'||unistr('\000a')||
+'                     column_type,'||unistr('\000a')||
+'                     format_mask AS  computation_format_mask,'||unistr('\000a')||
+'                     nvl(instr(l_report.ir_data.report_columns,column_alias),0) column_order ,'||unistr('\000a')||
+'                     nvl(instr(l_report.ir_data.break_enabled_on,column_alias),0) break_column_order'||unistr('\000a')||
+'                from APEX_APPLICATION_PAGE_IR_COL'||unistr('\000a')||
+'               where application_id = p_app_id'||unistr('\000a')||
+' ';
+
+s:=s||'                AND page_id = p_page_id'||unistr('\000a')||
+'                 AND display_text_as != ''HIDDEN'' --after report RESETTING l_report.ir_data.report_columns consists HIDDEN column - APEX bug????'||unistr('\000a')||
+'                 and instr(l_report.ir_data.report_columns,column_alias) > 0'||unistr('\000a')||
+'              UNION'||unistr('\000a')||
+'              select computation_column_alias,'||unistr('\000a')||
+'                     computation_report_label,'||unistr('\000a')||
+'                     ''cen';
+
+s:=s||'ter'' as heading_alignment,'||unistr('\000a')||
+'                     ''right'' AS column_alignment,'||unistr('\000a')||
+'                     computation_column_type,'||unistr('\000a')||
+'                     computation_format_mask,'||unistr('\000a')||
+'                     nvl(instr(l_report.ir_data.report_columns,computation_column_alias),0) column_order,'||unistr('\000a')||
+'                     nvl(instr(l_report.ir_data.break_enabled_on,computation_column_alias),0) break_column_order'||unistr('\000a')||
+'            ';
+
+s:=s||'  from APEX_APPLICATION_PAGE_IR_COMP'||unistr('\000a')||
+'              where application_id = p_app_id'||unistr('\000a')||
+'                and page_id = p_page_id'||unistr('\000a')||
+'                AND report_id = l_report_id'||unistr('\000a')||
+'                AND instr(l_report.ir_data.report_columns,computation_column_alias) > 0'||unistr('\000a')||
+'              order by  break_column_order asc,column_order asc)'||unistr('\000a')||
+'    loop                 '||unistr('\000a')||
+'      l_report.column_names(i.column_alias) := i.repor';
+
+s:=s||'t_label; '||unistr('\000a')||
+'      l_report.col_format_mask(i.column_alias) := i.computation_format_mask;'||unistr('\000a')||
+'      l_report.header_alignment(i.column_alias) := i.heading_alignment; '||unistr('\000a')||
+'      l_report.column_alignment(i.column_alias) := i.column_alignment; '||unistr('\000a')||
+'      l_report.column_types(i.column_alias) := i.column_type;'||unistr('\000a')||
+'      IF i.column_order > 0 THEN'||unistr('\000a')||
+'        IF i.break_column_order = 0 THEN '||unistr('\000a')||
+'          --displayed column'||unistr('\000a')||
+'  ';
+
+s:=s||'        l_report.displayed_columns(l_report.displayed_columns.count + 1) := i.column_alias;'||unistr('\000a')||
+'        ELSE  '||unistr('\000a')||
+'          --break column'||unistr('\000a')||
+'          l_report.break_really_on(l_report.break_really_on.count + 1) := i.column_alias;'||unistr('\000a')||
+'        end if;'||unistr('\000a')||
+'      end if;  '||unistr('\000a')||
+'      '||unistr('\000a')||
+'      log(''column=''||i.column_alias||'' l_report.column_names=''||i.report_label);'||unistr('\000a')||
+'      log(''column=''||i.column_alias||'' l_report.col_format';
+
+s:=s||'_mask=''||i.computation_format_mask);'||unistr('\000a')||
+'      log(''column=''||i.column_alias||'' l_report.header_alignment=''||i.heading_alignment);'||unistr('\000a')||
+'      log(''column=''||i.column_alias||'' l_report.column_alignment=''||i.column_alignment);'||unistr('\000a')||
+'      log(''column=''||i.column_alias||'' l_report.column_types=''||i.column_type);'||unistr('\000a')||
+'    end loop;    '||unistr('\000a')||
+''||unistr('\000a')||
+'    --l_report.break_on := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.break_enable';
+
+s:=s||'d_on));    '||unistr('\000a')||
+'    l_report.sum_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.sum_columns_on_break));  '||unistr('\000a')||
+'    l_report.avg_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.avg_columns_on_break));  '||unistr('\000a')||
+'    l_report.max_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.max_columns_on_break));  '||unistr('\000a')||
+'    l_report.min_columns_on_break := APEX_UTIL.STRING_TO_TABL';
+
+s:=s||'E(rr(l_report.ir_data.min_columns_on_break));  '||unistr('\000a')||
+'    l_report.median_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.median_columns_on_break)); '||unistr('\000a')||
+'    l_report.count_columns_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.count_columns_on_break));  '||unistr('\000a')||
+'    l_report.count_distnt_col_on_break := APEX_UTIL.STRING_TO_TABLE(rr(l_report.ir_data.count_distnt_col_on_break)); '||unistr('\000a')||
+'      '||unistr('\000a')||
+'';
+
+s:=s||'    l_report.agg_cols_cnt := l_report.sum_columns_on_break.count + '||unistr('\000a')||
+'                             l_report.avg_columns_on_break.count +'||unistr('\000a')||
+'                             l_report.max_columns_on_break.count + '||unistr('\000a')||
+'                             l_report.min_columns_on_break.count +'||unistr('\000a')||
+'                             l_report.median_columns_on_break.count +'||unistr('\000a')||
+'                             l_report.count_columns_on_break';
+
+s:=s||'.count +'||unistr('\000a')||
+'                             l_report.count_distnt_col_on_break.count;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    log(''l_report.displayed_columns=''||rr(l_report.ir_data.report_columns));'||unistr('\000a')||
+'    log(''l_report.break_on=''||rr(l_report.ir_data.break_enabled_on));'||unistr('\000a')||
+'    log(''l_report.sum_columns_on_break=''||rr(l_report.ir_data.sum_columns_on_break));'||unistr('\000a')||
+'    log(''l_report.avg_columns_on_break=''||rr(l_report.ir_data.avg_columns_on_break';
+
+s:=s||'));'||unistr('\000a')||
+'    log(''l_report.max_columns_on_break=''||rr(l_report.ir_data.max_columns_on_break));'||unistr('\000a')||
+'    LOG(''l_report.min_columns_on_break=''||rr(l_report.ir_data.min_columns_on_break));'||unistr('\000a')||
+'    log(''l_report.median_columns_on_break=''||rr(l_report.ir_data.median_columns_on_break));'||unistr('\000a')||
+'    log(''l_report.count_columns_on_break=''||rr(l_report.ir_data.count_distnt_col_on_break));'||unistr('\000a')||
+'    log(''l_report.count_distnt_col_on_b';
+
+s:=s||'reak=''||rr(l_report.ir_data.count_columns_on_break));'||unistr('\000a')||
+'    log(''l_report.break_really_on=''||APEX_UTIL.TABLE_TO_STRING(l_report.break_really_on));'||unistr('\000a')||
+'    log(''l_report.agg_cols_cnt=''||l_report.agg_cols_cnt);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    v_query_targets(v_query_targets.count + 1) := ''rez.*'';'||unistr('\000a')||
+'     '||unistr('\000a')||
+'    for c in cur_highlight(p_report_id => l_report_id,'||unistr('\000a')||
+'                           p_delimetered_column_list => l_report.ir_data';
+
+s:=s||'.report_columns'||unistr('\000a')||
+'                          ) '||unistr('\000a')||
+'    loop'||unistr('\000a')||
+'        if c.HIGHLIGHT_ROW_COLOR is not null or c.HIGHLIGHT_ROW_FONT_COLOR is not null then'||unistr('\000a')||
+'          --is row highlight'||unistr('\000a')||
+'          l_report.row_highlight(l_report.row_highlight.count + 1) := c;        '||unistr('\000a')||
+'        else'||unistr('\000a')||
+'          l_report.col_highlight(l_report.col_highlight.count + 1) := c;           '||unistr('\000a')||
+'        end if;  '||unistr('\000a')||
+'        v_query_targets(v_que';
+
+s:=s||'ry_targets.count + 1) := c.condition_sql;'||unistr('\000a')||
+'    end loop;    '||unistr('\000a')||
+'        '||unistr('\000a')||
+'    l_report.report.sql_query := ''SELECT ''||APEX_UTIL.TABLE_TO_STRING(v_query_targets,'','')||'' from ( '''||unistr('\000a')||
+'                                          ||l_report.report.sql_query||'' ) rez'';'||unistr('\000a')||
+'    log(''l_report.report.sql_query=''||chr(10)||l_report.report.sql_query||chr(10));'||unistr('\000a')||
+'  exception'||unistr('\000a')||
+'    when no_data_found then'||unistr('\000a')||
+'      raise_application';
+
+s:=s||'_error(-20001,''No Interactive Report found on Page=''||p_page_id||'' Application=''||p_app_id||'' Please make sure that the report was running at least once by this session.'');'||unistr('\000a')||
+'    when others then '||unistr('\000a')||
+'      raise_application_error(-20001,''get_t_report: Page=''||p_page_id||'' Application=''||p_app_id||'' ''||sqlerrm);'||unistr('\000a')||
+'  end init_t_report;  '||unistr('\000a')||
+'  -------------------------------------------------------------------';
+
+s:=s||'-----------'||unistr('\000a')||
+' '||unistr('\000a')||
+'  function is_control_break(p_curr_row  IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                            p_prev_row  IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
+'  return boolean'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_start_with      integer;'||unistr('\000a')||
+'    v_end_with        integer;    '||unistr('\000a')||
+'    v_tmp             integer;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    if nvl(l_report.break_really_on.count,0) = 0  then'||unistr('\000a')||
+'      return false; --no control break'||unistr('\000a')||
+'    end if;'||unistr('\000a')||
+' ';
+
+s:=s||'   v_start_with := 1 + l_report.skipped_columns;    '||unistr('\000a')||
+'    v_end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0);'||unistr('\000a')||
+'    for i in v_start_with..v_end_with loop'||unistr('\000a')||
+'      if p_curr_row(i) != p_prev_row(i) then'||unistr('\000a')||
+'        return true;'||unistr('\000a')||
+'      end if;'||unistr('\000a')||
+'    end loop;'||unistr('\000a')||
+'    return false;'||unistr('\000a')||
+'  end is_control_break;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+' ';
+
+s:=s||' FUNCTION get_cell_date(p_query_value IN VARCHAR2,p_format_mask IN VARCHAR2)'||unistr('\000a')||
+'  RETURN t_cell_data'||unistr('\000a')||
+'  IS'||unistr('\000a')||
+'    v_data t_cell_data;'||unistr('\000a')||
+'  BEGIN'||unistr('\000a')||
+'     BEGIN'||unistr('\000a')||
+'       v_data.value := to_date(p_query_value) - to_date(''01-03-1900'',''DD-MM-YYYY'') + 61;'||unistr('\000a')||
+'       if p_format_mask is not null then'||unistr('\000a')||
+'         v_data.text := to_char(to_date(p_query_value),p_format_mask);'||unistr('\000a')||
+'       ELSE'||unistr('\000a')||
+'         v_data.text := p_query_value;'||unistr('\000a')||
+'  ';
+
+s:=s||'     end if;'||unistr('\000a')||
+'      exception'||unistr('\000a')||
+'        WHEN others THEN '||unistr('\000a')||
+'          v_data.text := p_query_value;'||unistr('\000a')||
+'      END;      '||unistr('\000a')||
+'      '||unistr('\000a')||
+'      return v_data;'||unistr('\000a')||
+'  end get_cell_date;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  FUNCTION get_cell_number(p_query_value IN VARCHAR2,p_format_mask IN VARCHAR2)'||unistr('\000a')||
+'  RETURN t_cell_data'||unistr('\000a')||
+'  IS'||unistr('\000a')||
+'    v_data t_cell_data;'||unistr('\000a')||
+'  BEGIN'||unistr('\000a')||
+'     BEGIN'||unistr('\000a')||
+'       v_';
+
+s:=s||'data.value := p_query_value;'||unistr('\000a')||
+'       if p_format_mask is not null then'||unistr('\000a')||
+'         v_data.text := trim(to_char(to_number(p_query_value),p_format_mask));'||unistr('\000a')||
+'       ELSE'||unistr('\000a')||
+'         v_data.text := p_query_value;'||unistr('\000a')||
+'       end if;'||unistr('\000a')||
+'      exception'||unistr('\000a')||
+'        WHEN others THEN '||unistr('\000a')||
+'          v_data.text := p_query_value;'||unistr('\000a')||
+'      END;      '||unistr('\000a')||
+'      '||unistr('\000a')||
+'      return v_data;'||unistr('\000a')||
+'  END get_cell_number;  '||unistr('\000a')||
+'  -------------------------------';
+
+s:=s||'-----------------------------------------------'||unistr('\000a')||
+'  function print_row(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
+'  return varchar2 is'||unistr('\000a')||
+'    v_clob            largevarchar2; --change'||unistr('\000a')||
+'    v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
+'    v_format_mask     APEX_APPLICATION_PAGE_IR_COMP.computation_format_mask%TYPE;'||unistr('\000a')||
+'    v_row_color       varchar2(10); '||unistr('\000a')||
+'    v_row_back_color ';
+
+s:=s||' varchar2(10);'||unistr('\000a')||
+'    v_cell_color      varchar2(10);'||unistr('\000a')||
+'    v_cell_back_color VARCHAR2(10);     '||unistr('\000a')||
+'    v_column_type     VARCHAR2(10);'||unistr('\000a')||
+'    v_cell_data       t_cell_data;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'      --check that row need to be highlighted'||unistr('\000a')||
+'    <<row_highlights>>'||unistr('\000a')||
+'    for h in 1..l_report.row_highlight.count loop'||unistr('\000a')||
+'     BEGIN '||unistr('\000a')||
+'      IF get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.row_hi';
+
+s:=s||'ghlight(h).COND_NUMBER) IS NOT NULL THEN'||unistr('\000a')||
+'         v_row_color       := l_report.row_highlight(h).HIGHLIGHT_ROW_FONT_COLOR;'||unistr('\000a')||
+'         v_row_back_color  := l_report.row_highlight(h).HIGHLIGHT_ROW_COLOR;'||unistr('\000a')||
+'      END IF;'||unistr('\000a')||
+'     exception       '||unistr('\000a')||
+'       when no_data_found then'||unistr('\000a')||
+'         log(''row_highlights: =''||'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report';
+
+s:=s||'.row_highlight(h).cond_number||'' h=''||h);'||unistr('\000a')||
+'     end; '||unistr('\000a')||
+'    end loop row_highlights;'||unistr('\000a')||
+'    --'||unistr('\000a')||
+'    <<visible_columns>>'||unistr('\000a')||
+'    for i in l_report.start_with..l_report.end_with loop'||unistr('\000a')||
+'      v_cell_color       := NULL;'||unistr('\000a')||
+'      v_cell_back_color  := NULL;'||unistr('\000a')||
+'      v_cell_data.VALUE  := NULL;  '||unistr('\000a')||
+'      v_cell_data.text   := NULL; '||unistr('\000a')||
+''||unistr('\000a')||
+'      v_column_alias := get_column_alias_sql(i);'||unistr('\000a')||
+'      v_column_type := get_column_types(v';
+
+s:=s||'_column_alias);'||unistr('\000a')||
+'      v_format_mask := get_col_format_mask(v_column_alias);'||unistr('\000a')||
+'      '||unistr('\000a')||
+'      IF v_column_type = ''DATE'' THEN'||unistr('\000a')||
+'         v_cell_data := get_cell_date(get_current_row(p_current_row,i),v_format_mask);                   '||unistr('\000a')||
+'      ELSIF  v_column_type = ''NUMBER'' THEN      '||unistr('\000a')||
+'         v_cell_data := get_cell_number(get_current_row(p_current_row,i),v_format_mask);'||unistr('\000a')||
+'      ELSE --STRING'||unistr('\000a')||
+'        v_format';
+
+s:=s||'_mask := NULL;'||unistr('\000a')||
+'        v_cell_data.VALUE  := NULL;  '||unistr('\000a')||
+'        v_cell_data.text   := get_current_row(p_current_row,i);'||unistr('\000a')||
+'      end if; '||unistr('\000a')||
+'       '||unistr('\000a')||
+'      --check that cell need to be highlighted'||unistr('\000a')||
+'      <<column_highlights>>'||unistr('\000a')||
+'      for h in 1..l_report.col_highlight.count loop'||unistr('\000a')||
+'        begin'||unistr('\000a')||
+'          --debug'||unistr('\000a')||
+'          if get_current_row(p_current_row,l_report.end_with + l_report.agg_cols_cnt + l_report.col_h';
+
+s:=s||'ighlight(h).COND_NUMBER) is not null '||unistr('\000a')||
+'             and v_column_alias = l_report.col_highlight(h).CONDITION_COLUMN_NAME '||unistr('\000a')||
+'          then'||unistr('\000a')||
+'            v_cell_color       := l_report.col_highlight(h).HIGHLIGHT_CELL_FONT_COLOR;'||unistr('\000a')||
+'            v_cell_back_color  := l_report.col_highlight(h).HIGHLIGHT_CELL_COLOR;'||unistr('\000a')||
+'          end if;'||unistr('\000a')||
+'        exception'||unistr('\000a')||
+'       when no_data_found then'||unistr('\000a')||
+'         log(''col_highlights';
+
+s:=s||': =''||'' end_with=''||l_report.end_with||'' agg_cols_cnt=''||l_report.agg_cols_cnt||'' COND_NUMBER=''||l_report.col_highlight(h).cond_number||'' h=''||h); '||unistr('\000a')||
+'       end;'||unistr('\000a')||
+'      END loop column_highlights;'||unistr('\000a')||
+'      '||unistr('\000a')||
+'      v_clob := v_clob ||bcoll(p_font_color   => nvl(v_cell_color,v_row_color),'||unistr('\000a')||
+'                               p_back_color   => nvl(v_cell_back_color,v_row_back_color),'||unistr('\000a')||
+'                             ';
+
+s:=s||'  p_align        => get_column_alignment(v_column_alias),'||unistr('\000a')||
+'                               p_column_alias => v_column_alias,'||unistr('\000a')||
+'                               p_colmn_type   => v_column_type,'||unistr('\000a')||
+'                               p_value        => v_cell_data.value,'||unistr('\000a')||
+'                               p_format_mask  => replace(v_format_mask,''"'','''')'||unistr('\000a')||
+'                              )'||unistr('\000a')||
+'                       ||get_xmlva';
+
+s:=s||'l(v_cell_data.text)'||unistr('\000a')||
+'                       ||ecoll(i);'||unistr('\000a')||
+'    end loop visible_columns;'||unistr('\000a')||
+'    return  ''<ROW>''||v_clob || ''</ROW>''||chr(10);    '||unistr('\000a')||
+'  end print_row;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  ------------------------------------------------------------------------------ '||unistr('\000a')||
+' '||unistr('\000a')||
+'  function print_header'||unistr('\000a')||
+'  return varchar2 is'||unistr('\000a')||
+'    v_header_xml      largevarchar2;'||unistr('\000a')||
+'    v_column_alias    APEX_APPLICATION_PAGE_IR_COL.column_alias%TYPE;'||unistr('\000a')||
+'  beg';
+
+s:=s||'in'||unistr('\000a')||
+'    v_header_xml := ''<HEADER>'';'||unistr('\000a')||
+'    <<headers>>'||unistr('\000a')||
+'    for i in 1..l_report.displayed_columns.count   loop'||unistr('\000a')||
+'      V_COLUMN_ALIAS := get_column_alias(i);'||unistr('\000a')||
+'      -- if current column is not control break column'||unistr('\000a')||
+'      if apex_plugin_util.get_position_in_list(l_report.break_on,v_column_alias) is null then      '||unistr('\000a')||
+'        v_header_xml := v_header_xml ||bcoll(p_column_alias=>v_column_alias,p_align=>get_head';
+
+s:=s||'er_alignment(v_column_alias))'||unistr('\000a')||
+'                                     ||get_xmlval(regexp_replace(get_column_names(v_column_alias),''<[^>]*>'','' ''))'||unistr('\000a')||
+'                                     ||ecoll(i);'||unistr('\000a')||
+'      end if;  '||unistr('\000a')||
+'    end loop headers;'||unistr('\000a')||
+'    return  v_header_xml || ''</HEADER>''||chr(10);'||unistr('\000a')||
+'  end print_header; '||unistr('\000a')||
+'  ------------------------------------------------------------------------------  '||unistr('\000a')||
+'  function prin';
+
+s:=s||'t_control_break_header(p_current_row     in apex_application_global.vc_arr2) '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_cb_xml  largevarchar2;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    if nvl(l_report.break_really_on.count,0) = 0  then'||unistr('\000a')||
+'      return ''''; --no control break'||unistr('\000a')||
+'    end if;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    <<break_columns>>'||unistr('\000a')||
+'    for i in 1..nvl(l_report.break_really_on.count,0) loop'||unistr('\000a')||
+'      --TODO: Add column header'||unistr('\000a')||
+'      v_cb_xml := v_cb_xml ||get_column_n';
+
+s:=s||'ames(l_report.break_really_on(i))||'': ''||get_current_row(p_current_row,i + l_report.skipped_columns)||'','';'||unistr('\000a')||
+'    end loop visible_columns;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    return  ''<BREAK_HEADER>''||get_xmlval(rtrim(v_cb_xml,'','')) || ''</BREAK_HEADER>''||chr(10);    '||unistr('\000a')||
+'  end print_control_break_header;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function find_rel_position (p_curr_col_name ';
+
+s:=s||'   IN varchar2,'||unistr('\000a')||
+'                              p_agg_rows         IN APEX_APPLICATION_GLOBAL.VC_ARR2)'||unistr('\000a')||
+'  return integer'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_relative_position integer;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    <<aggregated_rows>>'||unistr('\000a')||
+'    for i in 1..p_agg_rows.count loop'||unistr('\000a')||
+'      if p_curr_col_name = p_agg_rows(i) then        '||unistr('\000a')||
+'         return i;'||unistr('\000a')||
+'      end if;'||unistr('\000a')||
+'    end loop aggregated_rows;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    return null;'||unistr('\000a')||
+'  end find_rel_position;'||unistr('\000a')||
+'  --------';
+
+s:=s||'----------------------------------------------------------------------'||unistr('\000a')||
+'  function get_agg_text(p_curr_col_name   IN varchar2,'||unistr('\000a')||
+'                        p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                        p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                        p_agg_text        IN varchar2,'||unistr('\000a')||
+'                        p_position        in integer, --start p';
+
+s:=s||'osition in sql-query'||unistr('\000a')||
+'                        p_col_number      IN INTEGER, --column position when displayed'||unistr('\000a')||
+'                        p_default_format_mask     IN varchar2 default null )  '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_tmp_pos       integer;  -- current column position in sql-query '||unistr('\000a')||
+'    v_format_mask   apex_application_page_ir_comp.computation_format_mask%type;'||unistr('\000a')||
+'    v_agg_value     varchar2(1000);'||unistr('\000a')||
+'  b';
+
+s:=s||'egin'||unistr('\000a')||
+'      v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); '||unistr('\000a')||
+'      if v_tmp_pos is not null then'||unistr('\000a')||
+'        v_format_mask := nvl(get_col_format_mask(get_column_alias_sql(p_col_number)),p_default_format_mask);'||unistr('\000a')||
+'        v_agg_value := trim(to_char(get_current_row(p_current_row,p_position + v_tmp_pos),v_format_mask));'||unistr('\000a')||
+'        '||unistr('\000a')||
+'        return  get_xmlval(p_agg_text||v_agg_value||'' ''||chr(10));';
+
+wwv_flow_api.create_install_script(
+  p_id => 52016086811258220835 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_install_id=> 49413219127950509377 + wwv_flow_api.g_id_offset,
+  p_name => 'IR_TO_XML.sql',
+  p_sequence=> 40,
+  p_script_type=> 'INSTALL',
+  p_script_clob=> s);
+end;
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+declare
+    s varchar2(32767) := null;
+begin
+s:=s||''||unistr('\000a')||
+'      else'||unistr('\000a')||
+'        return  '''';'||unistr('\000a')||
+'      end if;        '||unistr('\000a')||
+'  end get_agg_text;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_agg_value(p_curr_col_name   in varchar2,'||unistr('\000a')||
+'                         p_agg_rows        IN APEX_APPLICATION_GLOBAL.VC_ARR2,'||unistr('\000a')||
+'                         p_current_row     in apex_application_global.vc_arr2,'||unistr('\000a')||
+'                         p_posi';
+
+s:=s||'tion        in integer --start position in sql-query'||unistr('\000a')||
+'                        )  '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_tmp_pos       integer;  -- current column position in sql-query '||unistr('\000a')||
+'    v_format_mask   apex_application_page_ir_comp.computation_format_mask%type;'||unistr('\000a')||
+'    v_agg_value     varchar2(100);'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'      v_tmp_pos := find_rel_position (p_curr_col_name,p_agg_rows); '||unistr('\000a')||
+'      if v_tmp_pos is not null the';
+
+s:=s||'n'||unistr('\000a')||
+'        v_agg_value := get_current_row(p_current_row,p_position + v_tmp_pos);'||unistr('\000a')||
+'        return  get_xmlval(v_agg_value);'||unistr('\000a')||
+'      else'||unistr('\000a')||
+'        return  '''';'||unistr('\000a')||
+'      end if;        '||unistr('\000a')||
+'  end get_agg_value;'||unistr('\000a')||
+'  '||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function print_aggregate(p_current_row     IN APEX_APPLICATION_GLOBAL.VC_ARR2) '||unistr('\000a')||
+'  return varchar2'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_aggregate_';
+
+s:=s||'xml   largevarchar2;'||unistr('\000a')||
+'    v_position        integer;    '||unistr('\000a')||
+'    v_sum_value       varchar2(100);'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    if l_report.agg_cols_cnt  = 0 then'||unistr('\000a')||
+'      return ''''; --no aggregate'||unistr('\000a')||
+'    end if;    '||unistr('\000a')||
+'    v_aggregate_xml := ''<AGGREGATE>'';   '||unistr('\000a')||
+'      '||unistr('\000a')||
+'    '||unistr('\000a')||
+'    <<visible_columns>>'||unistr('\000a')||
+'    for i in l_report.start_with..l_report.end_with loop'||unistr('\000a')||
+'      v_position := l_report.end_with; --aggregate are placed after displayed ';
+
+s:=s||'columns and computations'||unistr('\000a')||
+'      v_sum_value := get_agg_value(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                         p_agg_rows      => l_report.sum_columns_on_break,'||unistr('\000a')||
+'                         p_current_row   => p_current_row,'||unistr('\000a')||
+'                         p_position      => v_position'||unistr('\000a')||
+'                        );'||unistr('\000a')||
+'                        '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || bcoll(p_col';
+
+s:=s||'umn_alias=>get_column_alias_sql(i),'||unistr('\000a')||
+'                                                  p_value => v_sum_value,'||unistr('\000a')||
+'                                                  p_format_mask => get_col_format_mask(get_column_alias_sql(i))'||unistr('\000a')||
+'                                                  );'||unistr('\000a')||
+'      --one column cah have only one aggregate of each type'||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_c';
+
+s:=s||'ol_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.sum_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => '' '','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v';
+
+s:=s||'_position := v_position + l_report.sum_columns_on_break.count;'||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.avg_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Avgerage:'','||unistr('\000a')||
+'   ';
+
+s:=s||'                                    p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i,'||unistr('\000a')||
+'                                       p_default_format_mask   => ''999G999G999G999G990D000'');'||unistr('\000a')||
+'      v_position := v_position + l_report.avg_columns_on_break.count;                                       '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_n';
+
+s:=s||'ame => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.max_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Max:'','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v_';
+
+s:=s||'position := v_position + l_report.max_columns_on_break.count;                                 '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.min_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_a';
+
+s:=s||'gg_text      => ''Min:'','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v_position := v_position + l_report.min_columns_on_break.count;                                 '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p';
+
+s:=s||'_agg_rows      => l_report.median_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Median:'','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i,'||unistr('\000a')||
+'                                       p_default_format_mask   => ''999G999G';
+
+s:=s||'999G999G990D000'');'||unistr('\000a')||
+'      v_position := v_position + l_report.median_columns_on_break.count;                                 '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'                                       p_agg_rows      => l_report.count_columns_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'          ';
+
+s:=s||'                             p_agg_text      => ''Count:'','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v_position := v_position + l_report.count_columns_on_break.count;                                 '||unistr('\000a')||
+'      v_aggregate_xml := v_aggregate_xml || get_agg_text(p_curr_col_name => get_column_alias_sql(i),'||unistr('\000a')||
+'    ';
+
+s:=s||'                                   p_agg_rows      => l_report.count_distnt_col_on_break,'||unistr('\000a')||
+'                                       p_current_row   => p_current_row,'||unistr('\000a')||
+'                                       p_agg_text      => ''Count distinct:'','||unistr('\000a')||
+'                                       p_position      => v_position,'||unistr('\000a')||
+'                                       p_col_number    => i);'||unistr('\000a')||
+'      v_aggregate_xml := v_a';
+
+s:=s||'ggregate_xml || ecoll(i);'||unistr('\000a')||
+'    end loop visible_columns;'||unistr('\000a')||
+'    return  v_aggregate_xml || ''</AGGREGATE>''||chr(10);'||unistr('\000a')||
+'  end print_aggregate;    '||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_page_items(p_app_id         in number,'||unistr('\000a')||
+'                          p_page_id        in number,'||unistr('\000a')||
+'                          p_items_list     in varchar2,'||unistr('\000a')||
+'                ';
+
+s:=s||'          p_get_page_items in char)'||unistr('\000a')||
+'  return clob'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_clob  clob;    '||unistr('\000a')||
+'    v_item_names  APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    v_clob := to_clob( ''<ITEMS>''||chr(10));'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    select item_name'||unistr('\000a')||
+'    bulk collect into v_item_names  '||unistr('\000a')||
+'    from apex_application_page_items'||unistr('\000a')||
+'    where application_id = p_app_id'||unistr('\000a')||
+'      and ((page_id = p_page_id and p_get_page_items = ''Y'')'||unistr('\000a')||
+'          or'||unistr('\000a')||
+'          (';
+
+s:=s||'P_ITEMS_LIST is not null and INSTR('',''||P_ITEMS_LIST||'','','',''||ITEM_NAME||'','') >  0))'||unistr('\000a')||
+'    union '||unistr('\000a')||
+'    select item_name'||unistr('\000a')||
+'    from APEX_APPLICATION_ITEMS'||unistr('\000a')||
+'    where application_id = p_app_id  '||unistr('\000a')||
+'      and P_ITEMS_LIST is not null '||unistr('\000a')||
+'      and instr('',''||p_items_list||'','','',''||item_name||'','') >  0;    '||unistr('\000a')||
+'    '||unistr('\000a')||
+'    <<items>>'||unistr('\000a')||
+'    for i in 1..v_item_names.count loop'||unistr('\000a')||
+'     v_clob := v_clob||to_clob(''<''||upper(v_ite';
+
+s:=s||'m_names(i))||''>'''||unistr('\000a')||
+'                                ||get_xmlval(v(v_item_names(i)))'||unistr('\000a')||
+'                                ||''</''||upper(v_item_names(i))||''>''||chr(10));'||unistr('\000a')||
+'    end loop items;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    return v_clob||to_clob(''</ITEMS>''||chr(10)); '||unistr('\000a')||
+'  end get_page_items;  '||unistr('\000a')||
+' '||unistr('\000a')||
+'  ------------------------------------------------------------------------------    '||unistr('\000a')||
+'  procedure get_xml_from_ir(v_data in out nocopy clob';
+
+s:=s||',p_max_rows in integer)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'   v_cur         INTEGER; '||unistr('\000a')||
+'   v_result      INTEGER;'||unistr('\000a')||
+'   v_colls_count INTEGER;'||unistr('\000a')||
+'   v_row         APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'   v_prev_row    APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'   v_columns     APEX_APPLICATION_GLOBAL.VC_ARR2;'||unistr('\000a')||
+'   v_current_row number default 0;'||unistr('\000a')||
+'   v_desc_tab    DBMS_SQL.DESC_TAB2;'||unistr('\000a')||
+'   v_inside      boolean default false;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    v_cur := dbms_sql.';
+
+s:=s||'open_cursor; '||unistr('\000a')||
+'    dbms_sql.parse(v_cur,l_report.report.sql_query,dbms_sql.native);     '||unistr('\000a')||
+'    dbms_sql.describe_columns2(v_cur,v_colls_count,v_desc_tab);    '||unistr('\000a')||
+'    --skip internal primary key if need'||unistr('\000a')||
+'    if lower(v_desc_tab(1).col_name) = ''apxws_row_pk'' then'||unistr('\000a')||
+'      l_report.skipped_columns := 1;'||unistr('\000a')||
+'    end if;'||unistr('\000a')||
+'    l_report.start_with := l_report.skipped_columns + 1 + nvl(l_report.break_really_on.count,0);';
+
+s:=s||''||unistr('\000a')||
+'    l_report.end_with   := l_report.skipped_columns + nvl(l_report.break_really_on.count,0) + l_report.displayed_columns.count;    '||unistr('\000a')||
+'    log(''l_report.start_with=''||l_report.start_with);'||unistr('\000a')||
+'    log(''l_report.end_with=''||l_report.end_with);'||unistr('\000a')||
+'    log(''l_report.skipped_columns=''||l_report.skipped_columns);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    add(v_data,print_header); '||unistr('\000a')||
+'    '||unistr('\000a')||
+'    <<bind_variables>>'||unistr('\000a')||
+'    for i in 1..l_report.report.bin';
+
+s:=s||'ds.count loop'||unistr('\000a')||
+'      --remove MAX_ROWS'||unistr('\000a')||
+'      if l_report.report.binds(i).name = ''APXWS_MAX_ROW_CNT'' then      '||unistr('\000a')||
+'        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.report.binds(i).name,p_max_rows);      '||unistr('\000a')||
+'        null;'||unistr('\000a')||
+'      else'||unistr('\000a')||
+'        DBMS_SQL.BIND_VARIABLE (v_cur,l_report.report.binds(i).name,l_report.report.binds(i).value);      '||unistr('\000a')||
+'      end if;'||unistr('\000a')||
+'    end loop bind_variables;'||unistr('\000a')||
+''||unistr('\000a')||
+'    <<query_columns>>'||unistr('\000a')||
+'    f';
+
+s:=s||'or i in 1..v_colls_count loop'||unistr('\000a')||
+'     v_row(i) := '''';'||unistr('\000a')||
+'     dbms_sql.define_column(v_cur, i, v_row(i),32767);'||unistr('\000a')||
+'    end loop query_columns;'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    v_result := dbms_sql.execute(v_cur);         '||unistr('\000a')||
+'    <<main_cycle>>'||unistr('\000a')||
+'    LOOP '||unistr('\000a')||
+'         IF DBMS_SQL.FETCH_ROWS(v_cur)>0 THEN          '||unistr('\000a')||
+'           -- get column values of the row '||unistr('\000a')||
+'            v_current_row := v_current_row + 1;'||unistr('\000a')||
+'            <<query_columns>>'||unistr('\000a')||
+'    ';
+
+s:=s||'        for i in 1..v_colls_count loop'||unistr('\000a')||
+'               DBMS_SQL.COLUMN_VALUE(v_cur, i,v_row(i));                '||unistr('\000a')||
+'            end loop;     '||unistr('\000a')||
+'            --check control break'||unistr('\000a')||
+'            if v_current_row > 1 then'||unistr('\000a')||
+'             if is_control_break(v_row,v_prev_row) then                                             '||unistr('\000a')||
+'               add(v_data,''</ROWSET>''||chr(10));'||unistr('\000a')||
+'               v_inside := false;'||unistr('\000a')||
+'     ';
+
+s:=s||'        end if;'||unistr('\000a')||
+'            end if;'||unistr('\000a')||
+'            if not v_inside then'||unistr('\000a')||
+'              add(v_data,''<ROWSET>''||chr(10));'||unistr('\000a')||
+'              add(v_data,print_control_break_header(v_row));'||unistr('\000a')||
+'              --print aggregates'||unistr('\000a')||
+'              add(v_data,print_aggregate(v_row));'||unistr('\000a')||
+'              v_inside := true;'||unistr('\000a')||
+'            END IF;            --            '||unistr('\000a')||
+'            <<query_columns>>'||unistr('\000a')||
+'            for i in 1..v_colls_';
+
+s:=s||'count loop'||unistr('\000a')||
+'              v_prev_row(i) := v_row(i);                           '||unistr('\000a')||
+'            end loop;                 '||unistr('\000a')||
+'            --v_xml := v_xml||to_clob(print_row(v_row));'||unistr('\000a')||
+'            add(v_data,print_row(v_row));'||unistr('\000a')||
+'         ELSE --DBMS_SQL.FETCH_ROWS(v_cur)>0'||unistr('\000a')||
+'           EXIT; '||unistr('\000a')||
+'         END IF; '||unistr('\000a')||
+'    END LOOP main_cycle;        '||unistr('\000a')||
+'    if v_inside then'||unistr('\000a')||
+'       add(v_data,''</ROWSET>'');'||unistr('\000a')||
+'       v_inside ';
+
+s:=s||':= false;'||unistr('\000a')||
+'    end if;'||unistr('\000a')||
+'   dbms_sql.close_cursor(v_cur); '||unistr('\000a')||
+'   '||unistr('\000a')||
+'  end get_xml_from_ir;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  procedure get_final_xml( p_clob           in out nocopy clob,'||unistr('\000a')||
+'                          p_app_id         in number,'||unistr('\000a')||
+'                          p_page_id        in number,'||unistr('\000a')||
+'                          p_items_list     in varchar2,'||unistr('\000a')||
+'        ';
+
+s:=s||'                  p_get_page_items in char,'||unistr('\000a')||
+'                          p_max_rows       in number)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'   v_rows  apex_application_global.vc_arr2;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    add(p_clob,''<?xml version="1.0" encoding="UTF-8"?>''||chr(10)||''<DOCUMENT>''||chr(10));    '||unistr('\000a')||
+'    add(p_clob,get_page_items(p_app_id,p_page_id,p_items_list,p_get_page_items));'||unistr('\000a')||
+'    add(p_clob,''<DATA>''||chr(10));'||unistr('\000a')||
+'   '||unistr('\000a')||
+'    get_xml_from_ir(p_clob,p_m';
+
+s:=s||'ax_rows);    '||unistr('\000a')||
+'   '||unistr('\000a')||
+'    add(p_clob,''</DATA>''||chr(10));'||unistr('\000a')||
+'    add(p_clob,''</DOCUMENT>''||chr(10));'||unistr('\000a')||
+'  end get_final_xml;'||unistr('\000a')||
+' '||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  procedure download_file(p_data        in clob,'||unistr('\000a')||
+'                          p_mime_header in varchar2,'||unistr('\000a')||
+'                          p_file_name   in varchar2)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_blob        blob;'||unistr('\000a')||
+'    v_desc_offset ';
+
+s:=s||'PLS_INTEGER := 1;'||unistr('\000a')||
+'    v_src_offset  PLS_INTEGER := 1;'||unistr('\000a')||
+'    v_lang        PLS_INTEGER := 0;'||unistr('\000a')||
+'    v_warning     PLS_INTEGER := 0;   '||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'        dbms_lob.createtemporary(v_blob,true);'||unistr('\000a')||
+'        dbms_lob.converttoblob(v_blob, p_data, dbms_lob.getlength(p_data), v_desc_offset, v_src_offset, dbms_lob.default_csid, v_lang, v_warning);'||unistr('\000a')||
+'        sys.htp.init;'||unistr('\000a')||
+'        sys.owa_util.mime_header(p_mime_header,';
+
+s:=s||' FALSE );'||unistr('\000a')||
+'        sys.htp.p(''Content-length: '' || sys.dbms_lob.getlength( v_blob));'||unistr('\000a')||
+'        sys.htp.p(''Content-Disposition: attachment; filename="''||p_file_name||''"'' );'||unistr('\000a')||
+'        sys.owa_util.http_header_close;'||unistr('\000a')||
+'        sys.wpg_docload.download_file( v_blob );'||unistr('\000a')||
+'        dbms_lob.freetemporary(v_blob);'||unistr('\000a')||
+'  end download_file;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'';
+
+s:=s||'  procedure set_collection(p_collection_name in varchar2,p_data in clob)'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'   v_tmp char;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    IF apex_collection.collection_exists (p_collection_name) = FALSE'||unistr('\000a')||
+'    THEN'||unistr('\000a')||
+'      apex_collection.create_collection (p_collection_name);'||unistr('\000a')||
+'    END IF;'||unistr('\000a')||
+''||unistr('\000a')||
+'   begin'||unistr('\000a')||
+'     select ''1'' --clob001'||unistr('\000a')||
+'     into v_tmp'||unistr('\000a')||
+'     from apex_collections '||unistr('\000a')||
+'     where collection_name = p_collection_name'||unistr('\000a')||
+'        and seq_id = ';
+
+s:=s||'1;'||unistr('\000a')||
+'        '||unistr('\000a')||
+'     apex_collection.update_member ( p_collection_name => p_collection_name'||unistr('\000a')||
+'                                    , p_seq            => 1'||unistr('\000a')||
+'                                    , p_clob001        => p_data);'||unistr('\000a')||
+'   exception'||unistr('\000a')||
+'     when no_data_found then'||unistr('\000a')||
+'      apex_collection.add_member ( p_collection_name => p_collection_name'||unistr('\000a')||
+'                                 , p_clob001         => p_data );'||unistr('\000a')||
+'   ';
+
+s:=s||'    '||unistr('\000a')||
+'   end;'||unistr('\000a')||
+'  end set_collection;'||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  procedure get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
+'                           p_page_id         in number,                                '||unistr('\000a')||
+'                           p_return_type     IN CHAR DEFAULT ''X'', -- "Q" for debug information, "X" for XML-Data'||unistr('\000a')||
+'                           ';
+
+s:=s||'p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                           p_items_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+'                           p_collection_name IN VARCHAR2,         -- name of APEX COLLECTION to save XML, when null - download as file'||unistr('\000a')||
+'                           p_max_rows        IN NUMBER            ';
+
+s:=s||'-- maximum rows for export                            '||unistr('\000a')||
+'                          )'||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_data      clob;'||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    dbms_lob.createtemporary(v_data,true);'||unistr('\000a')||
+'    --APEX_DEBUG_MESSAGE.ENABLE_DEBUG_MESSAGES(p_level => 7);'||unistr('\000a')||
+'    log(''p_app_id=''||p_app_id);'||unistr('\000a')||
+'    log(''p_page_id=''||p_page_id);'||unistr('\000a')||
+'    log(''p_return_type=''||p_return_type);'||unistr('\000a')||
+'    log(''p_get_page_items=''||p_get_page_items);'||unistr('\000a')||
+'    log(''p_items_list';
+
+s:=s||'=''||p_items_list);'||unistr('\000a')||
+'    log(''p_collection_name=''||p_collection_name);'||unistr('\000a')||
+'    log(''p_max_rows=''||p_max_rows);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    init_t_report(p_app_id,p_page_id);    '||unistr('\000a')||
+'    if p_return_type = ''Q'' then  -- debug information    '||unistr('\000a')||
+'        begin'||unistr('\000a')||
+'          get_final_xml(v_data,p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);'||unistr('\000a')||
+'          if p_collection_name is not null then  '||unistr('\000a')||
+'            set_collection(upper';
+
+s:=s||'(p_collection_name),v_data);'||unistr('\000a')||
+'          end if;'||unistr('\000a')||
+'        exception'||unistr('\000a')||
+'          when others then'||unistr('\000a')||
+'            log(''Error in IR_TO_XML.get_report_document ''||sqlerrm||chr(10)||chr(10)||dbms_utility.format_error_backtrace);            '||unistr('\000a')||
+'        end;'||unistr('\000a')||
+'        download_file(v_debug,''text/txt'',''log.txt'');'||unistr('\000a')||
+'    elsif p_return_type = ''X'' then --XML-Data'||unistr('\000a')||
+'        get_final_xml(v_data,p_app_id,p_page_id,p_items_list';
+
+s:=s||',p_get_page_items,p_max_rows);'||unistr('\000a')||
+'        if p_collection_name is not null then  '||unistr('\000a')||
+'          set_collection(upper(p_collection_name),v_data);'||unistr('\000a')||
+'        else'||unistr('\000a')||
+'          download_file(v_data,''application/xml'',''report_data.xml'');'||unistr('\000a')||
+'        end if;'||unistr('\000a')||
+'    else'||unistr('\000a')||
+'      raise_application_error(-20001,''Unknown parameter p_download_type=''||p_return_type);'||unistr('\000a')||
+'      dbms_lob.freetemporary(v_data);'||unistr('\000a')||
+'    end if;'||unistr('\000a')||
+'    dbms_lob.f';
+
+s:=s||'reetemporary(v_data);'||unistr('\000a')||
+'  end get_report_xml; '||unistr('\000a')||
+'  ------------------------------------------------------------------------------'||unistr('\000a')||
+'  function get_report_xml(p_app_id          IN NUMBER,'||unistr('\000a')||
+'                          p_page_id         in number,                                '||unistr('\000a')||
+'                          p_get_page_items  IN CHAR DEFAULT ''N'', -- Y,N - include page items in XML'||unistr('\000a')||
+'                          p_item';
+
+s:=s||'s_list      in varchar2,         -- "," delimetered list of items that for including in XML'||unistr('\000a')||
+'                          p_max_rows        IN NUMBER            -- maximum rows for export                            '||unistr('\000a')||
+'                         )'||unistr('\000a')||
+'  return xmltype                           '||unistr('\000a')||
+'  is'||unistr('\000a')||
+'    v_data      clob;    '||unistr('\000a')||
+'  begin'||unistr('\000a')||
+'    dbms_lob.createtemporary(v_data,true, DBMS_LOB.CALL);'||unistr('\000a')||
+'    log(''p_app_id=''|';
+
+s:=s||'|p_app_id);'||unistr('\000a')||
+'    log(''p_page_id=''||p_page_id);'||unistr('\000a')||
+'    log(''p_get_page_items=''||p_get_page_items);'||unistr('\000a')||
+'    log(''p_items_list=''||p_items_list);'||unistr('\000a')||
+'    log(''p_max_rows=''||p_max_rows);'||unistr('\000a')||
+'    '||unistr('\000a')||
+'    init_t_report(p_app_id,p_page_id);'||unistr('\000a')||
+'    get_final_xml(v_data,p_app_id,p_page_id,p_items_list,p_get_page_items,p_max_rows);    '||unistr('\000a')||
+'    '||unistr('\000a')||
+'    return xmltype(v_data);    '||unistr('\000a')||
+'  end get_report_xml; '||unistr('\000a')||
+''||unistr('\000a')||
+'begin'||unistr('\000a')||
+'  dbms_lob.createtemporary(v';
+
+s:=s||'_debug,true, DBMS_LOB.CALL);  '||unistr('\000a')||
+'END IR_TO_XML;'||unistr('\000a')||
+'/'||unistr('\000a')||
+'';
+
+wwv_flow_api.append_to_install_script(
+  p_id => 52016086811258220835 + wwv_flow_api.g_id_offset,
+  p_flow_id => wwv_flow.g_flow_id,
+  p_script_clob => s);
 end;
  
  

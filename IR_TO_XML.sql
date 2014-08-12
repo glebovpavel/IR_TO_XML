@@ -1,5 +1,5 @@
-CREATE OR REPLACE PACKAGE IR_TO_XML AS    
-  
+CREATE OR REPLACE package ir_to_xml as    
+  --ver 1.2.
   -- download interactive report as PDF
   PROCEDURE get_report_xml(p_app_id          IN NUMBER,
                            p_page_id         in number,                                
@@ -9,9 +9,11 @@ CREATE OR REPLACE PACKAGE IR_TO_XML AS
                            p_collection_name IN VARCHAR2,         -- name of APEX COLLECTION to save XML, when null - download as file
                            p_max_rows        IN NUMBER            -- maximum rows for export                            
                           );
+  
   --return debug information
   function get_log return clob;
   
+  -- get XML 
   function get_report_xml(p_app_id          IN NUMBER,
                           p_page_id         in number,                                
                           p_get_page_items  IN CHAR DEFAULT 'N', -- Y,N - include page items in XML
@@ -282,8 +284,11 @@ CREATE OR REPLACE package body ir_to_xml as
   is
     l_region_id     number;
     l_report_id     number;
-    v_query_targets APEX_APPLICATION_GLOBAL.VC_ARR2;
+    v_query_targets apex_application_global.vc_arr2;
+    l_new_report    ir_report;
   begin
+    l_report := l_new_report;
+
     select region_id 
     into l_region_id 
     from APEX_APPLICATION_PAGE_REGIONS 
@@ -321,14 +326,14 @@ CREATE OR REPLACE package body ir_to_xml as
                      heading_alignment,
                      column_alignment,
                      column_type,
-                     format_mask AS  computation_format_mask,
-                     nvl(instr(l_report.ir_data.report_columns,column_alias),0) column_order ,
-                     nvl(instr(l_report.ir_data.break_enabled_on,column_alias),0) break_column_order
+                     format_mask as  computation_format_mask,
+                     nvl(instr(':'||l_report.ir_data.report_columns||':',':'||column_alias||':'),0) column_order ,
+                     nvl(instr(':'||l_report.ir_data.break_enabled_on||':',':'||column_alias||':'),0) break_column_order
                 from APEX_APPLICATION_PAGE_IR_COL
                where application_id = p_app_id
                  AND page_id = p_page_id
-                 AND display_text_as != 'HIDDEN' --after report RESETTING l_report.ir_data.report_columns consists HIDDEN column - APEX bug????
-                 and instr(l_report.ir_data.report_columns,column_alias) > 0
+                 and display_text_as != 'HIDDEN' --after report RESETTING l_report.ir_data.report_columns consists HIDDEN column - APEX bug????
+                 and instr(':'||l_report.ir_data.report_columns||':',':'||column_alias||':') > 0
               UNION
               select computation_column_alias,
                      computation_report_label,
@@ -336,13 +341,13 @@ CREATE OR REPLACE package body ir_to_xml as
                      'right' AS column_alignment,
                      computation_column_type,
                      computation_format_mask,
-                     nvl(instr(l_report.ir_data.report_columns,computation_column_alias),0) column_order,
-                     nvl(instr(l_report.ir_data.break_enabled_on,computation_column_alias),0) break_column_order
-              from APEX_APPLICATION_PAGE_IR_COMP
+                     nvl(instr(':'||l_report.ir_data.report_columns||':',':'||computation_column_alias||':'),0) column_order,
+                     nvl(instr(':'||l_report.ir_data.break_enabled_on||':',':'||computation_column_alias||':'),0) break_column_order
+              from apex_application_page_ir_comp
               where application_id = p_app_id
                 and page_id = p_page_id
-                AND report_id = l_report_id
-                AND instr(l_report.ir_data.report_columns,computation_column_alias) > 0
+                and report_id = l_report_id
+                AND instr(':'||l_report.ir_data.report_columns,computation_column_alias||':') > 0
               order by  break_column_order asc,column_order asc)
     loop                 
       l_report.column_names(i.column_alias) := i.report_label; 
@@ -418,7 +423,7 @@ CREATE OR REPLACE package body ir_to_xml as
     when no_data_found then
       raise_application_error(-20001,'No Interactive Report found on Page='||p_page_id||' Application='||p_app_id||' Please make sure that the report was running at least once by this session.');
     when others then 
-      raise_application_error(-20001,'get_t_report: Page='||p_page_id||' Application='||p_app_id||' '||sqlerrm);
+      raise_application_error(-20001,'init_t_report: Page='||p_page_id||' Application='||p_app_id||' '||sqlerrm);
   end init_t_report;  
   ------------------------------------------------------------------------------
  
@@ -944,6 +949,7 @@ CREATE OR REPLACE package body ir_to_xml as
   is
     v_data      clob;
   begin
+    dbms_lob.trim (v_debug,0);
     dbms_lob.createtemporary(v_data,true);
     --APEX_DEBUG_MESSAGE.ENABLE_DEBUG_MESSAGES(p_level => 7);
     log('p_app_id='||p_app_id);
@@ -990,6 +996,7 @@ CREATE OR REPLACE package body ir_to_xml as
   is
     v_data      clob;    
   begin
+    dbms_lob.trim (v_debug,0);
     dbms_lob.createtemporary(v_data,true, DBMS_LOB.CALL);
     log('p_app_id='||p_app_id);
     log('p_page_id='||p_page_id);

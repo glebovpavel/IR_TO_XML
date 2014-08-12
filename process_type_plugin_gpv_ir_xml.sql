@@ -117,7 +117,7 @@ wwv_flow_api.create_plugin (
 '	This pack includes this plugin and IR_TO_XML package. The package includes all functionality, the plugin provides simple user interface for APEX developer to make development easier.<br />'||unistr('\000a')||
 '	&nbsp;</p>'||unistr('\000a')||
 ''
- ,p_version_identifier => '1.0'
+ ,p_version_identifier => '1.1'
  ,p_about_url => 'http://glebovpavel.github.io/plugin'
   );
 wwv_flow_api.create_plugin_attribute (
