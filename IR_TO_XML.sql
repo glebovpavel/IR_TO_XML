@@ -1,5 +1,5 @@
 CREATE OR REPLACE package ir_to_xml as    
-  --ver 1.2.
+  --ver 1.1.
   -- download interactive report as PDF
   PROCEDURE get_report_xml(p_app_id          IN NUMBER,
                            p_page_id         in number,                                
@@ -23,6 +23,7 @@ CREATE OR REPLACE package ir_to_xml as
   return xmltype;     
                               
 END IR_TO_XML;
+
 /
 
 
@@ -347,7 +348,7 @@ CREATE OR REPLACE package body ir_to_xml as
               where application_id = p_app_id
                 and page_id = p_page_id
                 and report_id = l_report_id
-                AND instr(':'||l_report.ir_data.report_columns,computation_column_alias||':') > 0
+                AND instr(':'||l_report.ir_data.report_columns||':',':'||computation_column_alias||':') > 0
               order by  break_column_order asc,column_order asc)
     loop                 
       l_report.column_names(i.column_alias) := i.report_label; 
@@ -473,8 +474,9 @@ CREATE OR REPLACE package body ir_to_xml as
   IS
     v_data t_cell_data;
   BEGIN
-     BEGIN
-       v_data.value := p_query_value;
+     begin
+       v_data.value := trim(to_char(to_number(p_query_value),'9999999999999999999999990D0000000000000000000000000','NLS_NUMERIC_CHARACTERS = ''.,'''));
+       
        if p_format_mask is not null then
          v_data.text := trim(to_char(to_number(p_query_value),p_format_mask));
        ELSE
